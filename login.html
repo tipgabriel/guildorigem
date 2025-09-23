@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - AQW Comunidade</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="./style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'aqw-dark': '#1a202c',
+                        'aqw-gold': '#ffcc00',
+                        'aqw-red': '#cc0000',
+                        'aqw-blue': '#007bff',
+                        'aqw-light-gray': '#e2e8f0',
+                    }
+                }
+            }
+        }
+    </script>
+     <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Página de Login da Comunidade AdventureQuest Worlds BR",
+      "url": "https://www.suacomunidadeaqw.com/login.html",
+      "description": "Acesse sua conta na comunidade de AdventureQuest Worlds BR."
+    }
+    </script>
+</head>
+<body class="bg-aqw-dark text-aqw-light-gray font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Navbar (igual ao index.html) -->
+    <nav class="bg-aqw-dark p-4 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold text-aqw-gold hover:text-aqw-red transition duration-300">AQW Community</a>
+            <div class="space-x-4">
+                <a href="index.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Início</a>
+                <a href="members.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Membros</a>
+                <a href="interaction.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Interação</a>
+                <a href="login.html" class="bg-aqw-blue px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Login</a>
+                <a href="signup.html" class="bg-aqw-gold text-aqw-dark px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-300">Criar Conta</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center p-4">
+        <div class="bg-aqw-dark p-8 rounded-lg shadow-xl border border-aqw-gold border-opacity-30 w-full max-w-md text-center">
+            <h1 class="text-4xl font-bold text-aqw-gold mb-8">Acessar Conta</h1>
+            <form id="login-form">
+                <div class="mb-6 text-left">
+                    <label for="username-login" class="block text-aqw-light-gray text-lg font-medium mb-2">Nome de Usuário:</label>
+                    <input type="text" id="username-login" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-aqw-gold focus:border-aqw-gold" placeholder="Seu nome de herói" required>
+                </div>
+                <div class="mb-6 text-left">
+                    <label for="password-login" class="block text-aqw-light-gray text-lg font-medium mb-2">Senha:</label>
+                    <input type="password" id="password-login" class="w-full p-3 rounded-md bg-gray-700 border border-gray-600 text-white focus:ring-aqw-gold focus:border-aqw-gold" placeholder="Sua senha secreta" required>
+                </div>
+                <button type="submit" class="bg-aqw-blue text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-blue-600 transition duration-300 shadow-lg w-full">Entrar</button>
+            </form>
+            <p class="mt-6 text-aqw-light-gray text-opacity-80">
+                Não tem uma conta? <a href="signup.html" class="text-aqw-gold hover:underline font-medium">Crie uma aqui!</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="bg-aqw-dark p-8 text-center text-aqw-light-gray text-opacity-70 border-t border-aqw-gold border-opacity-20">
+        <p>&copy; 2023 Comunidade AQW BR. Todos os direitos reservados. Não afiliado à Artix Entertainment.</p>
+        <div class="mt-4 space-x-6">
+            <a href="#" class="hover:text-aqw-gold transition duration-300">Política de Privacidade</a>
+            <a href="#" class="hover:text-aqw-gold transition duration-300">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
