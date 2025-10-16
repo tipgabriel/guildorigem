@@ -32,16 +32,18 @@
             color: #FFFFFF;
         }
         
-        .hero-section {
-            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(23, 23, 23, 0.9)), 
-                        url('artix.png" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23D4AF37" stroke-width="1"/></svg>');
-            background-size: cover;
-            background-position: center;
-            min-height: 80vh;
-            display: flex;
-            align-items: center;
-            position: relative;
-        }
+.hero-section {
+    background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(23, 23, 23, 0.9)),
+                url('artix.png'); /* só a imagem */
+    background-size: cover;       /* preenche todo o container sem distorcer */
+    background-position: center;  /* centraliza a imagem */
+    background-repeat: no-repeat; /* evita repetição da imagem */
+    min-height: 80vh;             /* altura mínima da hero */
+    display: flex;
+    align-items: center;          /* centraliza conteúdo verticalmente */
+    justify-content: center;      /* centraliza conteúdo horizontalmente */
+    position: relative;
+}
         
         .feather-icon {
             color: #D4AF37;
