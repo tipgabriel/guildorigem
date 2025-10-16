@@ -3,114 +3,701 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Comunidade AdventureQuest Worlds</title>
-    <!-- Inclua o Tailwind CSS. Se estiver usando JIT, o build gerará um arquivo CSS. -->
-    <!-- Para desenvolvimento rápido, você pode usar o CDN: -->
+    <title>Origem Guild - Comunidade de Jogadores</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="./style.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'aqw-dark': '#1a202c',
-                        'aqw-gold': '#ffcc00',
-                        'aqw-red': '#cc0000',
-                        'aqw-blue': '#007bff',
-                        'aqw-light-gray': '#e2e8f0',
-                    }
-                }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&family=Montserrat:wght@400;500;600;700&display=swap');
+        
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #CD853F;
+            --dark-color: #2C1810;
+            --light-color: #F5F5DC;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(44, 24, 16, 0.7), rgba(44, 24, 16, 0.7)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%232C1810"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%238B4513" stroke-width="1"/></svg>');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        .feather-icon {
+            color: var(--secondary-color);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .discussion-post {
+            border-left: 4px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .discussion-post:hover {
+            transform: translateX(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .carousel-item {
+            flex: 0 0 33.333333%;
+            padding: 0 15px;
+            transition: transform 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .carousel-item {
+                flex: 0 0 50%;
             }
         }
-    </script>
-    <!-- JSON-LD para SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Comunidade AdventureQuest Worlds BR",
-      "url": "https://www.suacomunidadeaqw.com",
-      "description": "Junte-se à maior comunidade brasileira de AdventureQuest Worlds! Encontre amigos, guias e eventos.",
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://www.suacomunidadeaqw.com/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    }
-    </script>
+        
+        @media (max-width: 480px) {
+            .carousel-item {
+                flex: 0 0 100%;
+            }
+        }
+        
+        .news-card {
+            transition: all 0.3s ease;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .media-item {
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        
+        .media-item:hover {
+            transform: scale(1.03);
+        }
+        
+        .media-item img, .media-item video {
+            transition: transform 0.5s ease;
+        }
+        
+        .media-item:hover img, .media-item:hover video {
+            transform: scale(1.1);
+        }
+    </style>
 </head>
-<body class="bg-aqw-dark text-aqw-light-gray font-sans antialiased">
-
-    <!-- Navbar -->
-    <nav class="bg-aqw-dark p-4 shadow-md sticky top-0 z-50">
-        <div class="container mx-auto flex justify-between items-center">
-            <a href="index.html" class="text-2xl font-bold text-aqw-gold hover:text-aqw-red transition duration-300">AQW Community</a>
-            <div class="space-x-4">
-                <a href="index.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Início</a>
-                <a href="members.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Membros</a>
-                <a href="interaction.html" class="text-aqw-light-gray hover:text-aqw-gold transition duration-300">Interação</a>
-                <a href="login.html" class="bg-aqw-blue px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">Login</a>
-                <a href="signup.html" class="bg-aqw-gold text-aqw-dark px-4 py-2 rounded-md hover:bg-yellow-600 transition duration-300">Criar Conta</a>
+<body>
+    <!-- Header -->
+    <header class="bg-[#2C1810] text-white sticky top-0 z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center">
+                <i class="fas fa-feather feather-icon mr-2"></i>
+                <h1 class="text-2xl font-bold font-['MedievalSharp']">Origem Guild</h1>
             </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="relative h-screen flex items-center justify-center text-center overflow-hidden">
-        <!-- Banner de Fundo (coloque sua imagem do jogo aqui) -->
-        <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('./images/banner-aqw.jpg');">
-            <div class="absolute inset-0 bg-black opacity-60"></div> <!-- Overlay escuro para melhorar a legibilidade -->
-        </div>
-
-        <div class="relative z-10 p-8 max-w-3xl">
-            <h1 class="text-6xl font-extrabold text-aqw-gold drop-shadow-lg leading-tight">Bem-vindo à Comunidade AQW BR!</h1>
-            <p class="mt-4 text-2xl text-aqw-light-gray font-light">Encontre amigos, guias e as últimas novidades de Lore!</p>
-            <div class="mt-8 space-x-4">
-                <a href="interaction.html" class="bg-aqw-red text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-red-700 transition duration-300 shadow-lg">Junte-se à Batalha!</a>
-                <a href="signup.html" class="bg-aqw-gold text-aqw-dark px-8 py-4 rounded-full text-xl font-semibold hover:bg-yellow-600 transition duration-300 shadow-lg">Criar Conta</a>
-            </div>
+            
+            <nav class="hidden md:flex space-x-6">
+                <a href="#inicio" class="hover:text-[#D2691E] transition-colors">Início</a>
+                <a href="#sobre" class="hover:text-[#D2691E] transition-colors">Sobre</a>
+                <a href="#parceiros" class="hover:text-[#D2691E] transition-colors">Parceiros</a>
+                <a href="#discussao" class="hover:text-[#D2691E] transition-colors">Discussão</a>
+                <a href="#novidades" class="hover:text-[#D2691E] transition-colors">Novidades</a>
+                <a href="#midia" class="hover:text-[#D2691E] transition-colors">Mídia</a>
+            </nav>
+            
+            <button class="md:hidden text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
-    <main class="container mx-auto py-12 px-4">
-        <section class="mb-12">
-            <h2 class="text-4xl font-bold text-aqw-gold text-center mb-8">Últimas Notícias e Eventos</h2>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Exemplo de Card de Notícia -->
-                <div class="bg-aqw-dark p-6 rounded-lg shadow-lg border border-aqw-gold border-opacity-30 hover:border-aqw-red transition duration-300">
-                    <h3 class="text-2xl font-semibold text-aqw-gold mb-2">Evento Semanal: Dungeons de Shadowfall</h3>
-                    <p class="text-aqw-light-gray text-opacity-80">Explore as profundezas de Shadowfall e enfrente os lacaios da Rainha das Aranhas! Recompensas exclusivas esperam por você.</p>
-                    <a href="#" class="mt-4 inline-block text-aqw-blue hover:underline">Saiba Mais &rarr;</a>
+    <!-- Hero Section -->
+    <section id="inicio" class="hero-section">
+        <div class="container mx-auto px-4 text-center text-white">
+            <i class="fas fa-feather feather-icon text-5xl"></i>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-['MedievalSharp']">Origem Guild</h1>
+            <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Uma comunidade unida pela paixão por jogos e pela busca da excelência</p>
+            <div class="flex flex-col md:flex-row justify-center gap-4">
+                <button class="bg-[#8B4513] hover:bg-[#A0522D] text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    Junte-se a Nós
+                </button>
+                <button class="bg-transparent border-2 border-white hover:bg-white hover:text-[#2C1810] text-white px-6 py-3 rounded-lg font-semibold transition-colors">
+                    Saiba Mais
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre -->
+    <section id="sobre" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp']">Sobre a Origem Guild</h2>
+                <div class="w-24 h-1 bg-[#8B4513] mx-auto"></div>
+            </div>
+            
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/2">
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23F5F5DC'/><path d='M200,50 C250,30 350,80 350,150 C350,220 250,270 200,250 C150,270 50,220 50,150 C50,80 150,30 200,50 Z' fill='%238B4513' opacity='0.7'/><circle cx='200' cy='150' r='60' fill='%23D2691E'/><path d='M180,130 L220,150 L180,170 Z' fill='white'/></svg>" 
+                         alt="Símbolo da Origem Guild" class="rounded-lg shadow-lg">
                 </div>
-                <!-- Mais cards de notícias aqui -->
-                 <div class="bg-aqw-dark p-6 rounded-lg shadow-lg border border-aqw-gold border-opacity-30 hover:border-aqw-red transition duration-300">
-                    <h3 class="text-2xl font-semibold text-aqw-gold mb-2">Novo Patch: Classe Lord of Order!</h3>
-                    <p class="text-aqw-light-gray text-opacity-80">Descubra a nova classe Lord of Order, com habilidades divinas e um novo visual épico.</p>
-                    <a href="#" class="mt-4 inline-block text-aqw-blue hover:underline">Ver Detalhes &rarr;</a>
-                </div>
-                 <div class="bg-aqw-dark p-6 rounded-lg shadow-lg border border-aqw-gold border-opacity-30 hover:border-aqw-red transition duration-300">
-                    <h3 class="text-2xl font-semibold text-aqw-gold mb-2">Guia para Iniciantes: Como Farmar Gold</h3>
-                    <p class="text-aqw-light-gray text-opacity-80">Nosso guia completo para iniciantes sobre as melhores maneiras de farmar Gold rapidamente em AQW.</p>
-                    <a href="#" class="mt-4 inline-block text-aqw-blue hover:underline">Ler Guia &rarr;</a>
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl font-bold mb-4">Nossa História</h3>
+                    <p class="mb-4">A Origem Guild foi fundada em 2018 por um grupo de amigos apaixonados por MMORPGs. Desde então, crescemos para nos tornar uma das comunidades mais respeitadas no cenário gamer.</p>
+                    <p class="mb-4">Nosso símbolo, a pena, representa sabedoria, liberdade e a capacidade de escrever nossa própria história no universo dos jogos.</p>
+                    <p class="mb-6">Valorizamos o trabalho em equipe, o respeito mútuo e a diversão acima de tudo. Seja você um jogador casual ou hardcore, há um lugar para você em nossa guilda.</p>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="text-center p-4 bg-[#F5F5DC] rounded-lg">
+                            <p class="text-2xl font-bold text-[#8B4513]">500+</p>
+                            <p class="text-sm">Membros Ativos</p>
+                        </div>
+                        <div class="text-center p-4 bg-[#F5F5DC] rounded-lg">
+                            <p class="text-2xl font-bold text-[#8B4513]">15</p>
+                            <p class="text-sm">Jogos Diferentes</p>
+                        </div>
+                        <div class="text-center p-4 bg-[#F5F5DC] rounded-lg">
+                            <p class="text-2xl font-bold text-[#8B4513]">3</p>
+                            <p class="text-sm">Anos de História</p>
+                        </div>
+                        <div class="text-center p-4 bg-[#F5F5DC] rounded-lg">
+                            <p class="text-2xl font-bold text-[#8B4513]">50+</p>
+                            <p class="text-sm">Eventos Mensais</p>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section class="mb-12 text-center">
-            <h2 class="text-4xl font-bold text-aqw-gold mb-4">Comunidade Ativa</h2>
-            <p class="text-xl text-aqw-light-gray mb-8">Participe das discussões, compartilhe suas aventuras e faça novos amigos!</p>
-            <a href="interaction.html" class="bg-aqw-blue text-white px-8 py-4 rounded-full text-xl font-semibold hover:bg-blue-600 transition duration-300 shadow-lg">Comece a Interagir!</a>
-        </section>
-    </main>
+    <!-- Parceiros - Carrossel -->
+    <section id="parceiros" class="py-16 bg-[#F5F5DC]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp']">Comunidades Parceiras</h2>
+                <div class="w-24 h-1 bg-[#8B4513] mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto">Trabalhamos com as melhores comunidades do cenário gamer para oferecer experiências únicas aos nossos membros.</p>
+            </div>
+            
+            <div class="relative overflow-hidden">
+                <div id="carousel" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Itens do carrossel serão adicionados via JavaScript -->
+                </div>
+                
+                <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#8B4513] text-white p-2 rounded-full shadow-lg z-10">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#8B4513] text-white p-2 rounded-full shadow-lg z-10">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="flex justify-center mt-6">
+                <div id="carouselIndicators" class="flex space-x-2">
+                    <!-- Indicadores serão adicionados via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
 
-    <footer class="bg-aqw-dark p-8 text-center text-aqw-light-gray text-opacity-70 border-t border-aqw-gold border-opacity-20">
-        <p>&copy; 2023 Comunidade AQW BR. Todos os direitos reservados. Não afiliado à Artix Entertainment.</p>
-        <div class="mt-4 space-x-6">
-            <a href="#" class="hover:text-aqw-gold transition duration-300">Política de Privacidade</a>
-            <a href="#" class="hover:text-aqw-gold transition duration-300">Termos de Uso</a>
+    <!-- Discussão -->
+    <section id="discussao" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp']">Espaço de Discussão</h2>
+                <div class="w-24 h-1 bg-[#8B4513] mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto">Participe das conversas, compartilhe suas experiências e faça parte da nossa comunidade.</p>
+            </div>
+            
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-[#F5F5DC] p-6 rounded-lg shadow-md mb-8">
+                    <h3 class="text-xl font-bold mb-4">Criar Nova Discussão</h3>
+                    <form id="discussionForm">
+                        <div class="mb-4">
+                            <label for="title" class="block mb-2 font-medium">Título</label>
+                            <input type="text" id="title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513]" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="content" class="block mb-2 font-medium">Conteúdo</label>
+                            <textarea id="content" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513]" required></textarea>
+                        </div>
+                        <div class="mb-4">
+                            <label for="image" class="block mb-2 font-medium">Anexar Imagem (opcional)</label>
+                            <input type="file" id="image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513]">
+                        </div>
+                        <button type="submit" class="bg-[#8B4513] hover:bg-[#A0522D] text-white px-6 py-2 rounded-lg font-semibold transition-colors">
+                            Publicar Discussão
+                        </button>
+                    </form>
+                </div>
+                
+                <div id="discussionsContainer">
+                    <!-- Discussões serão carregadas via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Novidades -->
+    <section id="novidades" class="py-16 bg-[#F5F5DC]">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp']">Novidades do Jogo</h2>
+                <div class="w-24 h-1 bg-[#8B4513] mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto">Fique por dentro das últimas atualizações, eventos e conteúdos dos jogos que participamos.</p>
+            </div>
+            
+            <div id="newsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Notícias serão carregadas via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Mídia -->
+    <section id="midia" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp']">Vídeos e Imagens</h2>
+                <div class="w-24 h-1 bg-[#8B4513] mx-auto"></div>
+                <p class="mt-4 max-w-2xl mx-auto">Confira os melhores momentos, gameplays e conquistas da nossa comunidade.</p>
+            </div>
+            
+            <div id="mediaContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Mídia será carregada via JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#2C1810] text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center">
+                        <i class="fas fa-feather feather-icon mr-2"></i>
+                        <h2 class="text-xl font-bold font-['MedievalSharp']">Origem Guild</h2>
+                    </div>
+                    <p class="mt-2 text-sm">Unindo jogadores desde 2018</p>
+                </div>
+                
+                <div class="flex space-x-4 mb-4 md:mb-0">
+                    <a href="#" class="text-white hover:text-[#D2691E] transition-colors">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#D2691E] transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#D2691E] transition-colors">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                    <a href="#" class="text-white hover:text-[#D2691E] transition-colors">
+                        <i class="fab fa-instagram text-xl"></i>
+                    </a>
+                </div>
+                
+                <div class="text-center md:text-right">
+                    <p class="text-sm">&copy; <span id="currentYear"></span> Origem Guild. Todos os direitos reservados.</p>
+                    <p class="text-xs mt-1">Desenvolvido com paixão pela comunidade gamer</p>
+                </div>
+            </div>
         </div>
     </footer>
 
-    <script src="./script.js"></script>
+    <script>
+        // Dados para o carrossel de parceiros
+        const partners = [
+            { name: "Dragonsoul Clan", logo: "DS", description: "Especialistas em raids e conteúdo endgame" },
+            { name: "Mystic Order", logo: "MO", description: "Focada em RPG e histórias imersivas" },
+            { name: "Shadow Hunters", logo: "SH", description: "Mestres em PvP e competições" },
+            { name: "Iron Forge", logo: "IF", description: "Comunidade de crafters e colecionadores" },
+            { name: "Celestial Guard", logo: "CG", description: "Guardiões dos reinos virtuais" },
+            { name: "Void Walkers", logo: "VW", description: "Exploradores de mundos desconhecidos" }
+        ];
+
+        // Dados para as discussões
+        const discussions = [
+            {
+                id: 1,
+                title: "Estratégias para a próxima raid",
+                author: "Líder Alarian",
+                date: "15/06/2023",
+                content: "Estou preparando algumas estratégias para a raid da próxima semana. Alguém tem sugestões para a fase do chefe final?",
+                image: null,
+                comments: [
+                    { author: "Mago Elenor", content: "Sugiro focar nos adds primeiro, o chefe fica mais vulnerável depois.", date: "15/06/2023" },
+                    { author: "Guerreiro Thorin", content: "Concordo com a Elenor. E precisamos de mais healers no grupo direito.", date: "16/06/2023" }
+                ]
+            },
+            {
+                id: 2,
+                title: "Evento de PvP no próximo fim de semana",
+                author: "Comandante Kael",
+                date: "10/06/2023",
+                content: "Organizaremos um torneio de PvP 3v3 no sábado. Premiação para os três primeiros lugares!",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='150' viewBox='0 0 300 150'><rect width='300' height='150' fill='%238B4513'/><text x='150' y='75' font-family='Arial' font-size='18' fill='white' text-anchor='middle'>Imagem do Evento PvP</text></svg>",
+                comments: [
+                    { author: "Arqueira Lyra", content: "Mal posso esperar! Vou me inscrever com minha equipe.", date: "10/06/2023" }
+                ]
+            }
+        ];
+
+        // Dados para as novidades
+        const news = [
+            {
+                id: 1,
+                title: "Expansão 'Reinos Perdidos' anunciada",
+                date: "20/06/2023",
+                excerpt: "A tão aguardada expansão trará novas dungeons, raças jogáveis e um aumento no level cap.",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D2691E'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Expansão</text></svg>",
+                category: "Atualização"
+            },
+            {
+                id: 2,
+                title: "Evento de Aniversário da Guild",
+                date: "18/06/2023",
+                excerpt: "Comemore conosco 5 anos de Origem Guild! Eventos especiais e recompensas exclusivas durante toda a semana.",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23CD853F'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Evento</text></svg>",
+                category: "Evento"
+            },
+            {
+                id: 3,
+                title: "Balanceamento de Classes",
+                date: "12/06/2023",
+                excerpt: "As últimas mudanças no balanceamento afetam principalmente magos e guerreiros. Confira os detalhes.",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%238B4513'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Balanceamento</text></svg>",
+                category: "Patch Notes"
+            }
+        ];
+
+        // Dados para a seção de mídia
+        const media = [
+            {
+                id: 1,
+                title: "Raide Épica - Chefe Final",
+                subtitle: "Nossa guilda derrotando o temido dragão ancião",
+                type: "video",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%232C1810'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Raide Épica</text></svg>"
+            },
+            {
+                id: 2,
+                title: "Conquista do Mês",
+                subtitle: "Primeiros a completar a masmorra lendária",
+                type: "image",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D2691E'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Conquista</text></svg>"
+            },
+            {
+                id: 3,
+                title: "Torneio de PvP",
+                subtitle: "Final emocionante do campeonato mensal",
+                type: "video",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%238B4513'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Torneio PvP</text></svg>"
+            },
+            {
+                id: 4,
+                title: "Base da Guilda",
+                subtitle: "Nova fortaleza conquistada no reino norte",
+                type: "image",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23CD853F'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Base</text></svg>"
+            },
+            {
+                id: 5,
+                title: "Evento Social",
+                subtitle: "Encontro dos membros no mundo central",
+                type: "image",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%232C1810'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Evento</text></svg>"
+            },
+            {
+                id: 6,
+                title: "Guia de Classes",
+                subtitle: "Tutorial completo para novatos",
+                type: "video",
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D2691E'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Guia de Classes</text></svg>"
+            }
+        ];
+
+        // Inicialização quando o DOM estiver carregado
+        document.addEventListener('DOMContentLoaded', function() {
+            // Atualizar copyright
+            document.getElementById('currentYear').textContent = new Date().getFullYear();
+            
+            // Inicializar carrossel
+            initCarousel();
+            
+            // Carregar discussões
+            loadDiscussions();
+            
+            // Carregar novidades
+            loadNews();
+            
+            // Carregar mídia
+            loadMedia();
+            
+            // Configurar formulário de discussão
+            document.getElementById('discussionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                addNewDiscussion();
+            });
+        });
+
+        // Função para inicializar o carrossel
+        function initCarousel() {
+            const carousel = document.getElementById('carousel');
+            const indicators = document.getElementById('carouselIndicators');
+            
+            // Calcular quantos slides são necessários
+            const itemsPerSlide = window.innerWidth < 480 ? 1 : (window.innerWidth < 768 ? 2 : 3);
+            const totalSlides = Math.ceil(partners.length / itemsPerSlide);
+            
+            // Criar slides
+            for (let i = 0; i < totalSlides; i++) {
+                const slide = document.createElement('div');
+                slide.className = 'flex w-full';
+                
+                // Adicionar itens ao slide
+                for (let j = 0; j < itemsPerSlide; j++) {
+                    const partnerIndex = i * itemsPerSlide + j;
+                    if (partnerIndex < partners.length) {
+                        const partner = partners[partnerIndex];
+                        const item = document.createElement('div');
+                        item.className = 'carousel-item';
+                        item.innerHTML = `
+                            <div class="bg-white rounded-lg shadow-md p-6 text-center h-full flex flex-col justify-between">
+                                <div class="mb-4">
+                                    <div class="w-16 h-16 bg-[#8B4513] text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold mb-3">
+                                        ${partner.logo}
+                                    </div>
+                                    <h3 class="text-xl font-bold mb-2">${partner.name}</h3>
+                                    <p class="text-gray-600">${partner.description}</p>
+                                </div>
+                                <button class="bg-[#8B4513] hover:bg-[#A0522D] text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                                    Visitar
+                                </button>
+                            </div>
+                        `;
+                        slide.appendChild(item);
+                    }
+                }
+                
+                carousel.appendChild(slide);
+                
+                // Adicionar indicador
+                const indicator = document.createElement('button');
+                indicator.className = `w-3 h-3 rounded-full ${i === 0 ? 'bg-[#8B4513]' : 'bg-gray-300'}`;
+                indicator.addEventListener('click', () => goToSlide(i));
+                indicators.appendChild(indicator);
+            }
+            
+            // Configurar botões de navegação
+            let currentSlide = 0;
+            
+            document.getElementById('nextBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % totalSlides;
+                updateCarousel();
+            });
+            
+            document.getElementById('prevBtn').addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                updateCarousel();
+            });
+            
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Atualizar indicadores
+                const indicatorButtons = indicators.querySelectorAll('button');
+                indicatorButtons.forEach((btn, index) => {
+                    btn.className = `w-3 h-3 rounded-full ${index === currentSlide ? 'bg-[#8B4513]' : 'bg-gray-300'}`;
+                });
+            }
+            
+            function goToSlide(slideIndex) {
+                currentSlide = slideIndex;
+                updateCarousel();
+            }
+            
+            // Redimensionar janela
+            window.addEventListener('resize', function() {
+                // Recarregar o carrossel ao redimensionar
+                carousel.innerHTML = '';
+                indicators.innerHTML = '';
+                initCarousel();
+            });
+        }
+
+        // Função para carregar discussões
+        function loadDiscussions() {
+            const container = document.getElementById('discussionsContainer');
+            
+            discussions.forEach(discussion => {
+                const discussionElement = document.createElement('div');
+                discussionElement.className = 'discussion-post bg-white p-6 rounded-lg shadow-md mb-6';
+                discussionElement.innerHTML = `
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-bold">${discussion.title}</h3>
+                        <span class="text-sm text-gray-500">${discussion.date}</span>
+                    </div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-8 h-8 bg-[#8B4513] rounded-full flex items-center justify-center text-white text-sm font-bold mr-2">
+                            ${discussion.author.charAt(0)}
+                        </div>
+                        <span class="font-medium">${discussion.author}</span>
+                    </div>
+                    <p class="mb-4">${discussion.content}</p>
+                    ${discussion.image ? `<img src="${discussion.image}" alt="Imagem da discussão" class="mb-4 rounded-lg max-w-full">` : ''}
+                    <div class="border-t pt-4">
+                        <h4 class="font-bold mb-2">Comentários (${discussion.comments.length})</h4>
+                        ${discussion.comments.map(comment => `
+                            <div class="mb-3 pb-3 border-b last:border-b-0 last:pb-0 last:mb-0">
+                                <div class="flex justify-between">
+                                    <span class="font-medium">${comment.author}</span>
+                                    <span class="text-sm text-gray-500">${comment.date}</span>
+                                </div>
+                                <p class="mt-1">${comment.content}</p>
+                            </div>
+                        `).join('')}
+                        <div class="mt-4">
+                            <textarea placeholder="Adicione um comentário..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8B4513] mb-2" rows="2"></textarea>
+                            <button class="bg-[#8B4513] hover:bg-[#A0522D] text-white px-4 py-1 rounded-lg text-sm transition-colors">
+                                Comentar
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(discussionElement);
+            });
+        }
+
+        // Função para adicionar nova discussão
+        function addNewDiscussion() {
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const imageInput = document.getElementById('image');
+            
+            // Criar nova discussão
+            const newDiscussion = {
+                id: discussions.length + 1,
+                title: title,
+                author: "Você",
+                date: new Date().toLocaleDateString('pt-BR'),
+                content: content,
+                image: null,
+                comments: []
+            };
+            
+            // Processar imagem se for fornecida
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newDiscussion.image = e.target.result;
+                    discussions.unshift(newDiscussion);
+                    
+                    // Recarregar discussões
+                    document.getElementById('discussionsContainer').innerHTML = '';
+                    loadDiscussions();
+                    
+                    // Limpar formulário
+                    document.getElementById('discussionForm').reset();
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                discussions.unshift(newDiscussion);
+                
+                // Recarregar discussões
+                document.getElementById('discussionsContainer').innerHTML = '';
+                loadDiscussions();
+                
+                // Limpar formulário
+                document.getElementById('discussionForm').reset();
+            }
+        }
+
+        // Função para carregar novidades
+        function loadNews() {
+            const container = document.getElementById('newsContainer');
+            
+            news.forEach(item => {
+                const newsElement = document.createElement('div');
+                newsElement.className = 'news-card bg-white rounded-lg shadow-md overflow-hidden';
+                newsElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover">
+                    <div class="p-6">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-sm font-medium text-[#8B4513] bg-[#F5F5DC] px-2 py-1 rounded">${item.category}</span>
+                            <span class="text-sm text-gray-500">${item.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold mb-3">${item.title}</h3>
+                        <p class="text-gray-600 mb-4">${item.excerpt}</p>
+                        <button class="text-[#8B4513] hover:text-[#A0522D] font-medium transition-colors flex items-center">
+                            Ler mais
+                            <i class="fas fa-arrow-right ml-1 text-sm"></i>
+                        </button>
+                    </div>
+                `;
+                container.appendChild(newsElement);
+            });
+        }
+
+        // Função para carregar mídia
+        function loadMedia() {
+            const container = document.getElementById('mediaContainer');
+            
+            media.forEach(item => {
+                const mediaElement = document.createElement('div');
+                mediaElement.className = 'media-item bg-white rounded-lg shadow-md overflow-hidden';
+                mediaElement.innerHTML = `
+                    <div class="relative overflow-hidden">
+                        <img src="${item.thumbnail}" alt="${item.title}" class="w-full h-48 object-cover">
+                        ${item.type === 'video' ? `
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div class="bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">
+                                    <i class="fas fa-play text-white"></i>
+                                </div>
+                            </div>
+                        ` : ''}
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1">${item.title}</h3>
+                        <p class="text-gray-600 text-sm">${item.subtitle}</p>
+                    </div>
+                `;
+                container.appendChild(mediaElement);
+            });
+        }
+    </script>
+
+    <!-- JSON-LD para SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Origem Guild",
+        "description": "Uma comunidade unida pela paixão por jogos e pela busca da excelência",
+        "url": "https://origemguild.com",
+        "logo": "https://origemguild.com/logo.png",
+        "foundingDate": "2018",
+        "founder": {
+            "@type": "Person",
+            "name": "Fundador da Origem Guild"
+        },
+        "memberOf": {
+            "@type": "Organization",
+            "name": "Comunidade Gamer"
+        },
+        "sameAs": [
+            "https://discord.gg/origemguild",
+            "https://twitter.com/origemguild",
+            "https://youtube.com/origemguild",
+            "https://instagram.com/origemguild"
+        ]
+    }
+    </script>
 </body>
 </html>
