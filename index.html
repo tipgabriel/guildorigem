@@ -11,14 +11,13 @@
             theme: {
                 extend: {
                     colors: {
-                        'aq-blue': '#1e3a8a',
-                        'aq-light-blue': '#3b82f6',
-                        'aq-dark-blue': '#1e40af',
-                        'aq-purple': '#7c3aed',
-                        'aq-dark': '#0f172a',
-                        'aq-light': '#f1f5f9',
-                        'aq-gray': '#64748b',
-                        'aq-green': '#10b981',
+                        'primary': '#171717',
+                        'gold': '#D4AF37',
+                        'light-gold': '#F5E8B5',
+                        'dark-gold': '#B8860B',
+                        'light': '#FFFFFF',
+                        'dark': '#0A0A0A',
+                        'gray': '#333333',
                     }
                 }
             }
@@ -29,13 +28,13 @@
         
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #f1f5f9;
-            color: #0f172a;
+            background-color: #171717;
+            color: #FFFFFF;
         }
         
         .hero-section {
-            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(30, 58, 138, 0.8)), 
-                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230f172a"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%231e3a8a" stroke-width="1"/></svg>');
+            background: linear-gradient(rgba(10, 10, 10, 0.85), rgba(23, 23, 23, 0.9)), 
+                        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="%230A0A0A"/><path d="M0,0 L100,100 M100,0 L0,100" stroke="%23D4AF37" stroke-width="1"/></svg>');
             background-size: cover;
             background-position: center;
             min-height: 80vh;
@@ -45,19 +44,19 @@
         }
         
         .feather-icon {
-            color: #3b82f6;
+            color: #D4AF37;
             font-size: 2rem;
             margin-bottom: 1rem;
         }
         
         .discussion-post {
-            border-left: 4px solid #1e3a8a;
+            border-left: 4px solid #D4AF37;
             transition: all 0.3s ease;
         }
         
         .discussion-post:hover {
             transform: translateX(5px);
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(212, 175, 55, 0.2);
         }
         
         .carousel-item {
@@ -84,7 +83,7 @@
         
         .news-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px rgba(212, 175, 55, 0.2);
         }
         
         .media-item {
@@ -105,29 +104,30 @@
         }
         
         .btn-primary {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
+            background: linear-gradient(135deg, #D4AF37, #B8860B);
+            color: #171717;
             transition: all 0.3s ease;
+            font-weight: 600;
         }
         
         .btn-primary:hover {
-            background: linear-gradient(135deg, #1e40af, #2563eb);
+            background: linear-gradient(135deg, #F5E8B5, #D4AF37);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(30, 64, 175, 0.3);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.4);
         }
         
         .btn-secondary {
             background: transparent;
-            border: 2px solid #3b82f6;
-            color: #3b82f6;
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
             transition: all 0.3s ease;
         }
         
         .btn-secondary:hover {
-            background: #3b82f6;
-            color: white;
+            background: #D4AF37;
+            color: #171717;
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
         }
         
         .section-title {
@@ -143,85 +143,118 @@
             left: 0;
             width: 60%;
             height: 4px;
-            background: linear-gradient(90deg, #1e3a8a, #3b82f6);
+            background: linear-gradient(90deg, #D4AF37, #B8860B);
             border-radius: 2px;
         }
         
         .stats-card {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
+            background: linear-gradient(135deg, #171717, #333333);
+            color: #D4AF37;
             border-radius: 10px;
             padding: 1.5rem;
             text-align: center;
             transition: all 0.3s ease;
+            border: 1px solid #333333;
         }
         
         .stats-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.3);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.2);
+            border-color: #D4AF37;
         }
         
         .partner-card {
-            background: white;
+            background: #333333;
             border-radius: 10px;
             padding: 1.5rem;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-top: 4px solid #3b82f6;
+            border-top: 4px solid #D4AF37;
+            color: #FFFFFF;
         }
         
         .partner-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 15px rgba(212, 175, 55, 0.2);
         }
         
         .discussion-form {
-            background: white;
+            background: #333333;
             border-radius: 10px;
             padding: 1.5rem;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            border-top: 4px solid #3b82f6;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #D4AF37;
+            color: #FFFFFF;
         }
         
         .news-card-custom {
-            background: white;
+            background: #333333;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-top: 4px solid #3b82f6;
+            border-top: 4px solid #D4AF37;
+            color: #FFFFFF;
         }
         
         .media-card {
-            background: white;
+            background: #333333;
             border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border-top: 4px solid #3b82f6;
+            border-top: 4px solid #D4AF37;
+            color: #FFFFFF;
+        }
+        
+        input, textarea {
+            background-color: #171717;
+            border-color: #333333;
+            color: #FFFFFF;
+        }
+        
+        input:focus, textarea:focus {
+            border-color: #D4AF37;
+            ring-color: #D4AF37;
+        }
+        
+        .gold-text {
+            color: #D4AF37;
+        }
+        
+        .bg-section-dark {
+            background-color: #171717;
+        }
+        
+        .bg-section-gray {
+            background-color: #333333;
+        }
+        
+        .border-gold {
+            border-color: #D4AF37;
         }
     </style>
 </head>
 <body>
     <!-- Header -->
-    <header class="bg-aq-dark text-white sticky top-0 z-50 shadow-lg">
+    <header class="bg-primary text-light sticky top-0 z-50 shadow-lg border-b border-gold">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center">
                 <i class="fas fa-feather feather-icon mr-2"></i>
-                <h1 class="text-2xl font-bold font-['MedievalSharp']">Origem Guild</h1>
+                <h1 class="text-2xl font-bold font-['MedievalSharp'] gold-text">Origem Guild</h1>
             </div>
             
             <nav class="hidden md:flex space-x-6">
-                <a href="#inicio" class="hover:text-aq-light-blue transition-colors">Início</a>
-                <a href="#sobre" class="hover:text-aq-light-blue transition-colors">Sobre</a>
-                <a href="#parceiros" class="hover:text-aq-light-blue transition-colors">Parceiros</a>
-                <a href="#discussao" class="hover:text-aq-light-blue transition-colors">Discussão</a>
-                <a href="#novidades" class="hover:text-aq-light-blue transition-colors">Novidades</a>
-                <a href="#midia" class="hover:text-aq-light-blue transition-colors">Mídia</a>
+                <a href="#inicio" class="hover:text-gold transition-colors">Início</a>
+                <a href="#sobre" class="hover:text-gold transition-colors">Sobre</a>
+                <a href="#parceiros" class="hover:text-gold transition-colors">Parceiros</a>
+                <a href="#discussao" class="hover:text-gold transition-colors">Discussão</a>
+                <a href="#novidades" class="hover:text-gold transition-colors">Novidades</a>
+                <a href="#midia" class="hover:text-gold transition-colors">Mídia</a>
             </nav>
             
-            <button class="md:hidden text-xl">
+            <button class="md:hidden text-xl text-gold">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -229,9 +262,9 @@
 
     <!-- Hero Section -->
     <section id="inicio" class="hero-section">
-        <div class="container mx-auto px-4 text-center text-white">
+        <div class="container mx-auto px-4 text-center text-light">
             <i class="fas fa-feather feather-icon text-5xl"></i>
-            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-['MedievalSharp']">Origem Guild</h1>
+            <h1 class="text-4xl md:text-6xl font-bold mb-4 font-['MedievalSharp'] gold-text">Origem Guild</h1>
             <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">Uma comunidade unida pela paixão por jogos e pela busca da excelência</p>
             <div class="flex flex-col md:flex-row justify-center gap-4">
                 <button class="btn-primary px-6 py-3 rounded-lg font-semibold">
@@ -245,20 +278,20 @@
     </section>
 
     <!-- Sobre -->
-    <section id="sobre" class="py-16 bg-white">
+    <section id="sobre" class="py-16 bg-section-dark">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title">Sobre a Origem Guild</h2>
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title gold-text">Sobre a Origem Guild</h2>
                 <p class="mt-4 max-w-2xl mx-auto">Descubra a história por trás de uma das guildas mais respeitadas do cenário gamer</p>
             </div>
             
             <div class="flex flex-col md:flex-row items-center gap-8">
                 <div class="md:w-1/2">
-                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f1f5f9'/><path d='M200,50 C250,30 350,80 350,150 C350,220 250,270 200,250 C150,270 50,220 50,150 C50,80 150,30 200,50 Z' fill='%231e3a8a' opacity='0.7'/><circle cx='200' cy='150' r='60' fill='%233b82f6'/><path d='M180,130 L220,150 L180,170 Z' fill='white'/></svg>" 
+                    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23333333'/><path d='M200,50 C250,30 350,80 350,150 C350,220 250,270 200,250 C150,270 50,220 50,150 C50,80 150,30 200,50 Z' fill='%23171717' opacity='0.9'/><circle cx='200' cy='150' r='60' fill='%23D4AF37'/><path d='M180,130 L220,150 L180,170 Z' fill='%23171717'/></svg>" 
                          alt="Símbolo da Origem Guild" class="rounded-lg shadow-lg">
                 </div>
                 <div class="md:w-1/2">
-                    <h3 class="text-2xl font-bold mb-4">Nossa História</h3>
+                    <h3 class="text-2xl font-bold mb-4 gold-text">Nossa História</h3>
                     <p class="mb-4">A Origem Guild foi fundada em 2018 por um grupo de amigos apaixonados por MMORPGs. Desde então, crescemos para nos tornar uma das comunidades mais respeitadas no cenário gamer.</p>
                     <p class="mb-4">Nosso símbolo, a pena, representa sabedoria, liberdade e a capacidade de escrever nossa própria história no universo dos jogos.</p>
                     <p class="mb-6">Valorizamos o trabalho em equipe, o respeito mútuo e a diversão acima de tudo. Seja você um jogador casual ou hardcore, há um lugar para você em nossa guilda.</p>
@@ -287,10 +320,10 @@
     </section>
 
     <!-- Parceiros - Carrossel -->
-    <section id="parceiros" class="py-16 bg-aq-light">
+    <section id="parceiros" class="py-16 bg-section-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title">Comunidades Parceiras</h2>
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title gold-text">Comunidades Parceiras</h2>
                 <p class="mt-4 max-w-2xl mx-auto">Trabalhamos com as melhores comunidades do cenário gamer para oferecer experiências únicas aos nossos membros.</p>
             </div>
             
@@ -299,10 +332,10 @@
                     <!-- Itens do carrossel serão adicionados via JavaScript -->
                 </div>
                 
-                <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-aq-blue text-white p-2 rounded-full shadow-lg z-10">
+                <button id="prevBtn" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-gold text-primary p-2 rounded-full shadow-lg z-10">
                     <i class="fas fa-chevron-left"></i>
                 </button>
-                <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-aq-blue text-white p-2 rounded-full shadow-lg z-10">
+                <button id="nextBtn" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-gold text-primary p-2 rounded-full shadow-lg z-10">
                     <i class="fas fa-chevron-right"></i>
                 </button>
             </div>
@@ -316,28 +349,28 @@
     </section>
 
     <!-- Discussão -->
-    <section id="discussao" class="py-16 bg-white">
+    <section id="discussao" class="py-16 bg-section-dark">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title">Espaço de Discussão</h2>
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title gold-text">Espaço de Discussão</h2>
                 <p class="mt-4 max-w-2xl mx-auto">Participe das conversas, compartilhe suas experiências e faça parte da nossa comunidade.</p>
             </div>
             
             <div class="max-w-4xl mx-auto">
                 <div class="discussion-form mb-8">
-                    <h3 class="text-xl font-bold mb-4">Criar Nova Discussão</h3>
+                    <h3 class="text-xl font-bold mb-4 gold-text">Criar Nova Discussão</h3>
                     <form id="discussionForm">
                         <div class="mb-4">
                             <label for="title" class="block mb-2 font-medium">Título</label>
-                            <input type="text" id="title" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-aq-blue" required>
+                            <input type="text" id="title" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required>
                         </div>
                         <div class="mb-4">
                             <label for="content" class="block mb-2 font-medium">Conteúdo</label>
-                            <textarea id="content" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-aq-blue" required></textarea>
+                            <textarea id="content" rows="4" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold" required></textarea>
                         </div>
                         <div class="mb-4">
                             <label for="image" class="block mb-2 font-medium">Anexar Imagem (opcional)</label>
-                            <input type="file" id="image" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-aq-blue">
+                            <input type="file" id="image" accept="image/*" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-gold">
                         </div>
                         <button type="submit" class="btn-primary px-6 py-2 rounded-lg font-semibold">
                             Publicar Discussão
@@ -353,10 +386,10 @@
     </section>
 
     <!-- Novidades -->
-    <section id="novidades" class="py-16 bg-aq-light">
+    <section id="novidades" class="py-16 bg-section-gray">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title">Novidades do Jogo</h2>
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title gold-text">Novidades do Jogo</h2>
                 <p class="mt-4 max-w-2xl mx-auto">Fique por dentro das últimas atualizações, eventos e conteúdos dos jogos que participamos.</p>
             </div>
             
@@ -367,10 +400,10 @@
     </section>
 
     <!-- Mídia -->
-    <section id="midia" class="py-16 bg-white">
+    <section id="midia" class="py-16 bg-section-dark">
         <div class="container mx-auto px-4">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title">Vídeos e Imagens</h2>
+                <h2 class="text-3xl font-bold mb-4 font-['MedievalSharp'] section-title gold-text">Vídeos e Imagens</h2>
                 <p class="mt-4 max-w-2xl mx-auto">Confira os melhores momentos, gameplays e conquistas da nossa comunidade.</p>
             </div>
             
@@ -381,28 +414,28 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-aq-dark text-white py-8">
+    <footer class="bg-primary text-light py-8 border-t border-gold">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="mb-4 md:mb-0">
                     <div class="flex items-center">
                         <i class="fas fa-feather feather-icon mr-2"></i>
-                        <h2 class="text-xl font-bold font-['MedievalSharp']">Origem Guild</h2>
+                        <h2 class="text-xl font-bold font-['MedievalSharp'] gold-text">Origem Guild</h2>
                     </div>
                     <p class="mt-2 text-sm">Unindo jogadores desde 2018</p>
                 </div>
                 
                 <div class="flex space-x-4 mb-4 md:mb-0">
-                    <a href="#" class="text-white hover:text-aq-light-blue transition-colors">
+                    <a href="#" class="text-light hover:text-gold transition-colors">
                         <i class="fab fa-discord text-xl"></i>
                     </a>
-                    <a href="#" class="text-white hover:text-aq-light-blue transition-colors">
+                    <a href="#" class="text-light hover:text-gold transition-colors">
                         <i class="fab fa-twitter text-xl"></i>
                     </a>
-                    <a href="#" class="text-white hover:text-aq-light-blue transition-colors">
+                    <a href="#" class="text-light hover:text-gold transition-colors">
                         <i class="fab fa-youtube text-xl"></i>
                     </a>
-                    <a href="#" class="text-white hover:text-aq-light-blue transition-colors">
+                    <a href="#" class="text-light hover:text-gold transition-colors">
                         <i class="fab fa-instagram text-xl"></i>
                     </a>
                 </div>
@@ -446,7 +479,7 @@
                 author: "Comandante Kael",
                 date: "10/06/2023",
                 content: "Organizaremos um torneio de PvP 3v3 no sábado. Premiação para os três primeiros lugares!",
-                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='150' viewBox='0 0 300 150'><rect width='300' height='150' fill='%231e3a8a'/><text x='150' y='75' font-family='Arial' font-size='18' fill='white' text-anchor='middle'>Imagem do Evento PvP</text></svg>",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='150' viewBox='0 0 300 150'><rect width='300' height='150' fill='%23171717'/><text x='150' y='75' font-family='Arial' font-size='18' fill='%23D4AF37' text-anchor='middle'>Imagem do Evento PvP</text></svg>",
                 comments: [
                     { author: "Arqueira Lyra", content: "Mal posso esperar! Vou me inscrever com minha equipe.", date: "10/06/2023" }
                 ]
@@ -460,7 +493,7 @@
                 title: "Expansão 'Reinos Perdidos' anunciada",
                 date: "20/06/2023",
                 excerpt: "A tão aguardada expansão trará novas dungeons, raças jogáveis e um aumento no level cap.",
-                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%233b82f6'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Expansão</text></svg>",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D4AF37'/><text x='150' y='100' font-family='Arial' font-size='16' fill='%23171717' text-anchor='middle'>Imagem da Expansão</text></svg>",
                 category: "Atualização"
             },
             {
@@ -468,7 +501,7 @@
                 title: "Evento de Aniversário da Guild",
                 date: "18/06/2023",
                 excerpt: "Comemore conosco 5 anos de Origem Guild! Eventos especiais e recompensas exclusivas durante toda a semana.",
-                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%231e40af'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Evento</text></svg>",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23B8860B'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Evento</text></svg>",
                 category: "Evento"
             },
             {
@@ -476,7 +509,7 @@
                 title: "Balanceamento de Classes",
                 date: "12/06/2023",
                 excerpt: "As últimas mudanças no balanceamento afetam principalmente magos e guerreiros. Confira os detalhes.",
-                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%231e3a8a'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Balanceamento</text></svg>",
+                image: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23171717'/><text x='150' y='100' font-family='Arial' font-size='16' fill='%23D4AF37' text-anchor='middle'>Imagem do Balanceamento</text></svg>",
                 category: "Patch Notes"
             }
         ];
@@ -488,42 +521,42 @@
                 title: "Raide Épica - Chefe Final",
                 subtitle: "Nossa guilda derrotando o temido dragão ancião",
                 type: "video",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%230f172a'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Raide Épica</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%230A0A0A'/><polygon points='120,80 180,130 120,180' fill='%23D4AF37'/><text x='150' y='50' font-family='Arial' font-size='14' fill='%23D4AF37' text-anchor='middle'>Vídeo: Raide Épica</text></svg>"
             },
             {
                 id: 2,
                 title: "Conquista do Mês",
                 subtitle: "Primeiros a completar a masmorra lendária",
                 type: "image",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%233b82f6'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Conquista</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D4AF37'/><text x='150' y='100' font-family='Arial' font-size='16' fill='%23171717' text-anchor='middle'>Imagem da Conquista</text></svg>"
             },
             {
                 id: 3,
                 title: "Torneio de PvP",
                 subtitle: "Final emocionante do campeonato mensal",
                 type: "video",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%231e3a8a'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Torneio PvP</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23171717'/><polygon points='120,80 180,130 120,180' fill='%23D4AF37'/><text x='150' y='50' font-family='Arial' font-size='14' fill='%23D4AF37' text-anchor='middle'>Vídeo: Torneio PvP</text></svg>"
             },
             {
                 id: 4,
                 title: "Base da Guilda",
                 subtitle: "Nova fortaleza conquistada no reino norte",
                 type: "image",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%231e40af'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Base</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23B8860B'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem da Base</text></svg>"
             },
             {
                 id: 5,
                 title: "Evento Social",
                 subtitle: "Encontro dos membros no mundo central",
                 type: "image",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%230f172a'/><text x='150' y='100' font-family='Arial' font-size='16' fill='white' text-anchor='middle'>Imagem do Evento</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%230A0A0A'/><text x='150' y='100' font-family='Arial' font-size='16' fill='%23D4AF37' text-anchor='middle'>Imagem do Evento</text></svg>"
             },
             {
                 id: 6,
                 title: "Guia de Classes",
                 subtitle: "Tutorial completo para novatos",
                 type: "video",
-                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%233b82f6'/><polygon points='120,80 180,130 120,180' fill='white'/><text x='150' y='50' font-family='Arial' font-size='14' fill='white' text-anchor='middle'>Vídeo: Guia de Classes</text></svg>"
+                thumbnail: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='200' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23D4AF37'/><polygon points='120,80 180,130 120,180' fill='%23171717'/><text x='150' y='50' font-family='Arial' font-size='14' fill='%23171717' text-anchor='middle'>Vídeo: Guia de Classes</text></svg>"
             }
         ];
 
@@ -575,11 +608,11 @@
                         item.innerHTML = `
                             <div class="partner-card h-full flex flex-col justify-between">
                                 <div class="mb-4">
-                                    <div class="w-16 h-16 bg-aq-blue text-white rounded-full flex items-center justify-center mx-auto text-xl font-bold mb-3">
+                                    <div class="w-16 h-16 bg-gold text-primary rounded-full flex items-center justify-center mx-auto text-xl font-bold mb-3">
                                         ${partner.logo}
                                     </div>
                                     <h3 class="text-xl font-bold mb-2">${partner.name}</h3>
-                                    <p class="text-gray-600">${partner.description}</p>
+                                    <p class="text-gray-400">${partner.description}</p>
                                 </div>
                                 <button class="btn-primary px-4 py-2 rounded-lg text-sm">
                                     Visitar
@@ -594,7 +627,7 @@
                 
                 // Adicionar indicador
                 const indicator = document.createElement('button');
-                indicator.className = `w-3 h-3 rounded-full ${i === 0 ? 'bg-aq-blue' : 'bg-gray-300'}`;
+                indicator.className = `w-3 h-3 rounded-full ${i === 0 ? 'bg-gold' : 'bg-gray-600'}`;
                 indicator.addEventListener('click', () => goToSlide(i));
                 indicators.appendChild(indicator);
             }
@@ -618,7 +651,7 @@
                 // Atualizar indicadores
                 const indicatorButtons = indicators.querySelectorAll('button');
                 indicatorButtons.forEach((btn, index) => {
-                    btn.className = `w-3 h-3 rounded-full ${index === currentSlide ? 'bg-aq-blue' : 'bg-gray-300'}`;
+                    btn.className = `w-3 h-3 rounded-full ${index === currentSlide ? 'bg-gold' : 'bg-gray-600'}`;
                 });
             }
             
@@ -642,33 +675,33 @@
             
             discussions.forEach(discussion => {
                 const discussionElement = document.createElement('div');
-                discussionElement.className = 'discussion-post bg-white p-6 rounded-lg shadow-md mb-6';
+                discussionElement.className = 'discussion-post bg-section-gray p-6 rounded-lg shadow-md mb-6';
                 discussionElement.innerHTML = `
                     <div class="flex justify-between items-start mb-4">
-                        <h3 class="text-xl font-bold">${discussion.title}</h3>
-                        <span class="text-sm text-gray-500">${discussion.date}</span>
+                        <h3 class="text-xl font-bold gold-text">${discussion.title}</h3>
+                        <span class="text-sm text-gray-400">${discussion.date}</span>
                     </div>
                     <div class="flex items-center mb-4">
-                        <div class="w-8 h-8 bg-aq-blue rounded-full flex items-center justify-center text-white text-sm font-bold mr-2">
+                        <div class="w-8 h-8 bg-gold text-primary rounded-full flex items-center justify-center text-sm font-bold mr-2">
                             ${discussion.author.charAt(0)}
                         </div>
                         <span class="font-medium">${discussion.author}</span>
                     </div>
                     <p class="mb-4">${discussion.content}</p>
                     ${discussion.image ? `<img src="${discussion.image}" alt="Imagem da discussão" class="mb-4 rounded-lg max-w-full">` : ''}
-                    <div class="border-t pt-4">
-                        <h4 class="font-bold mb-2">Comentários (${discussion.comments.length})</h4>
+                    <div class="border-t border-gray-600 pt-4">
+                        <h4 class="font-bold mb-2 gold-text">Comentários (${discussion.comments.length})</h4>
                         ${discussion.comments.map(comment => `
-                            <div class="mb-3 pb-3 border-b last:border-b-0 last:pb-0 last:mb-0">
+                            <div class="mb-3 pb-3 border-b border-gray-600 last:border-b-0 last:pb-0 last:mb-0">
                                 <div class="flex justify-between">
                                     <span class="font-medium">${comment.author}</span>
-                                    <span class="text-sm text-gray-500">${comment.date}</span>
+                                    <span class="text-sm text-gray-400">${comment.date}</span>
                                 </div>
                                 <p class="mt-1">${comment.content}</p>
                             </div>
                         `).join('')}
                         <div class="mt-4">
-                            <textarea placeholder="Adicione um comentário..." class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-aq-blue mb-2" rows="2"></textarea>
+                            <textarea placeholder="Adicione um comentário..." class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-gold mb-2" rows="2"></textarea>
                             <button class="btn-primary px-4 py-1 rounded-lg text-sm">
                                 Comentar
                             </button>
@@ -734,12 +767,12 @@
                     <img src="${item.image}" alt="${item.title}" class="w-full h-40 object-cover">
                     <div class="p-6 flex-grow">
                         <div class="flex justify-between items-center mb-2">
-                            <span class="text-sm font-medium text-aq-blue bg-aq-light px-2 py-1 rounded">${item.category}</span>
-                            <span class="text-sm text-gray-500">${item.date}</span>
+                            <span class="text-sm font-medium text-gold bg-primary px-2 py-1 rounded">${item.category}</span>
+                            <span class="text-sm text-gray-400">${item.date}</span>
                         </div>
-                        <h3 class="text-xl font-bold mb-3">${item.title}</h3>
-                        <p class="text-gray-600 mb-4 flex-grow">${item.excerpt}</p>
-                        <button class="text-aq-blue hover:text-aq-dark-blue font-medium transition-colors flex items-center">
+                        <h3 class="text-xl font-bold mb-3 gold-text">${item.title}</h3>
+                        <p class="text-gray-300 mb-4 flex-grow">${item.excerpt}</p>
+                        <button class="text-gold hover:text-light-gold font-medium transition-colors flex items-center">
                             Ler mais
                             <i class="fas fa-arrow-right ml-1 text-sm"></i>
                         </button>
@@ -762,14 +795,14 @@
                         ${item.type === 'video' ? `
                             <div class="absolute inset-0 flex items-center justify-center">
                                 <div class="bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center">
-                                    <i class="fas fa-play text-white"></i>
+                                    <i class="fas fa-play text-gold"></i>
                                 </div>
                             </div>
                         ` : ''}
                     </div>
                     <div class="p-4">
-                        <h3 class="font-bold text-lg mb-1">${item.title}</h3>
-                        <p class="text-gray-600 text-sm">${item.subtitle}</p>
+                        <h3 class="font-bold text-lg mb-1 gold-text">${item.title}</h3>
+                        <p class="text-gray-300 text-sm">${item.subtitle}</p>
                     </div>
                 `;
                 container.appendChild(mediaElement);
