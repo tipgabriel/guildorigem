@@ -26,13 +26,8 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        .neon-glow {
-            text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14, 0 0 15px #39FF14;
-        }
-        
         .neon-border {
             border: 2px solid #39FF14;
-            box-shadow: 0 0 10px #39FF14, inset 0 0 10px rgba(57, 255, 20, 0.1);
         }
         
         .neon-button {
@@ -43,7 +38,6 @@
         
         .neon-button:hover {
             background-color: #32E612;
-            box-shadow: 0 0 15px #39FF14;
         }
         
         .member-card {
@@ -53,7 +47,6 @@
         
         .member-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(57, 255, 20, 0.2);
         }
         
         .modal-overlay {
@@ -73,6 +66,16 @@
             height: 100%;
             transition: width 0.5s ease;
         }
+        
+        .google-login {
+            background-color: #4285F4;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .google-login:hover {
+            background-color: #357ae8;
+        }
     </style>
 </head>
 <body class="bg-dark-base min-h-screen">
@@ -81,15 +84,15 @@
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
             <div class="flex items-center space-x-2">
                 <i class="fas fa-dragon text-neon-green text-2xl"></i>
-                <h1 class="text-2xl font-bold neon-glow">Guild Origem</h1>
+                <h1 class="text-2xl font-bold text-neon-green">Guild Origem</h1>
             </div>
             
             <div class="hidden md:flex space-x-6">
-                <a href="#" class="text-white hover:text-neon-green transition">Início</a>
-                <a href="#" class="text-white hover:text-neon-green transition">Membros</a>
-                <a href="#" class="text-white hover:text-neon-green transition">Eventos</a>
-                <a href="#" class="text-white hover:text-neon-green transition">Regras</a>
-                <a href="#" class="text-white hover:text-neon-green transition">Recrutamento</a>
+                <a href="#inicio" class="text-white hover:text-neon-green transition">Início</a>
+                <a href="#membros" class="text-white hover:text-neon-green transition">Membros</a>
+                <a href="#sobre" class="text-white hover:text-neon-green transition">Sobre</a>
+                <a href="#eventos" class="text-white hover:text-neon-green transition">Eventos</a>
+                <a href="#regras" class="text-white hover:text-neon-green transition">Regras</a>
             </div>
             
             <div class="flex items-center space-x-4">
@@ -102,9 +105,9 @@
     </header>
 
     <!-- Banner Principal -->
-    <section class="relative py-16 md:py-24 bg-gradient-to-r from-dark-base to-gray-900">
+    <section id="inicio" class="relative py-16 md:py-24 bg-gradient-to-r from-dark-base to-gray-900">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl md:text-6xl font-bold mb-4 neon-glow">Guild Origem</h2>
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 text-neon-green">Guild Origem</h2>
             <p class="text-xl md:text-2xl mb-8">Comunidade de AdventureQuest Worlds</p>
             
             <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border mb-8">
@@ -124,9 +127,9 @@
     </section>
 
     <!-- Seção de Membros -->
-    <section class="py-16">
+    <section id="membros" class="py-16">
         <div class="container mx-auto px-4">
-            <h2 class="text-3xl font-bold text-center mb-12 neon-glow">Nossos Membros</h2>
+            <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Nossos Membros</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 <!-- Card de Membro 1 -->
@@ -209,10 +212,10 @@
     </section>
 
     <!-- Seção Sobre a Guild -->
-    <section class="py-16 bg-gray-900">
+    <section id="sobre" class="py-16 bg-gray-900">
         <div class="container mx-auto px-4">
             <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-3xl font-bold mb-6 neon-glow">Sobre a Guild Origem</h2>
+                <h2 class="text-3xl font-bold mb-6 text-neon-green">Sobre a Guild Origem</h2>
                 <p class="text-lg mb-6">
                     A Guild Origem é uma comunidade dedicada de jogadores de AdventureQuest Worlds, focada em criar um ambiente amigável e colaborativo para todos os membros. Nossa missão é crescer juntos, superar desafios épicos e construir amizades duradouras no mundo de Lore.
                 </p>
@@ -243,6 +246,52 @@
         </div>
     </section>
 
+    <!-- Seção de Eventos -->
+    <section id="eventos" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Próximos Eventos</h2>
+            
+            <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Batalha contra o Dragão Épico</h3>
+                    <p class="text-gray-400 mb-2">Sábado, 15:00 (Horário do Servidor)</p>
+                    <p>Junte-se a nós para uma batalha épica contra o temível dragão que ameaça as terras de Lore. Recompensas especiais para todos os participantes!</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Torneio PvP da Guild</h3>
+                    <p class="text-gray-400 mb-2">Domingo, 18:00 (Horário do Servidor)</p>
+                    <p>Mostre suas habilidades de combate no torneio PvP da guild. Prêmios em moedas de ouro e itens raros para os vencedores.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Sessão de Treinamento para Novatos</h3>
+                    <p class="text-gray-400 mb-2">Quarta-feira, 20:00 (Horário do Servidor)</p>
+                    <p>Novos membros são especialmente convidados para esta sessão de treinamento onde aprenderão estratégias avançadas e dicas de jogo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Regras -->
+    <section id="regras" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Regras da Guild</h2>
+            
+            <div class="max-w-3xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                <ol class="list-decimal pl-5 space-y-4">
+                    <li class="pb-2 border-b border-gray-700">Respeite todos os membros da guild e da comunidade de AQW.</li>
+                    <li class="pb-2 border-b border-gray-700">Não utilize linguagem ofensiva, discriminatória ou tóxica.</li>
+                    <li class="pb-2 border-b border-gray-700">Participe ativamente dos eventos da guild sempre que possível.</li>
+                    <li class="pb-2 border-b border-gray-700">Ajude outros membros quando solicitado, especialmente os novatos.</li>
+                    <li class="pb-2 border-b border-gray-700">Não divulgue informações privadas da guild para jogadores externos.</li>
+                    <li class="pb-2 border-b border-gray-700">Mantenha-se ativo - inatividade prolongada pode resultar em remoção.</li>
+                    <li class="pb-2">Siga as regras oficiais do AdventureQuest Worlds em todos os momentos.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
     <!-- Rodapé -->
     <footer class="py-8 border-t border-gray-800">
         <div class="container mx-auto px-4">
@@ -250,7 +299,7 @@
                 <div class="mb-4 md:mb-0">
                     <div class="flex items-center space-x-2">
                         <i class="fas fa-dragon text-neon-green text-2xl"></i>
-                        <h2 class="text-xl font-bold">Guild Origem</h2>
+                        <h2 class="text-xl font-bold text-neon-green">Guild Origem</h2>
                     </div>
                     <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
                 </div>
@@ -269,7 +318,7 @@
             </div>
             
             <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
-                <p>&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
+                <p id="copyright">&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
             </div>
         </div>
     </footer>
@@ -304,6 +353,19 @@
                 </div>
                 
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Entrar</button>
+                
+                <div class="relative my-4">
+                    <div class="absolute inset-0 flex items-center">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center text-sm">
+                        <span class="px-2 bg-dark-base text-gray-400">Ou entre com</span>
+                    </div>
+                </div>
+                
+                <button type="button" id="googleLogin" class="w-full py-3 google-login rounded font-bold flex items-center justify-center">
+                    <i class="fab fa-google mr-2"></i> Entrar com Google
+                </button>
             </form>
             
             <div class="mt-6 text-center">
@@ -354,7 +416,7 @@
                 
                 <div class="flex items-center">
                     <input type="checkbox" id="acceptRules" class="mr-2" required>
-                    <label for="acceptRules">Eu li e aceito as <a href="#" class="text-neon-green hover:underline">regras da guild</a></label>
+                    <label for="acceptRules">Eu li e aceito as <a href="#regras" class="text-neon-green hover:underline">regras da guild</a></label>
                 </div>
                 
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Registrar</button>
@@ -370,7 +432,7 @@
     <script type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
         import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
@@ -387,6 +449,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const googleProvider = new GoogleAuthProvider();
 
         // Funções de autenticação
         window.registerUser = async (email, password, username, character, level) => {
@@ -424,6 +487,43 @@
             } catch (error) {
                 console.error("Erro no login:", error);
                 alert("Erro ao fazer login: " + error.message);
+            }
+        };
+
+        window.loginWithGoogle = async () => {
+            try {
+                const result = await signInWithPopup(auth, googleProvider);
+                const user = result.user;
+                
+                // Verificar se o usuário já existe no Firestore
+                const querySnapshot = await getDocs(collection(db, "users"));
+                let userExists = false;
+                
+                querySnapshot.forEach((doc) => {
+                    if (doc.data().uid === user.uid) {
+                        userExists = true;
+                    }
+                });
+                
+                // Se não existe, criar registro
+                if (!userExists) {
+                    await addDoc(collection(db, "users"), {
+                        uid: user.uid,
+                        username: user.displayName || user.email.split('@')[0],
+                        email: user.email,
+                        character: "A definir",
+                        level: 1,
+                        joinDate: new Date(),
+                        rank: "Novato"
+                    });
+                }
+                
+                alert("Login com Google realizado com sucesso!");
+                closeLoginModal();
+                return user;
+            } catch (error) {
+                console.error("Erro no login com Google:", error);
+                alert("Erro ao fazer login com Google: " + error.message);
             }
         };
 
@@ -470,12 +570,22 @@
         const joinBtn = document.getElementById('joinBtn');
         const loginModal = document.getElementById('loginModal');
         const registerModal = document.getElementById('registerModal');
-        const closeLoginModal = document.getElementById('closeLoginModal');
-        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const closeLoginModalBtn = document.getElementById('closeLoginModal');
+        const closeRegisterModalBtn = document.getElementById('closeRegisterModal');
         const showRegister = document.getElementById('showRegister');
         const showLogin = document.getElementById('showLogin');
         const loginForm = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
+        const googleLoginBtn = document.getElementById('googleLogin');
+
+        // Funções para fechar modais
+        function closeLoginModal() {
+            loginModal.classList.add('hidden');
+        }
+
+        function closeRegisterModal() {
+            registerModal.classList.add('hidden');
+        }
 
         // Abrir modal de login
         loginBtn.addEventListener('click', () => {
@@ -488,32 +598,27 @@
         });
 
         // Fechar modais
-        closeLoginModal.addEventListener('click', () => {
-            loginModal.classList.add('hidden');
-        });
-
-        closeRegisterModal.addEventListener('click', () => {
-            registerModal.classList.add('hidden');
-        });
+        closeLoginModalBtn.addEventListener('click', closeLoginModal);
+        closeRegisterModalBtn.addEventListener('click', closeRegisterModal);
 
         // Alternar entre login e registro
         showRegister.addEventListener('click', () => {
-            loginModal.classList.add('hidden');
+            closeLoginModal();
             registerModal.classList.remove('hidden');
         });
 
         showLogin.addEventListener('click', () => {
-            registerModal.classList.add('hidden');
+            closeRegisterModal();
             loginModal.classList.remove('hidden');
         });
 
         // Fechar modais ao clicar fora
         window.addEventListener('click', (e) => {
             if (e.target === loginModal) {
-                loginModal.classList.add('hidden');
+                closeLoginModal();
             }
             if (e.target === registerModal) {
-                registerModal.classList.add('hidden');
+                closeRegisterModal();
             }
         });
 
@@ -556,23 +661,38 @@
             }
         });
 
-        // Efeito de digitação no título
+        // Login com Google
+        googleLoginBtn.addEventListener('click', () => {
+            if (typeof window.loginWithGoogle === 'function') {
+                window.loginWithGoogle();
+            } else {
+                alert('Login com Google em desenvolvimento');
+            }
+        });
+
+        // Atualizar automaticamente o ano do copyright
         document.addEventListener('DOMContentLoaded', () => {
-            const title = document.querySelector('.neon-glow');
-            const originalText = title.textContent;
-            title.textContent = '';
+            const copyrightElement = document.getElementById('copyright');
+            const currentYear = new Date().getFullYear();
+            copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
             
-            let i = 0;
-            const typeWriter = () => {
-                if (i < originalText.length) {
-                    title.textContent += originalText.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 100);
-                }
-            };
-            
-            // Iniciar efeito após um breve delay
-            setTimeout(typeWriter, 500);
+            // Suavizar rolagem para âncoras
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
         });
     </script>
 </body>
