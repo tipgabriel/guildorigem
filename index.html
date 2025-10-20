@@ -76,13 +76,9 @@
         .google-login:hover {
             background-color: #357ae8;
         }
-        
-        .smooth-scroll {
-            scroll-behavior: smooth;
-        }
     </style>
 </head>
-<body class="bg-dark-base min-h-screen smooth-scroll">
+<body class="bg-dark-base min-h-screen">
     <!-- Cabeçalho -->
     <header class="sticky top-0 z-50 bg-dark-base border-b border-neon-green">
         <div class="container mx-auto px-4 py-3 flex justify-between items-center">
@@ -136,7 +132,7 @@
             <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Nossos Membros</h2>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                <!-- Cards de membros (mantidos do código anterior) -->
+                <!-- Card de Membro 1 -->
                 <div class="member-card rounded-lg p-4 neon-border">
                     <div class="flex items-center mb-4">
                         <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
@@ -154,10 +150,178 @@
                     </div>
                 </div>
                 
-                <!-- Outros cards de membros... -->
+                <!-- Card de Membro 2 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">ShadowBlade</h3>
+                            <p class="text-sm text-gray-400">Oficial</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 95</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 5h</p>
+                    </div>
+                </div>
+                
+                <!-- Card de Membro 3 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">LunaStrike</h3>
+                            <p class="text-sm text-gray-400">Membro</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 87</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Avançado</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 1h</p>
+                    </div>
+                </div>
+                
+                <!-- Card de Membro 4 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">IronFist</h3>
+                            <p class="text-sm text-gray-400">Membro</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 92</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 3h</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">Ver Todos os Membros</button>
             </div>
         </div>
     </section>
+
+    <!-- Seção Sobre a Guild -->
+    <section id="sobre" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 text-neon-green">Sobre a Guild Origem</h2>
+                <p class="text-lg mb-6">
+                    A Guild Origem é uma comunidade dedicada de jogadores de AdventureQuest Worlds, focada em criar um ambiente amigável e colaborativo para todos os membros. Nossa missão é crescer juntos, superar desafios épicos e construir amizades duradouras no mundo de Lore.
+                </p>
+                <p class="text-lg mb-8">
+                    Com 58 membros ativos de um total de 140, estamos sempre em busca de novos aventureiros para se juntar à nossa família. Oferecemos eventos semanais, ajuda com quests difíceis e um sistema de ranking que recompensa a atividade e contribuição.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-users text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Comunidade Ativa</h3>
+                        <p>Eventos semanais e chat sempre movimentado</p>
+                    </div>
+                    
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-trophy text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Sistema de Ranking</h3>
+                        <p>Progressão baseada em atividade e contribuição</p>
+                    </div>
+                    
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-shield-alt text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Ajuda em Quests</h3>
+                        <p>Suporte para quests difíceis e bosses desafiadores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Eventos -->
+    <section id="eventos" class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Próximos Eventos</h2>
+            
+            <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Batalha contra o Dragão Épico</h3>
+                    <p class="text-gray-400 mb-2">Sábado, 15:00 (Horário do Servidor)</p>
+                    <p>Junte-se a nós para uma batalha épica contra o temível dragão que ameaça as terras de Lore. Recompensas especiais para todos os participantes!</p>
+                </div>
+                
+                <div class="mb-6">
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Torneio PvP da Guild</h3>
+                    <p class="text-gray-400 mb-2">Domingo, 18:00 (Horário do Servidor)</p>
+                    <p>Mostre suas habilidades de combate no torneio PvP da guild. Prêmios em moedas de ouro e itens raros para os vencedores.</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-bold mb-2 text-neon-green">Sessão de Treinamento para Novatos</h3>
+                    <p class="text-gray-400 mb-2">Quarta-feira, 20:00 (Horário do Servidor)</p>
+                    <p>Novos membros são especialmente convidados para esta sessão de treinamento onde aprenderão estratégias avançadas e dicas de jogo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Regras -->
+    <section id="regras" class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Regras da Guild</h2>
+            
+            <div class="max-w-3xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                <ol class="list-decimal pl-5 space-y-4">
+                    <li class="pb-2 border-b border-gray-700">Respeite todos os membros da guild e da comunidade de AQW.</li>
+                    <li class="pb-2 border-b border-gray-700">Não utilize linguagem ofensiva, discriminatória ou tóxica.</li>
+                    <li class="pb-2 border-b border-gray-700">Participe ativamente dos eventos da guild sempre que possível.</li>
+                    <li class="pb-2 border-b border-gray-700">Ajude outros membros quando solicitado, especialmente os novatos.</li>
+                    <li class="pb-2 border-b border-gray-700">Não divulgue informações privadas da guild para jogadores externos.</li>
+                    <li class="pb-2 border-b border-gray-700">Mantenha-se ativo - inatividade prolongada pode resultar em remoção.</li>
+                    <li class="pb-2">Siga as regras oficiais do AdventureQuest Worlds em todos os momentos.</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-dragon text-neon-green text-2xl"></i>
+                        <h2 class="text-xl font-bold text-neon-green">Guild Origem</h2>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p id="copyright">&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal de Login -->
     <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
@@ -206,14 +370,6 @@
             
             <div class="mt-6 text-center">
                 <p class="text-gray-400">Não tem uma conta? <button id="showRegister" class="text-neon-green hover:underline">Registre-se</button></p>
-            </div>
-
-            <!-- Mensagem informativa sobre configuração do Firebase -->
-            <div class="mt-4 p-3 bg-yellow-900 bg-opacity-20 rounded border border-yellow-600">
-                <p class="text-sm text-yellow-300">
-                    <i class="fas fa-exclamation-triangle mr-2"></i>
-                    Para usar o login com Google, configure o domínio no Firebase Console.
-                </p>
             </div>
         </div>
     </div>
@@ -367,13 +523,7 @@
                 return user;
             } catch (error) {
                 console.error("Erro no login com Google:", error);
-                
-                // Mensagem mais específica para o erro de domínio
-                if (error.code === 'auth/unauthorized-domain') {
-                    alert("Erro: Domínio não autorizado. Para usar o login com Google, você precisa adicionar este domínio nas configurações do Firebase Authentication.");
-                } else {
-                    alert("Erro ao fazer login com Google: " + error.message);
-                }
+                alert("Erro ao fazer login com Google: " + error.message);
             }
         };
 
@@ -387,6 +537,30 @@
                 document.getElementById('loginBtn').textContent = "Entrar";
             }
         });
+    </script>
+
+    <!-- JSON-LD para SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Guild Origem",
+        "description": "Comunidade de AdventureQuest Worlds focada em criar um ambiente amigável e colaborativo para todos os membros.",
+        "url": "https://guildorigem.com",
+        "logo": "https://guildorigem.com/logo.png",
+        "memberOf": {
+            "@type": "VideoGame",
+            "name": "AdventureQuest Worlds"
+        },
+        "member": {
+            "@type": "OrganizationRole",
+            "roleName": "Membro da Guild",
+            "member": {
+                "@type": "Person",
+                "name": "Dragomir"
+            }
+        }
+    }
     </script>
 
     <!-- JavaScript para funcionalidades da interface -->
@@ -499,10 +673,8 @@
         // Atualizar automaticamente o ano do copyright
         document.addEventListener('DOMContentLoaded', () => {
             const copyrightElement = document.getElementById('copyright');
-            if (copyrightElement) {
-                const currentYear = new Date().getFullYear();
-                copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
-            }
+            const currentYear = new Date().getFullYear();
+            copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
             
             // Suavizar rolagem para âncoras
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -521,44 +693,6 @@
                     }
                 });
             });
-        });
-    </script>
-
-    <!-- Instruções para configurar o domínio no Firebase -->
-    <div id="firebaseInstructions" class="fixed bottom-4 right-4 bg-dark-base p-4 rounded-lg neon-border max-w-md hidden">
-        <button id="closeInstructions" class="absolute top-2 right-2 text-gray-400 hover:text-white">
-            <i class="fas fa-times"></i>
-        </button>
-        <h3 class="text-neon-green font-bold mb-2">Configurar Domínio no Firebase</h3>
-        <ol class="text-sm list-decimal pl-4 space-y-1">
-            <li>Acesse o <a href="https://console.firebase.google.com/" class="text-neon-green underline" target="_blank">Firebase Console</a></li>
-            <li>Selecione seu projeto "guildorigem"</li>
-            <li>Vá em Authentication > Settings</li>
-            <li>Em "Authorized domains", adicione:
-                <ul class="list-disc pl-4 mt-1">
-                    <li>guildorigem.vercel.app</li>
-                    <li>localhost (para desenvolvimento)</li>
-                </ul>
-            </li>
-        </ol>
-    </div>
-
-    <button id="showInstructions" class="fixed bottom-4 right-4 bg-neon-green text-dark-base p-2 rounded-full shadow-lg">
-        <i class="fas fa-question"></i>
-    </button>
-
-    <script>
-        // Botão de instruções do Firebase
-        const showInstructionsBtn = document.getElementById('showInstructions');
-        const firebaseInstructions = document.getElementById('firebaseInstructions');
-        const closeInstructionsBtn = document.getElementById('closeInstructions');
-
-        showInstructionsBtn.addEventListener('click', () => {
-            firebaseInstructions.classList.toggle('hidden');
-        });
-
-        closeInstructionsBtn.addEventListener('click', () => {
-            firebaseInstructions.classList.add('hidden');
         });
     </script>
 </body>
