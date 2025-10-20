@@ -6,8 +6,8 @@
     <title>Guild Origem - AdventureQuest Worlds</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Adicionando reCAPTCHA Enterprise -->
-    <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH"></script>
+    <!-- reCAPTCHA v2 (mais simples de implementar) -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         tailwind.config = {
             theme: {
@@ -85,6 +85,12 @@
         
         .hidden {
             display: none;
+        }
+        
+        .g-recaptcha {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
         }
     </style>
 </head>
@@ -489,9 +495,10 @@
                 </div>
                 
                 <!-- reCAPTCHA para login -->
-                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH" data-callback="onLoginCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH"></div>
+                <div id="loginCaptchaError" class="text-red-500 text-sm mt-2 hidden">Por favor, complete o reCAPTCHA</div>
                 
-                <button type="submit" id="loginSubmit" class="w-full py-3 neon-button rounded font-bold mt-4" disabled>Entrar</button>
+                <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Entrar</button>
                 
                 <div class="relative my-4">
                     <div class="absolute inset-0 flex items-center">
@@ -550,7 +557,7 @@
                 
                 <div>
                     <label for="registerLevel" class="block mb-2">Nível</label>
-                    <input type="number" id="registerLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100" maxlength="3" required>
+                    <input type="number" id="registerLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100" required>
                 </div>
                 
                 <div class="flex items-center">
@@ -559,9 +566,10 @@
                 </div>
                 
                 <!-- reCAPTCHA para registro -->
-                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH" data-callback="onRegisterCaptchaSuccess" data-expired-callback="onCaptchaExpired"></div>
+                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH"></div>
+                <div id="registerCaptchaError" class="text-red-500 text-sm mt-2 hidden">Por favor, complete o reCAPTCHA</div>
                 
-                <button type="submit" id="registerSubmit" class="w-full py-3 neon-button rounded font-bold mt-4" disabled>Registrar</button>
+                <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Registrar</button>
             </form>
             
             <div class="mt-6 text-center">
@@ -575,7 +583,7 @@
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where, updateDoc, doc } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
         // Your web app's Firebase configuration
         const firebaseConfig = {
@@ -592,10 +600,6 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
         const googleProvider = new GoogleAuthProvider();
-
-        // Variáveis globais para controle do reCAPTCHA
-        let loginCaptchaVerified = false;
-        let registerCaptchaVerified = false;
 
         // Funções de autenticação
         window.registerUser = async (email, password, username, character, level) => {
@@ -714,30 +718,6 @@
         };
     </script>
 
-    <!-- JSON-LD para SEO -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Guild Origem",
-        "description": "Comunidade de AdventureQuest Worlds focada em criar um ambiente amigável e colaborativo para todos os membros.",
-        "url": "https://guildorigem.com",
-        "logo": "https://guildorigem.com/logo.png",
-        "memberOf": {
-            "@type": "VideoGame",
-            "name": "AdventureQuest Worlds"
-        },
-        "member": {
-            "@type": "OrganizationRole",
-            "roleName": "Membro da Guild",
-            "member": {
-                "@type": "Person",
-                "name": "Dragomir"
-            }
-        }
-    }
-    </script>
-
     <!-- JavaScript para funcionalidades da interface -->
     <script>
         // Elementos DOM
@@ -753,27 +733,26 @@
         const loginForm = document.getElementById('loginForm');
         const registerForm = document.getElementById('registerForm');
         const googleLoginBtn = document.getElementById('googleLogin');
-        const loginSubmitBtn = document.getElementById('loginSubmit');
-        const registerSubmitBtn = document.getElementById('registerSubmit');
         const mainContent = document.getElementById('mainContent');
         const userPanel = document.getElementById('userPanel');
         const backToMainBtn = document.getElementById('backToMain');
-        const editProfileBtn = document.getElementById('editProfile');
         const registerLevelInput = document.getElementById('registerLevel');
 
         // Funções para fechar modais
         function closeLoginModal() {
             loginModal.classList.add('hidden');
+            // Resetar formulário
+            loginForm.reset();
             // Resetar reCAPTCHA
-            loginCaptchaVerified = false;
-            loginSubmitBtn.disabled = true;
+            grecaptcha.reset();
         }
 
         function closeRegisterModal() {
             registerModal.classList.add('hidden');
+            // Resetar formulário
+            registerForm.reset();
             // Resetar reCAPTCHA
-            registerCaptchaVerified = false;
-            registerSubmitBtn.disabled = true;
+            grecaptcha.reset();
         }
 
         // Abrir modal de login
@@ -824,11 +803,13 @@
             const email = document.getElementById('loginUsername').value;
             const password = document.getElementById('loginPassword').value;
             
-            // Verificar se o reCAPTCHA foi preenchido
-            if (!loginCaptchaVerified) {
-                alert('Por favor, complete o reCAPTCHA antes de fazer login.');
+            // Verificar reCAPTCHA
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                document.getElementById('loginCaptchaError').classList.remove('hidden');
                 return;
             }
+            document.getElementById('loginCaptchaError').classList.add('hidden');
             
             // Usar função do Firebase para login
             if (typeof window.loginUser === 'function') {
@@ -857,11 +838,13 @@
             const character = document.getElementById('registerCharacter').value;
             const level = document.getElementById('registerLevel').value;
             
-            // Verificar se o reCAPTCHA foi preenchido
-            if (!registerCaptchaVerified) {
-                alert('Por favor, complete o reCAPTCHA antes de se registrar.');
+            // Verificar reCAPTCHA
+            const recaptchaResponse = grecaptcha.getResponse();
+            if (!recaptchaResponse) {
+                document.getElementById('registerCaptchaError').classList.remove('hidden');
                 return;
             }
+            document.getElementById('registerCaptchaError').classList.add('hidden');
             
             // Verificar se as senhas coincidem
             if (password !== document.getElementById('registerConfirmPassword').value) {
@@ -929,25 +912,6 @@
                 e.target.value = 100;
             }
         });
-
-        // Funções de callback para reCAPTCHA
-        window.onLoginCaptchaSuccess = function() {
-            loginCaptchaVerified = true;
-            loginSubmitBtn.disabled = false;
-        };
-
-        window.onRegisterCaptchaSuccess = function() {
-            registerCaptchaVerified = true;
-            registerSubmitBtn.disabled = false;
-        };
-
-        window.onCaptchaExpired = function() {
-            // Reativar botões de envio se o reCAPTCHA expirar
-            loginCaptchaVerified = false;
-            registerCaptchaVerified = false;
-            loginSubmitBtn.disabled = true;
-            registerSubmitBtn.disabled = true;
-        };
 
         // Atualizar automaticamente o ano do copyright
         document.addEventListener('DOMContentLoaded', () => {
