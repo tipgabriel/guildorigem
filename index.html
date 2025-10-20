@@ -6,7 +6,7 @@
     <title>Guild Origem - AdventureQuest Worlds</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- reCAPTCHA v2 (mais simples de implementar) -->
+    <!-- reCAPTCHA v2 com suas novas chaves -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         tailwind.config = {
@@ -494,8 +494,8 @@
                     <a href="#" class="text-neon-green hover:underline">Esqueceu a senha?</a>
                 </div>
                 
-                <!-- reCAPTCHA para login -->
-                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH"></div>
+                <!-- reCAPTCHA para login com NOVA CHAVE -->
+                <div class="g-recaptcha" data-sitekey="6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu"></div>
                 <div id="loginCaptchaError" class="text-red-500 text-sm mt-2 hidden">Por favor, complete o reCAPTCHA</div>
                 
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Entrar</button>
@@ -531,33 +531,29 @@
             
             <form id="registerForm" class="space-y-4">
                 <div>
-                    <label for="registerUsername" class="block mb-2">Nome de Usuário</label>
+                    <label for="registerUsername" class="block mb-2">Nome do personagem</label>
                     <input type="text" id="registerUsername" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
                 </div>
                 
                 <div>
                     <label for="registerEmail" class="block mb-2">E-mail</label>
-                    <input type="email" id="registerEmail" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                    <input type="email" id="registerEmail" placeholder="Qual seu melhor email?" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
                 </div>
                 
                 <div>
                     <label for="registerPassword" class="block mb-2">Senha</label>
-                    <input type="password" id="registerPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                    <input type="password" id="registerPassword" placeholder="Crie sua senha" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
                 </div>
                 
                 <div>
                     <label for="registerConfirmPassword" class="block mb-2">Confirmar Senha</label>
-                    <input type="password" id="registerConfirmPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                    <input type="password" id="registerConfirmPassword" placeholder="Confirme sua senha" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
                 </div>
-                
-                <div>
-                    <label for="registerCharacter" class="block mb-2">Personagem Principal</label>
-                    <input type="text" id="registerCharacter" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
-                </div>
+
                 
                 <div>
                     <label for="registerLevel" class="block mb-2">Nível</label>
-                    <input type="number" id="registerLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100" required>
+                    <input type="number" id="registerLevel" placeholder="Digite seu nível no jogo" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100" required>
                 </div>
                 
                 <div class="flex items-center">
@@ -565,8 +561,8 @@
                     <label for="acceptRules">Eu li e aceito as <a href="#regras" class="text-neon-green hover:underline">regras da guild</a></label>
                 </div>
                 
-                <!-- reCAPTCHA para registro -->
-                <div class="g-recaptcha" data-sitekey="6LdODvErAAAAANCd-ohTZ6kC6lReIB3-wRCzF3bH"></div>
+                <!-- reCAPTCHA para registro com NOVA CHAVE -->
+                <div class="g-recaptcha" data-sitekey="6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu"></div>
                 <div id="registerCaptchaError" class="text-red-500 text-sm mt-2 hidden">Por favor, complete o reCAPTCHA</div>
                 
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Registrar</button>
@@ -744,7 +740,9 @@
             // Resetar formulário
             loginForm.reset();
             // Resetar reCAPTCHA
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.reset();
+            }
         }
 
         function closeRegisterModal() {
@@ -752,7 +750,9 @@
             // Resetar formulário
             registerForm.reset();
             // Resetar reCAPTCHA
-            grecaptcha.reset();
+            if (typeof grecaptcha !== 'undefined') {
+                grecaptcha.reset();
+            }
         }
 
         // Abrir modal de login
@@ -804,10 +804,12 @@
             const password = document.getElementById('loginPassword').value;
             
             // Verificar reCAPTCHA
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                document.getElementById('loginCaptchaError').classList.remove('hidden');
-                return;
+            if (typeof grecaptcha !== 'undefined') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    document.getElementById('loginCaptchaError').classList.remove('hidden');
+                    return;
+                }
             }
             document.getElementById('loginCaptchaError').classList.add('hidden');
             
@@ -839,10 +841,12 @@
             const level = document.getElementById('registerLevel').value;
             
             // Verificar reCAPTCHA
-            const recaptchaResponse = grecaptcha.getResponse();
-            if (!recaptchaResponse) {
-                document.getElementById('registerCaptchaError').classList.remove('hidden');
-                return;
+            if (typeof grecaptcha !== 'undefined') {
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    document.getElementById('registerCaptchaError').classList.remove('hidden');
+                    return;
+                }
             }
             document.getElementById('registerCaptchaError').classList.add('hidden');
             
