@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guild Origem - AdventureQuest Worlds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'dark-base': '#171717',
+                        'neon-green': '#39FF14',
+                        'neon-green-hover': '#32E612',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #171717;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .neon-glow {
+            text-shadow: 0 0 5px #39FF14, 0 0 10px #39FF14, 0 0 15px #39FF14;
+        }
+        
+        .neon-border {
+            border: 2px solid #39FF14;
+            box-shadow: 0 0 10px #39FF14, inset 0 0 10px rgba(57, 255, 20, 0.1);
+        }
+        
+        .neon-button {
+            background-color: #39FF14;
+            color: #171717;
+            transition: all 0.3s ease;
+        }
+        
+        .neon-button:hover {
+            background-color: #32E612;
+            box-shadow: 0 0 15px #39FF14;
+        }
+        
+        .member-card {
+            background-color: #1f1f1f;
+            transition: transform 0.3s ease;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(57, 255, 20, 0.2);
+        }
+        
+        .modal-overlay {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+        }
+        
+        .progress-bar {
+            background-color: #2a2a2a;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            background-color: #39FF14;
+            height: 100%;
+            transition: width 0.5s ease;
+        }
+    </style>
+</head>
+<body class="bg-dark-base min-h-screen">
+    <!-- Cabeçalho -->
+    <header class="sticky top-0 z-50 bg-dark-base border-b border-neon-green">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <i class="fas fa-dragon text-neon-green text-2xl"></i>
+                <h1 class="text-2xl font-bold neon-glow">Guild Origem</h1>
+            </div>
+            
+            <div class="hidden md:flex space-x-6">
+                <a href="#" class="text-white hover:text-neon-green transition">Início</a>
+                <a href="#" class="text-white hover:text-neon-green transition">Membros</a>
+                <a href="#" class="text-white hover:text-neon-green transition">Eventos</a>
+                <a href="#" class="text-white hover:text-neon-green transition">Regras</a>
+                <a href="#" class="text-white hover:text-neon-green transition">Recrutamento</a>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <button id="loginBtn" class="px-4 py-2 neon-button rounded font-bold">Entrar</button>
+                <button id="menuBtn" class="md:hidden text-white">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Banner Principal -->
+    <section class="relative py-16 md:py-24 bg-gradient-to-r from-dark-base to-gray-900">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 neon-glow">Guild Origem</h2>
+            <p class="text-xl md:text-2xl mb-8">Comunidade de AdventureQuest Worlds</p>
+            
+            <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border mb-8">
+                <h3 class="text-2xl font-bold mb-4 text-neon-green">Status da Guild</h3>
+                <div class="flex justify-between mb-2">
+                    <span>Membros Ativos</span>
+                    <span>58/140</span>
+                </div>
+                <div class="progress-bar mb-4">
+                    <div class="progress-fill" style="width: 41.4%"></div>
+                </div>
+                <p class="text-sm text-gray-400">Precisamos de mais 82 membros para completar a guild!</p>
+            </div>
+            
+            <button id="joinBtn" class="px-8 py-3 neon-button rounded-lg font-bold text-lg">Junte-se a Nós</button>
+        </div>
+    </section>
+
+    <!-- Seção de Membros -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12 neon-glow">Nossos Membros</h2>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <!-- Card de Membro 1 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">Dragomir</h3>
+                            <p class="text-sm text-gray-400">Líder</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 100</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Mestre</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 2h</p>
+                    </div>
+                </div>
+                
+                <!-- Card de Membro 2 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">ShadowBlade</h3>
+                            <p class="text-sm text-gray-400">Oficial</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 95</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 5h</p>
+                    </div>
+                </div>
+                
+                <!-- Card de Membro 3 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">LunaStrike</h3>
+                            <p class="text-sm text-gray-400">Membro</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 87</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Avançado</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 1h</p>
+                    </div>
+                </div>
+                
+                <!-- Card de Membro 4 -->
+                <div class="member-card rounded-lg p-4 neon-border">
+                    <div class="flex items-center mb-4">
+                        <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                            <i class="fas fa-user text-neon-green text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg">IronFist</h3>
+                            <p class="text-sm text-gray-400">Membro</p>
+                        </div>
+                    </div>
+                    <div class="text-sm">
+                        <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 92</p>
+                        <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                        <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 3h</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8">
+                <button class="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">Ver Todos os Membros</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre a Guild -->
+    <section class="py-16 bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-3xl font-bold mb-6 neon-glow">Sobre a Guild Origem</h2>
+                <p class="text-lg mb-6">
+                    A Guild Origem é uma comunidade dedicada de jogadores de AdventureQuest Worlds, focada em criar um ambiente amigável e colaborativo para todos os membros. Nossa missão é crescer juntos, superar desafios épicos e construir amizades duradouras no mundo de Lore.
+                </p>
+                <p class="text-lg mb-8">
+                    Com 58 membros ativos de um total de 140, estamos sempre em busca de novos aventureiros para se juntar à nossa família. Oferecemos eventos semanais, ajuda com quests difíceis e um sistema de ranking que recompensa a atividade e contribuição.
+                </p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-users text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Comunidade Ativa</h3>
+                        <p>Eventos semanais e chat sempre movimentado</p>
+                    </div>
+                    
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-trophy text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Sistema de Ranking</h3>
+                        <p>Progressão baseada em atividade e contribuição</p>
+                    </div>
+                    
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <i class="fas fa-shield-alt text-neon-green text-3xl mb-4"></i>
+                        <h3 class="text-xl font-bold mb-2">Ajuda em Quests</h3>
+                        <p>Suporte para quests difíceis e bosses desafiadores</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-dragon text-neon-green text-2xl"></i>
+                        <h2 class="text-xl font-bold">Guild Origem</h2>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p>&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal de Login -->
+    <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
+        <div class="bg-dark-base rounded-lg p-8 w-full max-w-md neon-border relative">
+            <button id="closeLoginModal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold mb-6 text-center text-neon-green">Entrar na Guild</h2>
+            
+            <form id="loginForm" class="space-y-4">
+                <div>
+                    <label for="loginUsername" class="block mb-2">Nome de Usuário</label>
+                    <input type="text" id="loginUsername" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="loginPassword" class="block mb-2">Senha</label>
+                    <input type="password" id="loginPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center">
+                        <input type="checkbox" id="rememberMe" class="mr-2">
+                        <label for="rememberMe">Lembrar-me</label>
+                    </div>
+                    
+                    <a href="#" class="text-neon-green hover:underline">Esqueceu a senha?</a>
+                </div>
+                
+                <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Entrar</button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-400">Não tem uma conta? <button id="showRegister" class="text-neon-green hover:underline">Registre-se</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Registro -->
+    <div id="registerModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
+        <div class="bg-dark-base rounded-lg p-8 w-full max-w-md neon-border relative">
+            <button id="closeRegisterModal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold mb-6 text-center text-neon-green">Junte-se à Guild</h2>
+            
+            <form id="registerForm" class="space-y-4">
+                <div>
+                    <label for="registerUsername" class="block mb-2">Nome de Usuário</label>
+                    <input type="text" id="registerUsername" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="registerEmail" class="block mb-2">E-mail</label>
+                    <input type="email" id="registerEmail" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="registerPassword" class="block mb-2">Senha</label>
+                    <input type="password" id="registerPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="registerConfirmPassword" class="block mb-2">Confirmar Senha</label>
+                    <input type="password" id="registerConfirmPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="registerCharacter" class="block mb-2">Personagem Principal</label>
+                    <input type="text" id="registerCharacter" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="registerLevel" class="block mb-2">Nível</label>
+                    <input type="number" id="registerLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100" required>
+                </div>
+                
+                <div class="flex items-center">
+                    <input type="checkbox" id="acceptRules" class="mr-2" required>
+                    <label for="acceptRules">Eu li e aceito as <a href="#" class="text-neon-green hover:underline">regras da guild</a></label>
+                </div>
+                
+                <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Registrar</button>
+            </form>
+            
+            <div class="mt-6 text-center">
+                <p class="text-gray-400">Já tem uma conta? <button id="showLogin" class="text-neon-green hover:underline">Faça login</button></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC73QWVlYETv9f4AOPPyQZSCBPbBOa9Om4",
+            authDomain: "guildorigem.firebaseapp.com",
+            projectId: "guildorigem",
+            storageBucket: "guildorigem.firebasestorage.app",
+            messagingSenderId: "4949016851",
+            appId: "1:4949016851:web:e51d6684bacba21c3edae6"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Funções de autenticação
+        window.registerUser = async (email, password, username, character, level) => {
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                
+                // Salvar informações adicionais no Firestore
+                await addDoc(collection(db, "users"), {
+                    uid: user.uid,
+                    username: username,
+                    email: email,
+                    character: character,
+                    level: level,
+                    joinDate: new Date(),
+                    rank: "Novato"
+                });
+                
+                alert("Conta criada com sucesso! Bem-vindo à Guild Origem!");
+                closeRegisterModal();
+                return user;
+            } catch (error) {
+                console.error("Erro no registro:", error);
+                alert("Erro ao criar conta: " + error.message);
+            }
+        };
+
+        window.loginUser = async (email, password) => {
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                const user = userCredential.user;
+                alert("Login realizado com sucesso!");
+                closeLoginModal();
+                return user;
+            } catch (error) {
+                console.error("Erro no login:", error);
+                alert("Erro ao fazer login: " + error.message);
+            }
+        };
+
+        // Verificar estado de autenticação
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("Usuário logado:", user);
+                document.getElementById('loginBtn').textContent = "Minha Conta";
+            } else {
+                console.log("Usuário não logado");
+                document.getElementById('loginBtn').textContent = "Entrar";
+            }
+        });
+    </script>
+
+    <!-- JSON-LD para SEO -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Guild Origem",
+        "description": "Comunidade de AdventureQuest Worlds focada em criar um ambiente amigável e colaborativo para todos os membros.",
+        "url": "https://guildorigem.com",
+        "logo": "https://guildorigem.com/logo.png",
+        "memberOf": {
+            "@type": "VideoGame",
+            "name": "AdventureQuest Worlds"
+        },
+        "member": {
+            "@type": "OrganizationRole",
+            "roleName": "Membro da Guild",
+            "member": {
+                "@type": "Person",
+                "name": "Dragomir"
+            }
+        }
+    }
+    </script>
+
+    <!-- JavaScript para funcionalidades da interface -->
+    <script>
+        // Elementos DOM
+        const loginBtn = document.getElementById('loginBtn');
+        const joinBtn = document.getElementById('joinBtn');
+        const loginModal = document.getElementById('loginModal');
+        const registerModal = document.getElementById('registerModal');
+        const closeLoginModal = document.getElementById('closeLoginModal');
+        const closeRegisterModal = document.getElementById('closeRegisterModal');
+        const showRegister = document.getElementById('showRegister');
+        const showLogin = document.getElementById('showLogin');
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+
+        // Abrir modal de login
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.remove('hidden');
+        });
+
+        // Abrir modal de registro a partir do botão "Junte-se a Nós"
+        joinBtn.addEventListener('click', () => {
+            registerModal.classList.remove('hidden');
+        });
+
+        // Fechar modais
+        closeLoginModal.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+        });
+
+        closeRegisterModal.addEventListener('click', () => {
+            registerModal.classList.add('hidden');
+        });
+
+        // Alternar entre login e registro
+        showRegister.addEventListener('click', () => {
+            loginModal.classList.add('hidden');
+            registerModal.classList.remove('hidden');
+        });
+
+        showLogin.addEventListener('click', () => {
+            registerModal.classList.add('hidden');
+            loginModal.classList.remove('hidden');
+        });
+
+        // Fechar modais ao clicar fora
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.add('hidden');
+            }
+            if (e.target === registerModal) {
+                registerModal.classList.add('hidden');
+            }
+        });
+
+        // Processar formulário de login
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Usar função do Firebase para login
+            if (typeof window.loginUser === 'function') {
+                window.loginUser(email, password);
+            } else {
+                alert('Sistema de login em desenvolvimento. Use: ' + email + ' / ' + password);
+                closeLoginModal();
+            }
+        });
+
+        // Processar formulário de registro
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('registerEmail').value;
+            const password = document.getElementById('registerPassword').value;
+            const username = document.getElementById('registerUsername').value;
+            const character = document.getElementById('registerCharacter').value;
+            const level = document.getElementById('registerLevel').value;
+            
+            // Verificar se as senhas coincidem
+            if (password !== document.getElementById('registerConfirmPassword').value) {
+                alert('As senhas não coincidem!');
+                return;
+            }
+            
+            // Usar função do Firebase para registro
+            if (typeof window.registerUser === 'function') {
+                window.registerUser(email, password, username, character, level);
+            } else {
+                alert('Sistema de registro em desenvolvimento. Dados: ' + username + ' / ' + email);
+                closeRegisterModal();
+            }
+        });
+
+        // Efeito de digitação no título
+        document.addEventListener('DOMContentLoaded', () => {
+            const title = document.querySelector('.neon-glow');
+            const originalText = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            const typeWriter = () => {
+                if (i < originalText.length) {
+                    title.textContent += originalText.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100);
+                }
+            };
+            
+            // Iniciar efeito após um breve delay
+            setTimeout(typeWriter, 500);
+        });
+    </script>
+</body>
+</html>
