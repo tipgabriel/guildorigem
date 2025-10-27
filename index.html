@@ -6,9 +6,8 @@
     <title>Guild Origem - AdventureQuest Worlds</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- reCAPTCHA v2 -->
-<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
-    <script>
+<!-- reCAPTCHA -->
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6LfdHvcrAAAAAPdTVHoe8Yda4UcMVsWiZDD757d_"></script>    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -87,11 +86,6 @@
             display: none;
         }
         
-        .g-recaptcha {
-            margin: 15px 0;
-            display: flex;
-            justify-content: center;
-        }
 
 /* Botão Google Transparente e Moderno */
 .google-login {
@@ -147,29 +141,6 @@
 
 .google-login:hover .google-icon {
     transform: scale(1.1);
-}
-
-/* Container do reCAPTCHA */
-.g-recaptcha {
-    margin: 15px 0;
-    display: flex;
-    justify-content: center;
-    min-height: 78px;
-}
-
-.g-recaptcha > div {
-    margin: 0 auto;
-}
-
-/* Estilo para quando reCAPTCHA não carrega */
-.recaptcha-fallback {
-    background: #2a2a2a;
-    border: 1px solid #444;
-    border-radius: 4px;
-    padding: 10px;
-    text-align: center;
-    color: #ccc;
-    font-size: 12px;
 }
     </style>
 </head>
@@ -573,10 +544,6 @@
                     <a href="#" class="text-neon-green hover:underline">Esqueceu a senha?</a>
                 </div>
                 
-                <!-- reCAPTCHA para login com NOVA CHAVE -->
-                <div class="g-recaptcha" data-sitekey="6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu"></div>
-                <div id="loginCaptchaError" class="text-red-500 text-sm mt-2 hidden">Por favor, complete o reCAPTCHA</div>
-                
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">Entrar</button>
                 
                 <div class="relative my-4">
@@ -912,94 +879,44 @@
   const backToMainBtn = document.getElementById('backToMain');
   const registerLevelInput = document.getElementById('registerLevel');
 
-  // Sistema de reCAPTCHA simplificado e funcional
-  let recaptchaWidgets = {
-    login: null,
-    register: null
-  };
+  // Chave do reCAPTCHA Enterprise
+  const RECAPTCHA_SITE_KEY = '6LfdHvcrAAAAAPdTVHoe8Yda4UcMVsWiZDD757d_';
 
-  // Inicializar reCAPTCHA quando o modal abrir
-  function initializeRecaptcha(modalType) {
-    if (typeof grecaptcha === 'undefined') {
-      console.log("⚠️ reCAPTCHA não disponível");
-      return;
-    }
+  // Função para executar reCAPTCHA
+  async function executeRecaptcha(action = 'LOGIN') {
+    return new Promise((resolve, reject) => {
+      if (typeof grecaptcha === 'undefined' || !grecaptcha.enterprise) {
+        reject(new Error('reCAPTCHA não carregado'));
+        return;
+      }
 
-    const container = modalType === 'login' 
-      ? document.querySelector('#loginForm .g-recaptcha')
-      : document.querySelector('#registerForm .g-recaptcha');
-
-    if (!container) {
-      console.log("❌ Container reCAPTCHA não encontrado para:", modalType);
-      return;
-    }
-
-    // Limpar container se já tiver um widget
-    if (container.innerHTML.trim()) {
-      container.innerHTML = '';
-    }
-
-    try {
-      const widgetId = grecaptcha.render(container, {
-        sitekey: '6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu',
-        theme: 'dark',
-        size: 'normal'
+      grecaptcha.enterprise.ready(async () => {
+        try {
+          const token = await grecaptcha.enterprise.execute(RECAPTCHA_SITE_KEY, { action });
+          console.log(`✅ reCAPTCHA ${action} executado:`, token.substring(0, 20) + '...');
+          resolve(token);
+        } catch (error) {
+          console.error('❌ Erro no reCAPTCHA:', error);
+          reject(error);
+        }
       });
-
-      recaptchaWidgets[modalType] = widgetId;
-      console.log(`✅ reCAPTCHA ${modalType} inicializado:`, widgetId);
-    } catch (error) {
-      console.error(`❌ Erro ao inicializar reCAPTCHA ${modalType}:`, error);
-    }
-  }
-
-  // Verificar reCAPTCHA
-  function verifyRecaptcha(modalType) {
-    if (typeof grecaptcha === 'undefined') {
-      console.log("✅ reCAPTCHA não disponível - pulando verificação");
-      return true;
-    }
-
-    const widgetId = recaptchaWidgets[modalType];
-    if (!widgetId) {
-      console.log("❌ Widget reCAPTCHA não encontrado para:", modalType);
-      return false;
-    }
-
-    const response = grecaptcha.getResponse(widgetId);
-    console.log(`🔍 reCAPTCHA ${modalType} response:`, response);
-
-    return response.length > 0;
-  }
-
-  // Resetar reCAPTCHA
-  function resetRecaptcha(modalType) {
-    if (typeof grecaptcha !== 'undefined' && recaptchaWidgets[modalType]) {
-      grecaptcha.reset(recaptchaWidgets[modalType]);
-      console.log(`🔄 reCAPTCHA ${modalType} resetado`);
-    }
+    });
   }
 
   // Funções para fechar modais
   function closeLoginModal() {
     loginModal.classList.add('hidden');
     loginForm.reset();
-    resetRecaptcha('login');
-    document.getElementById('loginCaptchaError').classList.add('hidden');
   }
 
   function closeRegisterModal() {
     registerModal.classList.add('hidden');
     registerForm.reset();
-    resetRecaptcha('register');
-    document.getElementById('registerCaptchaError').classList.add('hidden');
   }
 
   // Abrir modal de login
   loginBtn.addEventListener('click', () => {
     loginModal.classList.remove('hidden');
-    // Inicializar reCAPTCHA após um pequeno delay para garantir que o modal está visível
-    setTimeout(() => initializeRecaptcha('login'), 100);
   });
 
   // Logout
@@ -1012,7 +929,6 @@
   // Abrir modal de registro
   joinBtn.addEventListener('click', () => {
     registerModal.classList.remove('hidden');
-    setTimeout(() => initializeRecaptcha('register'), 100);
   });
 
   // Fechar modais
@@ -1024,7 +940,6 @@
     closeLoginModal();
     setTimeout(() => {
       registerModal.classList.remove('hidden');
-      setTimeout(() => initializeRecaptcha('register'), 100);
     }, 300);
   });
 
@@ -1032,7 +947,6 @@
     closeRegisterModal();
     setTimeout(() => {
       loginModal.classList.remove('hidden');
-      setTimeout(() => initializeRecaptcha('login'), 100);
     }, 300);
   });
 
@@ -1046,35 +960,42 @@
     }
   });
 
-  // Processar formulário de login
+  // Processar formulário de login COM reCAPTCHA Enterprise
   loginForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('loginUsername').value;
     const password = document.getElementById('loginPassword').value;
     
     console.log("📤 Tentando fazer login:", email);
-    
-    // Verificar reCAPTCHA
-    const recaptchaValid = verifyRecaptcha('login');
-    
-    if (!recaptchaValid) {
-      document.getElementById('loginCaptchaError').classList.remove('hidden');
-      return;
-    }
-    
-    document.getElementById('loginCaptchaError').classList.add('hidden');
+
+    // Mostrar loading
+    const submitBtn = loginForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Verificando...';
+    submitBtn.disabled = true;
     
     try {
+      // Executar reCAPTCHA
+      const recaptchaToken = await executeRecaptcha('LOGIN');
+      console.log("✅ reCAPTCHA válido, procedendo com login");
+      
       const user = await window.loginUser(email, password);
       if (user) {
         closeLoginModal();
       }
     } catch (error) {
       console.error("Erro no login:", error);
+      if (error.message.includes('reCAPTCHA')) {
+        alert('❌ Erro de verificação de segurança. Recarregue a página e tente novamente.');
+      }
+    } finally {
+      // Restaurar botão
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
   });
 
-  // Processar formulário de registro
+  // Processar formulário de registro COM reCAPTCHA Enterprise
   registerForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = document.getElementById('registerEmail').value;
@@ -1084,36 +1005,43 @@
     const confirmPassword = document.getElementById('registerConfirmPassword').value;
     
     console.log("📤 Tentando registrar:", username, email, level);
-    
-    // Verificar reCAPTCHA
-    const recaptchaValid = verifyRecaptcha('register');
-    
-    if (!recaptchaValid) {
-      document.getElementById('registerCaptchaError').classList.remove('hidden');
-      return;
-    }
-    
-    document.getElementById('registerCaptchaError').classList.add('hidden');
-    
-    // Verificar se as senhas coincidem
-    if (password !== confirmPassword) {
-      alert('❌ As senhas não coincidem!');
-      return;
-    }
-    
-    // Verificar se aceitou as regras
-    if (!document.getElementById('acceptRules').checked) {
-      alert('❌ Você precisa aceitar as regras da guild!');
-      return;
-    }
+
+    // Mostrar loading
+    const submitBtn = registerForm.querySelector('button[type="submit"]');
+    const originalText = submitBtn.textContent;
+    submitBtn.textContent = 'Verificando...';
+    submitBtn.disabled = true;
     
     try {
+      // Verificar se as senhas coincidem
+      if (password !== confirmPassword) {
+        alert('❌ As senhas não coincidem!');
+        return;
+      }
+      
+      // Verificar se aceitou as regras
+      if (!document.getElementById('acceptRules').checked) {
+        alert('❌ Você precisa aceitar as regras da guild!');
+        return;
+      }
+
+      // Executar reCAPTCHA
+      const recaptchaToken = await executeRecaptcha('REGISTER');
+      console.log("✅ reCAPTCHA válido, procedendo com registro");
+      
       const user = await window.registerUser(email, password, username, level);
       if (user) {
         closeRegisterModal();
       }
     } catch (error) {
       console.error("Erro no registro:", error);
+      if (error.message.includes('reCAPTCHA')) {
+        alert('❌ Erro de verificação de segurança. Recarregue a página e tente novamente.');
+      }
+    } finally {
+      // Restaurar botão
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
     }
   });
 
@@ -1177,13 +1105,13 @@
       });
     });
     
-    console.log("✅ Guild Origem carregado!");
+    console.log("✅ Guild Origem carregado com reCAPTCHA Enterprise!");
     
-    // Verificar se reCAPTCHA está disponível
-    if (typeof grecaptcha !== 'undefined') {
-      console.log("✅ reCAPTCHA API disponível");
+    // Verificar se reCAPTCHA carregou
+    if (typeof grecaptcha !== 'undefined' && grecaptcha.enterprise) {
+      console.log("✅ reCAPTCHA Enterprise carregado com sucesso!");
     } else {
-      console.log("⚠️ reCAPTCHA API não disponível - verifique a chave do site");
+      console.log("⚠️ reCAPTCHA Enterprise não carregou");
     }
   });
 </script>
