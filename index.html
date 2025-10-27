@@ -574,373 +574,485 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
+<!-- Firebase SDK - MESMO BANCO tipgabrieldev -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
+  import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged, 
+    GoogleAuthProvider, 
+    signInWithPopup, 
+    signOut,
+    updateProfile 
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
+  import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    getDocs, 
+    query, 
+    where,
+    doc,
+    setDoc 
+  } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
 
-        // Your web app's Firebase configuration
-        const firebaseConfig = {
-            apiKey: "AIzaSyC73QWVlYETv9f4AOPPyQZSCBPbBOa9Om4",
-            authDomain: "guildorigem.firebaseapp.com",
-            projectId: "guildorigem",
-            storageBucket: "guildorigem.firebasestorage.app",
-            messagingSenderId: "4949016851",
-            appId: "1:4949016851:web:e51d6684bacba21c3edae6"
-        };
+  // MESMO Firebase Config do tipgabrieldev
+  const firebaseConfig = {
+    apiKey: "AIzaSyA3_9b12m998SElovquIpmJASDnF8G6bE8",
+    authDomain: "tipgabrieldev-cf200.firebaseapp.com",
+    projectId: "tipgabrieldev-cf200",
+    storageBucket: "tipgabrieldev-cf200.firebasestorage.app",
+    messagingSenderId: "110047072655",
+    appId: "1:110047072655:web:cce5ff2c319d7cab087bfa"
+  };
 
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const googleProvider = new GoogleAuthProvider();
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  const googleProvider = new GoogleAuthProvider();
 
-        // Funções de autenticação
-        window.registerUser = async (email, password, username, character, level) => {
-            try {
-                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                
-                // Salvar informações adicionais no Firestore
-                await addDoc(collection(db, "users"), {
-                    uid: user.uid,
-                    username: username,
-                    email: email,
-                    character: character,
-                    level: level,
-                    joinDate: new Date(),
-                    rank: "Novato"
-                });
-                
-                alert("Conta criada com sucesso! Bem-vindo à Guild Origem!");
-                closeRegisterModal();
-                return user;
-            } catch (error) {
-                console.error("Erro no registro:", error);
-                alert("Erro ao criar conta: " + error.message);
-            }
-        };
+  console.log("✅ Firebase Guild Origem inicializado!");
 
-        window.loginUser = async (email, password) => {
-            try {
-                const userCredential = await signInWithEmailAndPassword(auth, email, password);
-                const user = userCredential.user;
-                alert("Login realizado com sucesso!");
-                closeLoginModal();
-                return user;
-            } catch (error) {
-                console.error("Erro no login:", error);
-                alert("Erro ao fazer login: " + error.message);
-            }
-        };
+  // Funções de autenticação para Guild Origem
+  window.registerUser = async (email, password, username, level) => {
+    try {
+      console.log("📝 Tentando registrar usuário Guild Origem:", email, username);
+      
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Atualizar perfil do usuário
+      await updateProfile(user, {
+        displayName: username
+      });
+      
+      // Salvar informações na coleção guild_origem_users
+      await setDoc(doc(db, "guild_origem_users", user.uid), {
+        uid: user.uid,
+        username: username,
+        email: email,
+        character: username, // Usar username como nome do personagem
+        level: parseInt(level),
+        joinDate: new Date(),
+        rank: "Novato",
+        guild: "Guild Origem",
+        site: "guild_origem",
+        timestamp: new Date()
+      });
+      
+      console.log("✅ Usuário Guild Origem registrado:", user.uid);
+      alert("🎉 Conta criada com sucesso! Bem-vindo à Guild Origem!");
+      return user;
+    } catch (error) {
+      console.error("❌ Erro no registro Guild Origem:", error);
+      let errorMessage = "Erro ao criar conta: ";
+      
+      switch(error.code) {
+        case 'auth/email-already-in-use':
+          errorMessage += "Este email já está em uso.";
+          break;
+        case 'auth/weak-password':
+          errorMessage += "A senha é muito fraca. Use pelo menos 6 caracteres.";
+          break;
+        case 'auth/invalid-email':
+          errorMessage += "O email informado é inválido.";
+          break;
+        default:
+          errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
+      throw error;
+    }
+  };
 
-        window.loginWithGoogle = async () => {
-            try {
-                const result = await signInWithPopup(auth, googleProvider);
-                const user = result.user;
-                
-                // Verificar se o usuário já existe no Firestore
-                const querySnapshot = await getDocs(collection(db, "users"));
-                let userExists = false;
-                
-                querySnapshot.forEach((doc) => {
-                    if (doc.data().uid === user.uid) {
-                        userExists = true;
-                    }
-                });
-                
-                // Se não existe, criar registro
-                if (!userExists) {
-                    await addDoc(collection(db, "users"), {
-                        uid: user.uid,
-                        username: user.displayName || user.email.split('@')[0],
-                        email: user.email,
-                        character: "A definir",
-                        level: 1,
-                        joinDate: new Date(),
-                        rank: "Novato"
-                    });
-                }
-                
-                alert("Login com Google realizado com sucesso!");
-                closeLoginModal();
-                return user;
-            } catch (error) {
-                console.error("Erro no login com Google:", error);
-                alert("Erro ao fazer login com Google: " + error.message);
-            }
-        };
+  window.loginUser = async (email, password) => {
+    try {
+      console.log("🔐 Tentando login Guild Origem:", email);
+      
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      console.log("✅ Login Guild Origem realizado:", user.uid);
+      alert("✅ Login realizado com sucesso!");
+      return user;
+    } catch (error) {
+      console.error("❌ Erro no login Guild Origem:", error);
+      let errorMessage = "Erro ao fazer login: ";
+      
+      switch(error.code) {
+        case 'auth/user-not-found':
+          errorMessage += "Usuário não encontrado.";
+          break;
+        case 'auth/wrong-password':
+          errorMessage += "Senha incorreta.";
+          break;
+        case 'auth/invalid-email':
+          errorMessage += "Email inválido.";
+          break;
+        default:
+          errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
+      throw error;
+    }
+  };
 
-        // Verificar estado de autenticação
-        onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                console.log("Usuário logado:", user);
-                document.getElementById('loginBtn').classList.add('hidden');
-                document.getElementById('logoutBtn').classList.remove('hidden');
-                
-                // Carregar informações do usuário
-                const querySnapshot = await getDocs(query(collection(db, "users"), where("uid", "==", user.uid)));
-                if (!querySnapshot.empty) {
-                    const userData = querySnapshot.docs[0].data();
-                    
-                    // Preencher painel do usuário
-                    document.getElementById('userUsername').textContent = userData.username;
-                    document.getElementById('userEmail').textContent = userData.email;
-                    document.getElementById('userCharacter').textContent = userData.character;
-                    document.getElementById('userLevel').textContent = userData.level;
-                    document.getElementById('userRank').textContent = userData.rank;
-                    document.getElementById('userJoinDate').textContent = userData.joinDate.toDate().toLocaleDateString('pt-BR');
-                }
-            } else {
-                console.log("Usuário não logado");
-                document.getElementById('loginBtn').classList.remove('hidden');
-                document.getElementById('logoutBtn').classList.add('hidden');
-            }
+  window.loginWithGoogle = async () => {
+    try {
+      console.log("🔐 Tentando login com Google - Guild Origem");
+      
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      
+      // Verificar se o usuário já existe no Firestore
+      const userDoc = await getDocs(query(collection(db, "guild_origem_users"), where("uid", "==", user.uid)));
+      
+      // Se não existe, criar registro
+      if (userDoc.empty) {
+        await setDoc(doc(db, "guild_origem_users", user.uid), {
+          uid: user.uid,
+          username: user.displayName || user.email.split('@')[0],
+          email: user.email,
+          character: user.displayName || "A definir",
+          level: 1,
+          joinDate: new Date(),
+          rank: "Novato",
+          guild: "Guild Origem",
+          site: "guild_origem",
+          provider: "google",
+          timestamp: new Date()
         });
+        console.log("✅ Novo usuário Google Guild Origem criado:", user.uid);
+      }
+      
+      console.log("✅ Login Google Guild Origem realizado:", user.uid);
+      alert("✅ Login com Google realizado com sucesso!");
+      return user;
+    } catch (error) {
+      console.error("❌ Erro no login com Google:", error);
+      
+      let errorMessage = "Erro ao fazer login com Google: ";
+      if (error.code === 'auth/popup-closed-by-user') {
+        errorMessage = "Login com Google cancelado.";
+      } else {
+        errorMessage += error.message;
+      }
+      
+      alert(errorMessage);
+      throw error;
+    }
+  };
 
-        // Função de logout
-        window.logoutUser = async () => {
-            try {
-                await signOut(auth);
-                alert("Logout realizado com sucesso!");
-                document.getElementById('mainContent').classList.remove('hidden');
-                document.getElementById('userPanel').classList.add('hidden');
-            } catch (error) {
-                console.error("Erro no logout:", error);
-                alert("Erro ao fazer logout: " + error.message);
-            }
-        };
-    </script>
-
-    <!-- JavaScript para funcionalidades da interface -->
-    <script>
-        // Elementos DOM
-        const loginBtn = document.getElementById('loginBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const joinBtn = document.getElementById('joinBtn');
-        const loginModal = document.getElementById('loginModal');
-        const registerModal = document.getElementById('registerModal');
-        const closeLoginModalBtn = document.getElementById('closeLoginModal');
-        const closeRegisterModalBtn = document.getElementById('closeRegisterModal');
-        const showRegister = document.getElementById('showRegister');
-        const showLogin = document.getElementById('showLogin');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const googleLoginBtn = document.getElementById('googleLogin');
-        const mainContent = document.getElementById('mainContent');
-        const userPanel = document.getElementById('userPanel');
-        const backToMainBtn = document.getElementById('backToMain');
-        const registerLevelInput = document.getElementById('registerLevel');
-
-        // Funções para fechar modais
-        function closeLoginModal() {
-            loginModal.classList.add('hidden');
-            // Resetar formulário
-            loginForm.reset();
-            // Resetar reCAPTCHA
-            if (typeof grecaptcha !== 'undefined') {
-                grecaptcha.reset();
-            }
+  // Verificar estado de autenticação
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      console.log("👤 Usuário Guild Origem logado:", user.email);
+      document.getElementById('loginBtn').classList.add('hidden');
+      document.getElementById('logoutBtn').classList.remove('hidden');
+      
+      try {
+        // Carregar informações do usuário da coleção guild_origem_users
+        const userDoc = await getDocs(query(collection(db, "guild_origem_users"), where("uid", "==", user.uid)));
+        if (!userDoc.empty) {
+          const userData = userDoc.docs[0].data();
+          console.log("📊 Dados do usuário Guild Origem:", userData);
+          
+          // Preencher painel do usuário
+          document.getElementById('userUsername').textContent = userData.username || user.displayName || "Não definido";
+          document.getElementById('userEmail').textContent = userData.email || user.email;
+          document.getElementById('userCharacter').textContent = userData.character || "A definir";
+          document.getElementById('userLevel').textContent = userData.level || 1;
+          document.getElementById('userRank').textContent = userData.rank || "Novato";
+          
+          if (userData.joinDate) {
+            const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
+            document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
+          } else {
+            document.getElementById('userJoinDate').textContent = new Date().toLocaleDateString('pt-BR');
+          }
+          
+          // Mostrar painel do usuário
+          document.getElementById('mainContent').classList.add('hidden');
+          document.getElementById('userPanel').classList.remove('hidden');
+        } else {
+          console.log("⚠️ Usuário logado mas não encontrado na coleção guild_origem_users");
         }
+      } catch (error) {
+        console.error("❌ Erro ao carregar dados do usuário Guild Origem:", error);
+      }
+    } else {
+      console.log("🚪 Usuário Guild Origem não logado");
+      document.getElementById('loginBtn').classList.remove('hidden');
+      document.getElementById('logoutBtn').classList.add('hidden');
+    }
+  });
 
-        function closeRegisterModal() {
-            registerModal.classList.add('hidden');
-            // Resetar formulário
-            registerForm.reset();
-            // Resetar reCAPTCHA
-            if (typeof grecaptcha !== 'undefined') {
-                grecaptcha.reset();
-            }
+  // Função de logout
+  window.logoutUser = async () => {
+    try {
+      await signOut(auth);
+      console.log("✅ Logout Guild Origem realizado");
+      alert("👋 Logout realizado com sucesso!");
+      document.getElementById('mainContent').classList.remove('hidden');
+      document.getElementById('userPanel').classList.add('hidden');
+    } catch (error) {
+      console.error("❌ Erro no logout Guild Origem:", error);
+      alert("❌ Erro ao fazer logout: " + error.message);
+    }
+  };
+</script>
+
+<!-- JavaScript para funcionalidades da interface -->
+<script>
+  // Elementos DOM
+  const loginBtn = document.getElementById('loginBtn');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const joinBtn = document.getElementById('joinBtn');
+  const loginModal = document.getElementById('loginModal');
+  const registerModal = document.getElementById('registerModal');
+  const closeLoginModalBtn = document.getElementById('closeLoginModal');
+  const closeRegisterModalBtn = document.getElementById('closeRegisterModal');
+  const showRegister = document.getElementById('showRegister');
+  const showLogin = document.getElementById('showLogin');
+  const loginForm = document.getElementById('loginForm');
+  const registerForm = document.getElementById('registerForm');
+  const googleLoginBtn = document.getElementById('googleLogin');
+  const mainContent = document.getElementById('mainContent');
+  const userPanel = document.getElementById('userPanel');
+  const backToMainBtn = document.getElementById('backToMain');
+  const registerLevelInput = document.getElementById('registerLevel');
+
+  // Verificar se reCAPTCHA carregou
+  console.log("🔍 reCAPTCHA disponível:", typeof grecaptcha !== 'undefined');
+
+  // Funções para fechar modais
+  function closeLoginModal() {
+    loginModal.classList.add('hidden');
+    // Resetar formulário
+    loginForm.reset();
+    // Resetar reCAPTCHA
+    if (typeof grecaptcha !== 'undefined') {
+      grecaptcha.reset();
+    }
+    document.getElementById('loginCaptchaError').classList.add('hidden');
+  }
+
+  function closeRegisterModal() {
+    registerModal.classList.add('hidden');
+    // Resetar formulário
+    registerForm.reset();
+    // Resetar reCAPTCHA
+    if (typeof grecaptcha !== 'undefined') {
+      grecaptcha.reset();
+    }
+    document.getElementById('registerCaptchaError').classList.add('hidden');
+  }
+
+  // Abrir modal de login
+  loginBtn.addEventListener('click', () => {
+    loginModal.classList.remove('hidden');
+  });
+
+  // Logout
+  logoutBtn.addEventListener('click', () => {
+    if (typeof window.logoutUser === 'function') {
+      window.logoutUser();
+    }
+  });
+
+  // Abrir modal de registro a partir do botão "Junte-se a Nós"
+  joinBtn.addEventListener('click', () => {
+    registerModal.classList.remove('hidden');
+  });
+
+  // Fechar modais
+  closeLoginModalBtn.addEventListener('click', closeLoginModal);
+  closeRegisterModalBtn.addEventListener('click', closeRegisterModal);
+
+  // Alternar entre login e registro
+  showRegister.addEventListener('click', () => {
+    closeLoginModal();
+    registerModal.classList.remove('hidden');
+  });
+
+  showLogin.addEventListener('click', () => {
+    closeRegisterModal();
+    loginModal.classList.remove('hidden');
+  });
+
+  // Fechar modais ao clicar fora
+  window.addEventListener('click', (e) => {
+    if (e.target === loginModal) {
+      closeLoginModal();
+    }
+    if (e.target === registerModal) {
+      closeRegisterModal();
+    }
+  });
+
+  // Processar formulário de login
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('loginUsername').value;
+    const password = document.getElementById('loginPassword').value;
+    
+    console.log("📤 Tentando fazer login:", email);
+    
+    // Verificar reCAPTCHA
+    let recaptchaValid = true;
+    if (typeof grecaptcha !== 'undefined') {
+      const recaptchaResponse = grecaptcha.getResponse();
+      console.log("🔍 reCAPTCHA response:", recaptchaResponse);
+      if (!recaptchaResponse) {
+        document.getElementById('loginCaptchaError').classList.remove('hidden');
+        recaptchaValid = false;
+      } else {
+        document.getElementById('loginCaptchaError').classList.add('hidden');
+      }
+    } else {
+      console.log("⚠️ reCAPTCHA não carregou, pulando verificação");
+    }
+    
+    if (!recaptchaValid) return;
+    
+    try {
+      const user = await window.loginUser(email, password);
+      if (user) {
+        closeLoginModal();
+        // O painel será mostrado automaticamente pelo onAuthStateChanged
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
+      // O erro já foi mostrado na função loginUser
+    }
+  });
+
+  // Processar formulário de registro
+  registerForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('registerEmail').value;
+    const password = document.getElementById('registerPassword').value;
+    const username = document.getElementById('registerUsername').value;
+    const level = document.getElementById('registerLevel').value;
+    const confirmPassword = document.getElementById('registerConfirmPassword').value;
+    
+    console.log("📤 Tentando registrar:", username, email, level);
+    
+    // Verificar reCAPTCHA
+    let recaptchaValid = true;
+    if (typeof grecaptcha !== 'undefined') {
+      const recaptchaResponse = grecaptcha.getResponse();
+      console.log("🔍 reCAPTCHA response:", recaptchaResponse);
+      if (!recaptchaResponse) {
+        document.getElementById('registerCaptchaError').classList.remove('hidden');
+        recaptchaValid = false;
+      } else {
+        document.getElementById('registerCaptchaError').classList.add('hidden');
+      }
+    } else {
+      console.log("⚠️ reCAPTCHA não carregou, pulando verificação");
+    }
+    
+    if (!recaptchaValid) return;
+    
+    // Verificar se as senhas coincidem
+    if (password !== confirmPassword) {
+      alert('❌ As senhas não coincidem!');
+      return;
+    }
+    
+    // Verificar se aceitou as regras
+    if (!document.getElementById('acceptRules').checked) {
+      alert('❌ Você precisa aceitar as regras da guild!');
+      return;
+    }
+    
+    try {
+      const user = await window.registerUser(email, password, username, level);
+      if (user) {
+        closeRegisterModal();
+        // O painel será mostrado automaticamente pelo onAuthStateChanged
+      }
+    } catch (error) {
+      console.error("Erro no registro:", error);
+      // O erro já foi mostrado na função registerUser
+    }
+  });
+
+  // Login com Google
+  googleLoginBtn.addEventListener('click', async () => {
+    console.log("🔐 Clicou no botão Google Login");
+    
+    try {
+      const user = await window.loginWithGoogle();
+      if (user) {
+        closeLoginModal();
+        // O painel será mostrado automaticamente pelo onAuthStateChanged
+      }
+    } catch (error) {
+      console.error("Erro no login com Google:", error);
+      // O erro já foi mostrado na função loginWithGoogle
+    }
+  });
+
+  // Voltar ao site principal
+  backToMainBtn.addEventListener('click', () => {
+    userPanel.classList.add('hidden');
+    mainContent.classList.remove('hidden');
+  });
+
+  // Limitar campo de nível a 3 caracteres numéricos
+  if (registerLevelInput) {
+    registerLevelInput.addEventListener('input', (e) => {
+      // Remover caracteres não numéricos
+      e.target.value = e.target.value.replace(/\D/g, '');
+      
+      // Limitar a 3 caracteres
+      if (e.target.value.length > 3) {
+        e.target.value = e.target.value.slice(0, 3);
+      }
+      
+      // Garantir que o valor está entre 1 e 100
+      const value = parseInt(e.target.value);
+      if (value < 1) {
+        e.target.value = 1;
+      } else if (value > 100) {
+        e.target.value = 100;
+      }
+    });
+  }
+
+  // Atualizar automaticamente o ano do copyright
+  document.addEventListener('DOMContentLoaded', () => {
+    const copyrightElement = document.getElementById('copyright');
+    const currentYear = new Date().getFullYear();
+    copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
+    
+    // Suavizar rolagem para âncoras
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        if (targetId === '#') return;
+        
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          window.scrollTo({
+            top: targetElement.offsetTop - 80,
+            behavior: 'smooth'
+          });
         }
-
-        // Abrir modal de login
-        loginBtn.addEventListener('click', () => {
-            loginModal.classList.remove('hidden');
-        });
-
-        // Logout
-        logoutBtn.addEventListener('click', () => {
-            if (typeof window.logoutUser === 'function') {
-                window.logoutUser();
-            }
-        });
-
-        // Abrir modal de registro a partir do botão "Junte-se a Nós"
-        joinBtn.addEventListener('click', () => {
-            registerModal.classList.remove('hidden');
-        });
-
-        // Fechar modais
-        closeLoginModalBtn.addEventListener('click', closeLoginModal);
-        closeRegisterModalBtn.addEventListener('click', closeRegisterModal);
-
-        // Alternar entre login e registro
-        showRegister.addEventListener('click', () => {
-            closeLoginModal();
-            registerModal.classList.remove('hidden');
-        });
-
-        showLogin.addEventListener('click', () => {
-            closeRegisterModal();
-            loginModal.classList.remove('hidden');
-        });
-
-        // Fechar modais ao clicar fora
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) {
-                closeLoginModal();
-            }
-            if (e.target === registerModal) {
-                closeRegisterModal();
-            }
-        });
-
-        // Processar formulário de login
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-            
-            // Verificar reCAPTCHA
-            if (typeof grecaptcha !== 'undefined') {
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    document.getElementById('loginCaptchaError').classList.remove('hidden');
-                    return;
-                }
-            }
-            document.getElementById('loginCaptchaError').classList.add('hidden');
-            
-            // Usar função do Firebase para login
-            if (typeof window.loginUser === 'function') {
-                window.loginUser(email, password).then(user => {
-                    if (user) {
-                        // Exibir painel do usuário
-                        mainContent.classList.add('hidden');
-                        userPanel.classList.remove('hidden');
-                    }
-                });
-            } else {
-                alert('Sistema de login em desenvolvimento. Use: ' + email + ' / ' + password);
-                closeLoginModal();
-                // Exibir painel do usuário (simulação)
-                mainContent.classList.add('hidden');
-                userPanel.classList.remove('hidden');
-            }
-        });
-
-        // Processar formulário de registro
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const email = document.getElementById('registerEmail').value;
-            const password = document.getElementById('registerPassword').value;
-            const username = document.getElementById('registerUsername').value;
-            const character = document.getElementById('registerCharacter').value;
-            const level = document.getElementById('registerLevel').value;
-            
-            // Verificar reCAPTCHA
-            if (typeof grecaptcha !== 'undefined') {
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    document.getElementById('registerCaptchaError').classList.remove('hidden');
-                    return;
-                }
-            }
-            document.getElementById('registerCaptchaError').classList.add('hidden');
-            
-            // Verificar se as senhas coincidem
-            if (password !== document.getElementById('registerConfirmPassword').value) {
-                alert('As senhas não coincidem!');
-                return;
-            }
-            
-            // Usar função do Firebase para registro
-            if (typeof window.registerUser === 'function') {
-                window.registerUser(email, password, username, character, level).then(user => {
-                    if (user) {
-                        // Exibir painel do usuário
-                        mainContent.classList.add('hidden');
-                        userPanel.classList.remove('hidden');
-                    }
-                });
-            } else {
-                alert('Sistema de registro em desenvolvimento. Dados: ' + username + ' / ' + email);
-                closeRegisterModal();
-                // Exibir painel do usuário (simulação)
-                mainContent.classList.add('hidden');
-                userPanel.classList.remove('hidden');
-            }
-        });
-
-        // Login com Google
-        googleLoginBtn.addEventListener('click', () => {
-            if (typeof window.loginWithGoogle === 'function') {
-                window.loginWithGoogle().then(user => {
-                    if (user) {
-                        // Exibir painel do usuário
-                        mainContent.classList.add('hidden');
-                        userPanel.classList.remove('hidden');
-                    }
-                });
-            } else {
-                alert('Login com Google em desenvolvimento');
-                // Exibir painel do usuário (simulação)
-                mainContent.classList.add('hidden');
-                userPanel.classList.remove('hidden');
-            }
-        });
-
-        // Voltar ao site principal
-        backToMainBtn.addEventListener('click', () => {
-            userPanel.classList.add('hidden');
-            mainContent.classList.remove('hidden');
-        });
-
-        // Limitar campo de nível a 3 caracteres numéricos
-        registerLevelInput.addEventListener('input', (e) => {
-            // Remover caracteres não numéricos
-            e.target.value = e.target.value.replace(/\D/g, '');
-            
-            // Limitar a 3 caracteres
-            if (e.target.value.length > 3) {
-                e.target.value = e.target.value.slice(0, 3);
-            }
-            
-            // Garantir que o valor está entre 1 e 100
-            const value = parseInt(e.target.value);
-            if (value < 1) {
-                e.target.value = 1;
-            } else if (value > 100) {
-                e.target.value = 100;
-            }
-        });
-
-        // Atualizar automaticamente o ano do copyright
-        document.addEventListener('DOMContentLoaded', () => {
-            const copyrightElement = document.getElementById('copyright');
-            const currentYear = new Date().getFullYear();
-            copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
-            
-            // Suavizar rolagem para âncoras
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-        });
-    </script>
+      });
+    });
+    
+    console.log("✅ Guild Origem carregado!");
+  });
+</script>
 </body>
 </html>
