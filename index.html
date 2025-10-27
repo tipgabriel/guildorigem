@@ -6,8 +6,8 @@
     <title>Guild Origem - AdventureQuest Worlds</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- reCAPTCHA v2 com suas novas chaves -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<!-- reCAPTCHA v2 -->
+<script src="https://www.google.com/recaptcha/api.js?onload=onRecaptchaLoad&render=explicit" async defer></script>
     <script>
         tailwind.config = {
             theme: {
@@ -93,13 +93,13 @@
             justify-content: center;
         }
 
-        /* Botão Google Atualizado */
+/* Botão Google Transparente e Moderno */
 .google-login {
-    background: white;
-    color: #757575;
-    border: 1px solid #dadce0;
-    border-radius: 4px;
-    padding: 12px 16px;
+    background: transparent;
+    color: #ffffff;
+    border: 2px solid #4285F4;
+    border-radius: 8px;
+    padding: 12px 20px;
     font-weight: 500;
     font-size: 14px;
     transition: all 0.3s ease;
@@ -108,26 +108,48 @@
     justify-content: center;
     gap: 12px;
     width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.google-login::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(66, 133, 244, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.google-login:hover::before {
+    left: 100%;
 }
 
 .google-login:hover {
-    background: #f8f9fa;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    border-color: #dadce0;
-    transform: translateY(-1px);
+    background: rgba(66, 133, 244, 0.1);
+    border-color: #5a95f5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.3);
 }
 
 .google-login:active {
-    background: #f1f3f4;
     transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(66, 133, 244, 0.2);
 }
 
 .google-icon {
     width: 18px;
     height: 18px;
+    transition: transform 0.3s ease;
 }
 
-/* reCAPTCHA Container */
+.google-login:hover .google-icon {
+    transform: scale(1.1);
+}
+
+/* Container do reCAPTCHA */
 .g-recaptcha {
     margin: 15px 0;
     display: flex;
@@ -573,7 +595,7 @@
         <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
         <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
     </svg>
-    Entrar com Google
+    Continuar com Google
 </button>
             </form>
             
@@ -890,67 +912,94 @@
   const backToMainBtn = document.getElementById('backToMain');
   const registerLevelInput = document.getElementById('registerLevel');
 
-  // Variável global para controle do reCAPTCHA
-  let recaptchaLoaded = false;
-
-  // Função chamada quando reCAPTCHA carrega
-  window.onRecaptchaLoad = function() {
-    console.log("✅ reCAPTCHA carregado com sucesso!");
-    recaptchaLoaded = true;
-    
-    // Renderizar reCAPTCHA nos containers
-    if (typeof grecaptcha !== 'undefined') {
-      // Render para login
-      const loginCaptchaContainer = document.querySelector('#loginForm .g-recaptcha');
-      if (loginCaptchaContainer) {
-        grecaptcha.render(loginCaptchaContainer, {
-          sitekey: '6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu',
-          theme: 'dark'
-        });
-      }
-      
-      // Render para registro
-      const registerCaptchaContainer = document.querySelector('#registerForm .g-recaptcha');
-      if (registerCaptchaContainer) {
-        grecaptcha.render(registerCaptchaContainer, {
-          sitekey: '6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu',
-          theme: 'dark'
-        });
-      }
-    }
+  // Sistema de reCAPTCHA simplificado e funcional
+  let recaptchaWidgets = {
+    login: null,
+    register: null
   };
 
-  // Verificar se reCAPTCHA carregou após um tempo
-  setTimeout(() => {
-    if (!recaptchaLoaded && typeof grecaptcha !== 'undefined') {
-      window.onRecaptchaLoad();
+  // Inicializar reCAPTCHA quando o modal abrir
+  function initializeRecaptcha(modalType) {
+    if (typeof grecaptcha === 'undefined') {
+      console.log("⚠️ reCAPTCHA não disponível");
+      return;
     }
-  }, 2000);
+
+    const container = modalType === 'login' 
+      ? document.querySelector('#loginForm .g-recaptcha')
+      : document.querySelector('#registerForm .g-recaptcha');
+
+    if (!container) {
+      console.log("❌ Container reCAPTCHA não encontrado para:", modalType);
+      return;
+    }
+
+    // Limpar container se já tiver um widget
+    if (container.innerHTML.trim()) {
+      container.innerHTML = '';
+    }
+
+    try {
+      const widgetId = grecaptcha.render(container, {
+        sitekey: '6LdsFfErAAAAAJy92t4bdhfabf5WPPE5qoXDCiWu',
+        theme: 'dark',
+        size: 'normal'
+      });
+
+      recaptchaWidgets[modalType] = widgetId;
+      console.log(`✅ reCAPTCHA ${modalType} inicializado:`, widgetId);
+    } catch (error) {
+      console.error(`❌ Erro ao inicializar reCAPTCHA ${modalType}:`, error);
+    }
+  }
+
+  // Verificar reCAPTCHA
+  function verifyRecaptcha(modalType) {
+    if (typeof grecaptcha === 'undefined') {
+      console.log("✅ reCAPTCHA não disponível - pulando verificação");
+      return true;
+    }
+
+    const widgetId = recaptchaWidgets[modalType];
+    if (!widgetId) {
+      console.log("❌ Widget reCAPTCHA não encontrado para:", modalType);
+      return false;
+    }
+
+    const response = grecaptcha.getResponse(widgetId);
+    console.log(`🔍 reCAPTCHA ${modalType} response:`, response);
+
+    return response.length > 0;
+  }
+
+  // Resetar reCAPTCHA
+  function resetRecaptcha(modalType) {
+    if (typeof grecaptcha !== 'undefined' && recaptchaWidgets[modalType]) {
+      grecaptcha.reset(recaptchaWidgets[modalType]);
+      console.log(`🔄 reCAPTCHA ${modalType} resetado`);
+    }
+  }
 
   // Funções para fechar modais
   function closeLoginModal() {
     loginModal.classList.add('hidden');
     loginForm.reset();
-    // Resetar reCAPTCHA se estiver disponível
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.reset();
-    }
+    resetRecaptcha('login');
     document.getElementById('loginCaptchaError').classList.add('hidden');
   }
 
   function closeRegisterModal() {
     registerModal.classList.add('hidden');
     registerForm.reset();
-    // Resetar reCAPTCHA se estiver disponível
-    if (typeof grecaptcha !== 'undefined') {
-      grecaptcha.reset();
-    }
+    resetRecaptcha('register');
     document.getElementById('registerCaptchaError').classList.add('hidden');
   }
 
   // Abrir modal de login
   loginBtn.addEventListener('click', () => {
     loginModal.classList.remove('hidden');
+    // Inicializar reCAPTCHA após um pequeno delay para garantir que o modal está visível
+    setTimeout(() => initializeRecaptcha('login'), 100);
   });
 
   // Logout
@@ -960,9 +1009,10 @@
     }
   });
 
-  // Abrir modal de registro a partir do botão "Junte-se a Nós"
+  // Abrir modal de registro
   joinBtn.addEventListener('click', () => {
     registerModal.classList.remove('hidden');
+    setTimeout(() => initializeRecaptcha('register'), 100);
   });
 
   // Fechar modais
@@ -972,12 +1022,18 @@
   // Alternar entre login e registro
   showRegister.addEventListener('click', () => {
     closeLoginModal();
-    registerModal.classList.remove('hidden');
+    setTimeout(() => {
+      registerModal.classList.remove('hidden');
+      setTimeout(() => initializeRecaptcha('register'), 100);
+    }, 300);
   });
 
   showLogin.addEventListener('click', () => {
     closeRegisterModal();
-    loginModal.classList.remove('hidden');
+    setTimeout(() => {
+      loginModal.classList.remove('hidden');
+      setTimeout(() => initializeRecaptcha('login'), 100);
+    }, 300);
   });
 
   // Fechar modais ao clicar fora
@@ -999,21 +1055,14 @@
     console.log("📤 Tentando fazer login:", email);
     
     // Verificar reCAPTCHA
-    let recaptchaValid = true;
-    if (recaptchaLoaded && typeof grecaptcha !== 'undefined') {
-      const recaptchaResponse = grecaptcha.getResponse();
-      console.log("🔍 reCAPTCHA response:", recaptchaResponse);
-      if (!recaptchaResponse) {
-        document.getElementById('loginCaptchaError').classList.remove('hidden');
-        recaptchaValid = false;
-      } else {
-        document.getElementById('loginCaptchaError').classList.add('hidden');
-      }
-    } else {
-      console.log("⚠️ reCAPTCHA não carregou, pulando verificação");
+    const recaptchaValid = verifyRecaptcha('login');
+    
+    if (!recaptchaValid) {
+      document.getElementById('loginCaptchaError').classList.remove('hidden');
+      return;
     }
     
-    if (!recaptchaValid) return;
+    document.getElementById('loginCaptchaError').classList.add('hidden');
     
     try {
       const user = await window.loginUser(email, password);
@@ -1037,21 +1086,14 @@
     console.log("📤 Tentando registrar:", username, email, level);
     
     // Verificar reCAPTCHA
-    let recaptchaValid = true;
-    if (recaptchaLoaded && typeof grecaptcha !== 'undefined') {
-      const recaptchaResponse = grecaptcha.getResponse();
-      console.log("🔍 reCAPTCHA response:", recaptchaResponse);
-      if (!recaptchaResponse) {
-        document.getElementById('registerCaptchaError').classList.remove('hidden');
-        recaptchaValid = false;
-      } else {
-        document.getElementById('registerCaptchaError').classList.add('hidden');
-      }
-    } else {
-      console.log("⚠️ reCAPTCHA não carregou, pulando verificação");
+    const recaptchaValid = verifyRecaptcha('register');
+    
+    if (!recaptchaValid) {
+      document.getElementById('registerCaptchaError').classList.remove('hidden');
+      return;
     }
     
-    if (!recaptchaValid) return;
+    document.getElementById('registerCaptchaError').classList.add('hidden');
     
     // Verificar se as senhas coincidem
     if (password !== confirmPassword) {
@@ -1075,7 +1117,7 @@
     }
   });
 
-  // Login com Google - BOTÃO ATUALIZADO
+  // Login com Google
   googleLoginBtn.addEventListener('click', async () => {
     console.log("🔐 Clicou no botão Google Login");
     
@@ -1136,6 +1178,13 @@
     });
     
     console.log("✅ Guild Origem carregado!");
+    
+    // Verificar se reCAPTCHA está disponível
+    if (typeof grecaptcha !== 'undefined') {
+      console.log("✅ reCAPTCHA API disponível");
+    } else {
+      console.log("⚠️ reCAPTCHA API não disponível - verifique a chave do site");
+    }
   });
 </script>
 </body>
