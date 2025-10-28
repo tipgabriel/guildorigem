@@ -1071,7 +1071,6 @@
       // Atualizar interface do usuário
       document.getElementById('guestMenu').classList.add('hidden');
       document.getElementById('userMenu').classList.remove('hidden');
-      document.getElementById('userGreeting').textContent = user.displayName || 'Membro';
       
       try {
         // Carregar informações do usuário
@@ -1081,33 +1080,20 @@
           const userData = userDoc.data();
           console.log("📊 Dados do usuário:", userData);
           
+          // Atualizar saudação com nome real
+          document.getElementById('userGreeting').textContent = userData.username || user.displayName || 'Membro';
+          
           // Verificar se é admin
           if (isAdmin(user)) {
             document.querySelectorAll('.admin-only').forEach(el => {
               el.classList.remove('hidden');
             });
+            document.getElementById('adminEventControls').classList.remove('hidden');
           }
           
           // Preencher painel do usuário se estiver visível
-          if (document.getElementById('userPanel').classList.contains('hidden') === false) {
-            const userPhoto = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
-            document.getElementById('userPhoto').src = userPhoto;
-            document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
-            document.getElementById('userDescription').value = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
-            document.getElementById('userCharacter').value = userData.character || userData.username || "A definir";
-            document.getElementById('userLevel').value = userData.level || 1;
-            document.getElementById('userClass').value = userData.favoriteClass || "A definir";
-            document.getElementById('userPlaytime').value = userData.playtime || "Recém-chegado";
-            document.getElementById('userRank').textContent = userData.rank || "Novato";
-            document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
-            
-            // Data de entrada
-            if (userData.joinDate) {
-              const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
-              document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
-            } else {
-              document.getElementById('userJoinDate').textContent = new Date().toLocaleDateString('pt-BR');
-            }
+          if (!document.getElementById('userPanel').classList.contains('hidden')) {
+            await loadUserProfileData();
           }
         }
       } catch (error) {
@@ -1131,6 +1117,37 @@
       document.getElementById('userPanel').classList.add('hidden');
     } catch (error) {
       console.error("❌ Erro no logout:", error);
+    }
+  };
+
+  // Carregar dados do perfil do usuário
+  window.loadUserProfileData = async () => {
+    try {
+      const user = auth.currentUser;
+      if (!user) return;
+
+      const userDoc = await getDoc(doc(db, "guild_origem_users", user.uid));
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        
+        // Preencher formulário do perfil
+        document.getElementById('userPhoto').src = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
+        document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
+        document.getElementById('userDescription').value = userData.description || "";
+        document.getElementById('userCharacter').value = userData.character || "";
+        document.getElementById('userLevel').value = userData.level || 1;
+        document.getElementById('userClass').value = userData.favoriteClass || "";
+        document.getElementById('userPlaytime').value = userData.playtime || "";
+        document.getElementById('userRank').textContent = userData.rank || "Novato";
+        document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
+        
+        if (userData.joinDate) {
+          const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
+          document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao carregar perfil:', error);
     }
   };
 </script>
@@ -1169,15 +1186,23 @@
 
   // Funções para mostrar/ocultar loading
   function showLoading(buttonId, spinnerId, textId) {
-    document.getElementById(buttonId).disabled = true;
-    document.getElementById(spinnerId).classList.remove('hidden');
-    document.getElementById(textId).style.opacity = '0.5';
+    const button = document.getElementById(buttonId);
+    const spinner = document.getElementById(spinnerId);
+    const text = document.getElementById(textId);
+    
+    if (button) button.disabled = true;
+    if (spinner) spinner.classList.remove('hidden');
+    if (text) text.style.opacity = '0.5';
   }
 
   function hideLoading(buttonId, spinnerId, textId) {
-    document.getElementById(buttonId).disabled = false;
-    document.getElementById(spinnerId).classList.add('hidden');
-    document.getElementById(textId).style.opacity = '1';
+    const button = document.getElementById(buttonId);
+    const spinner = document.getElementById(spinnerId);
+    const text = document.getElementById(textId);
+    
+    if (button) button.disabled = false;
+    if (spinner) spinner.classList.add('hidden');
+    if (text) text.style.opacity = '1';
   }
 
   // Funções para fechar modais
@@ -1305,7 +1330,7 @@
   viewProfileBtn.addEventListener('click', () => {
     mainContent.classList.add('hidden');
     userPanel.classList.remove('hidden');
-    loadUserProfileData();
+    window.loadUserProfileData();
   });
 
   // Gerenciar eventos (admin)
@@ -1341,12 +1366,12 @@
     }
   });
 
-  // Salvar perfil
+  // Salvar perfil - CORRIGIDO
   saveProfileBtn.addEventListener('click', async () => {
     const userData = {
       username: document.getElementById('userDisplayName').textContent,
       character: document.getElementById('userCharacter').value,
-      level: parseInt(document.getElementById('userLevel').value),
+      level: parseInt(document.getElementById('userLevel').value) || 1,
       description: document.getElementById('userDescription').value,
       favoriteClass: document.getElementById('userClass').value,
       playtime: document.getElementById('userPlaytime').value
@@ -1376,46 +1401,20 @@
     }
   });
 
-  // Carregar dados do perfil do usuário
-  async function loadUserProfileData() {
-    try {
-      const user = await new Promise((resolve) => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => resolve(user));
-      });
-      
-      if (user) {
-        const userDoc = await getDoc(doc(getFirestore(), "guild_origem_users", user.uid));
-        if (userDoc.exists()) {
-          const userData = userDoc.data();
-          
-          // Preencher formulário do perfil
-          document.getElementById('userPhoto').src = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
-          document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
-          document.getElementById('userDescription').value = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
-          document.getElementById('userCharacter').value = userData.character || userData.username || "A definir";
-          document.getElementById('userLevel').value = userData.level || 1;
-          document.getElementById('userClass').value = userData.favoriteClass || "A definir";
-          document.getElementById('userPlaytime').value = userData.playtime || "Recém-chegado";
-          document.getElementById('userRank').textContent = userData.rank || "Novato";
-          document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
-          
-          if (userData.joinDate) {
-            const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
-            document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
-          }
-        }
-      }
-    } catch (error) {
-      console.error('Erro ao carregar perfil:', error);
-    }
-  }
-
-  // Carregar membros
+  // Carregar membros - CORRIGIDO
   async function loadMembers() {
     try {
       const members = await window.loadMembers();
       membersGrid.innerHTML = '';
+      
+      if (members.length === 0) {
+        membersGrid.innerHTML = `
+          <div class="col-span-full text-center py-8">
+            <p class="text-gray-400">Nenhum membro encontrado.</p>
+          </div>
+        `;
+        return;
+      }
       
       members.forEach(member => {
         const memberCard = `
@@ -1428,7 +1427,7 @@
                 }
               </div>
               <div>
-                <h3 class="font-bold text-lg">${member.username}</h3>
+                <h3 class="font-bold text-lg">${member.username || 'Membro'}</h3>
                 <p class="text-sm text-gray-400">${member.rank || 'Membro'}</p>
               </div>
             </div>
@@ -1437,31 +1436,34 @@
               <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> ${member.character || 'A definir'}</p>
               <p><i class="fas fa-clock text-neon-green mr-2"></i> ${member.playtime || 'Ativo'}</p>
             </div>
-            <button class="view-profile-btn mt-3 w-full py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition" data-user-id="${member.uid}">
-              Ver Perfil
-            </button>
           </div>
         `;
         membersGrid.innerHTML += memberCard;
       });
-
-      // Adicionar event listeners para os botões de ver perfil
-      document.querySelectorAll('.view-profile-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          const userId = e.target.getAttribute('data-user-id');
-          viewMemberProfile(userId);
-        });
-      });
     } catch (error) {
       console.error('Erro ao carregar membros:', error);
+      membersGrid.innerHTML = `
+        <div class="col-span-full text-center py-8">
+          <p class="text-red-400">Erro ao carregar membros.</p>
+        </div>
+      `;
     }
   }
 
-  // Carregar eventos
+  // Carregar eventos - CORRIGIDO
   async function loadEvents() {
     try {
       const events = await window.loadEvents();
       eventsList.innerHTML = '';
+      
+      if (events.length === 0) {
+        eventsList.innerHTML = `
+          <div class="text-center py-8">
+            <p class="text-gray-400">Nenhum evento programado.</p>
+          </div>
+        `;
+        return;
+      }
       
       events.forEach(event => {
         const eventDate = new Date(event.datetime);
@@ -1512,6 +1514,11 @@
       });
     } catch (error) {
       console.error('Erro ao carregar eventos:', error);
+      eventsList.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-red-400">Erro ao carregar eventos.</p>
+        </div>
+      `;
     }
   }
 
@@ -1532,6 +1539,17 @@
     });
   }
 
+  // IMPORTANTE: Adicione seu UID de administrador aqui
+  function setupAdmin() {
+    // Substitua pelo seu UID do Firebase
+    const ADMIN_UID = 'SEU-UID-AQUI'; 
+    
+    // Adicione ao array de administradores
+    if (typeof ADMIN_UIDS !== 'undefined') {
+      ADMIN_UIDS.push(ADMIN_UID);
+    }
+  }
+
   // Atualizar automaticamente o ano do copyright
   document.addEventListener('DOMContentLoaded', () => {
     const copyrightElement = document.getElementById('copyright');
@@ -1539,6 +1557,9 @@
       const currentYear = new Date().getFullYear();
       copyrightElement.textContent = copyrightElement.textContent.replace('2023', currentYear);
     }
+    
+    // Configurar administrador
+    setupAdmin();
     
     // Suavizar rolagem para âncoras
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
