@@ -214,8 +214,193 @@
 
     <!-- Conteúdo Principal -->
     <main id="mainContent">
-        <!-- Seu conteúdo atual permanece aqui -->
-        <!-- ... -->
+        <!-- Banner Principal -->
+        <section id="inicio" class="relative py-16 md:py-24 bg-gradient-to-r from-dark-base to-gray-900">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-4xl md:text-6xl font-bold mb-4 text-neon-green">Guild Origem</h2>
+                <p class="text-xl md:text-2xl mb-8">Comunidade de AdventureQuest Worlds</p>
+                
+                <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border mb-8">
+                    <h3 class="text-2xl font-bold mb-4 text-neon-green">Status da Guild</h3>
+                    <div class="flex justify-between mb-2">
+                        <span>Membros Ativos</span>
+                        <span>58/140</span>
+                    </div>
+                    <div class="progress-bar mb-4">
+                        <div class="progress-fill" style="width: 41.4%"></div>
+                    </div>
+                    <p class="text-sm text-gray-400">Precisamos de mais 82 membros para completar a guild!</p>
+                </div>
+                
+                <button id="joinBtn" class="px-8 py-3 neon-button rounded-lg font-bold text-lg">Junte-se a Nós</button>
+            </div>
+        </section>
+
+        <!-- Seção de Membros -->
+        <section id="membros" class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Nossos Membros</h2>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Card de Membro 1 -->
+                    <div class="member-card rounded-lg p-4 neon-border">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-neon-green text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">Dragomir</h3>
+                                <p class="text-sm text-gray-400">Líder</p>
+                            </div>
+                        </div>
+                        <div class="text-sm">
+                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 100</p>
+                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Mestre</p>
+                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 2h</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Membro 2 -->
+                    <div class="member-card rounded-lg p-4 neon-border">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-neon-green text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">ShadowBlade</h3>
+                                <p class="text-sm text-gray-400">Oficial</p>
+                            </div>
+                        </div>
+                        <div class="text-sm">
+                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 95</p>
+                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 5h</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Membro 3 -->
+                    <div class="member-card rounded-lg p-4 neon-border">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-neon-green text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">LunaStrike</h3>
+                                <p class="text-sm text-gray-400">Membro</p>
+                            </div>
+                        </div>
+                        <div class="text-sm">
+                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 87</p>
+                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Avançado</p>
+                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 1h</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Card de Membro 4 -->
+                    <div class="member-card rounded-lg p-4 neon-border">
+                        <div class="flex items-center mb-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
+                                <i class="fas fa-user text-neon-green text-xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg">IronFist</h3>
+                                <p class="text-sm text-gray-400">Membro</p>
+                            </div>
+                        </div>
+                        <div class="text-sm">
+                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 92</p>
+                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
+                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 3h</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-8">
+                    <button class="px-6 py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition">Ver Todos os Membros</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre a Guild -->
+        <section id="sobre" class="py-16 bg-gray-900">
+            <div class="container mx-auto px-4">
+                <div class="max-w-3xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold mb-6 text-neon-green">Sobre a Guild Origem</h2>
+                    <p class="text-lg mb-6">
+                        A Guild Origem é uma comunidade dedicada de jogadores de AdventureQuest Worlds, focada em criar um ambiente amigável e colaborativo para todos os membros. Nossa missão é crescer juntos, superar desafios épicos e construir amizades duradouras no mundo de Lore.
+                    </p>
+                    <p class="text-lg mb-8">
+                        Com 58 membros ativos de um total de 140, estamos sempre em busca de novos aventureiros para se juntar à nossa família. Oferecemos eventos semanais, ajuda com quests difíceis e um sistema de ranking que recompensa a atividade e contribuição.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10">
+                        <div class="bg-dark-base p-6 rounded-lg neon-border">
+                            <i class="fas fa-users text-neon-green text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Comunidade Ativa</h3>
+                            <p>Eventos semanais e chat sempre movimentado</p>
+                        </div>
+                        
+                        <div class="bg-dark-base p-6 rounded-lg neon-border">
+                            <i class="fas fa-trophy text-neon-green text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Sistema de Ranking</h3>
+                            <p>Progressão baseada em atividade e contribuição</p>
+                        </div>
+                        
+                        <div class="bg-dark-base p-6 rounded-lg neon-border">
+                            <i class="fas fa-shield-alt text-neon-green text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold mb-2">Ajuda em Quests</h3>
+                            <p>Suporte para quests difíceis e bosses desafiadores</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Eventos -->
+        <section id="eventos" class="py-16">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Próximos Eventos</h2>
+                
+                <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold mb-2 text-neon-green">Batalha contra o Dragão Épico</h3>
+                        <p class="text-gray-400 mb-2">Sábado, 15:00 (Horário do Servidor)</p>
+                        <p>Junte-se a nós para uma batalha épica contra o temível dragão que ameaça as terras de Lore. Recompensas especiais para todos os participantes!</p>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="text-xl font-bold mb-2 text-neon-green">Torneio PvP da Guild</h3>
+                        <p class="text-gray-400 mb-2">Domingo, 18:00 (Horário do Servidor)</p>
+                        <p>Mostre suas habilidades de combate no torneio PvP da guild. Prêmios em moedas de ouro e itens raros para os vencedores.</p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-bold mb-2 text-neon-green">Sessão de Treinamento para Novatos</h3>
+                        <p class="text-gray-400 mb-2">Quarta-feira, 20:00 (Horário do Servidor)</p>
+                        <p>Novos membros são especialmente convidados para esta sessão de treinamento onde aprenderão estratégias avançadas e dicas de jogo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Regras -->
+        <section id="regras" class="py-16 bg-gray-900">
+            <div class="container mx-auto px-4">
+                <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Regras da Guild</h2>
+                
+                <div class="max-w-3xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
+                    <ol class="list-decimal pl-5 space-y-4">
+                        <li class="pb-2 border-b border-gray-700">Respeite todos os membros da guild e da comunidade de AQW.</li>
+                        <li class="pb-2 border-b border-gray-700">Não utilize linguagem ofensiva, discriminatória ou tóxica.</li>
+                        <li class="pb-2 border-b border-gray-700">Participe ativamente dos eventos da guild sempre que possível.</li>
+                        <li class="pb-2 border-b border-gray-700">Ajude outros membros quando solicitado, especialmente os novatos.</li>
+                        <li class="pb-2 border-b border-gray-700">Não divulgue informações privadas da guild para jogadores externos.</li>
+                        <li class="pb-2 border-b border-gray-700">Mantenha-se ativo - inatividade prolongada pode resultar em remoção.</li>
+                        <li class="pb-2">Siga as regras oficiais do AdventureQuest Worlds em todos os momentos.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Painel do Usuário (Inicialmente Oculto) -->
@@ -239,7 +424,7 @@
                             <!-- Foto de Perfil -->
                             <div class="flex-shrink-0 text-center">
                                 <div class="relative inline-block">
-                                    <img id="userPhoto" src="" alt="Foto de perfil" class="w-32 h-32 rounded-full object-cover border-4 border-neon-green">
+                                    <img id="userPhoto" src="/default-avatar.png" alt="Foto de perfil" class="w-32 h-32 rounded-full object-cover border-4 border-neon-green">
                                     <button id="changePhotoBtn" class="absolute bottom-0 right-0 bg-neon-green text-dark-base rounded-full p-2 hover:bg-neon-green-hover transition">
                                         <i class="fas fa-camera"></i>
                                     </button>
@@ -342,6 +527,37 @@
             </div>
         </div>
     </section>
+
+    <!-- Rodapé -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-dragon text-neon-green text-2xl"></i>
+                        <h2 class="text-xl font-bold text-neon-green">Guild Origem</h2>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p id="copyright">&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
+            </div>
+        </div>
+    </footer>
 
     <!-- Modal de Login -->
     <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
@@ -472,15 +688,10 @@
   } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
   import { 
     getFirestore, 
-    collection, 
-    addDoc, 
-    getDocs, 
-    query, 
-    where,
     doc,
     setDoc,
-    updateDoc,
-    getDoc
+    getDoc,
+    updateDoc
   } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   import { 
     getStorage, 
@@ -504,12 +715,19 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
   const storage = getStorage(app);
+  
+  // CONFIGURAÇÃO CORRIGIDA DO GOOGLE PROVIDER
   const googleProvider = new GoogleAuthProvider();
-
-  // Configurar domínio personalizado para evitar redirecionamento
+  googleProvider.setCustomParameters({
+    prompt: 'select_account',
+    display: 'popup',
+    login_hint: ''
+  });
+  
+  // Configurar auth para usar o domínio atual
   auth.useDeviceLanguage();
-
-  console.log("✅ Firebase Guild Origem inicializado!");
+  
+  console.log("✅ Firebase configurado para:", window.location.hostname);
 
   // Função para mostrar toast
   function showToast(message, type = 'info') {
@@ -553,7 +771,7 @@
         joinDate: new Date(),
         rank: "Novato",
         guild: "Guild Origem",
-        site: "guild_origem",
+        site: "guildorigem.vercel.app",
         timestamp: new Date()
       });
       
@@ -614,18 +832,21 @@
     }
   };
 
+  // Função de login com Google CORRIGIDA
   window.loginWithGoogle = async () => {
     try {
-      showToast('Conectando com Google...', 'info');
+      console.log("🔐 Iniciando login Google no domínio:", window.location.hostname);
       
+      // Usar signInWithPopup para evitar redirecionamento
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       
-      // Verificar se o usuário já existe no Firestore
-      const userDoc = await getDocs(query(collection(db, "guild_origem_users"), where("uid", "==", user.uid)));
+      console.log("✅ Login Google realizado com sucesso!");
+
+      // Verificar se o usuário já existe
+      const userDoc = await getDoc(doc(db, "guild_origem_users", user.uid));
       
-      // Se não existe, criar registro
-      if (userDoc.empty) {
+      if (!userDoc.exists()) {
         await setDoc(doc(db, "guild_origem_users", user.uid), {
           uid: user.uid,
           username: user.displayName || user.email.split('@')[0],
@@ -638,26 +859,24 @@
           joinDate: new Date(),
           rank: "Novato",
           guild: "Guild Origem",
-          site: "guild_origem",
+          site: "guildorigem.vercel.app",
           provider: "google",
           photoURL: user.photoURL || "",
           timestamp: new Date()
         });
+        console.log("📝 Novo usuário criado no Firestore");
       }
       
-      showToast('✅ Login com Google realizado com sucesso!', 'success');
+      showToast('✅ Login com Google realizado!', 'success');
       return user;
     } catch (error) {
-      console.error("❌ Erro no login com Google:", error);
+      console.error("❌ Erro no login Google:", error);
       
-      let errorMessage = "Erro ao fazer login com Google: ";
       if (error.code === 'auth/popup-closed-by-user') {
-        errorMessage = "Login com Google cancelado.";
+        showToast('Login com Google cancelado.', 'info');
       } else {
-        errorMessage = error.message;
+        showToast('Erro no login: ' + error.message, 'error');
       }
-      
-      showToast(errorMessage, 'error');
       throw error;
     }
   };
@@ -904,9 +1123,15 @@
     }
   });
 
-  // Login com Google
+  // Login com Google - VERSÃO CORRIGIDA
   googleLoginBtn.addEventListener('click', async () => {
-    showLoading('googleLogin', 'googleSpinner', 'googleBtnText');
+    console.log("🖱️ Botão Google clicado no domínio:", window.location.hostname);
+    
+    // Mostrar loading
+    const googleBtn = document.getElementById('googleLogin');
+    const originalHtml = googleBtn.innerHTML;
+    googleBtn.innerHTML = '<div class="spinner"></div> Conectando...';
+    googleBtn.disabled = true;
     
     try {
       await window.loginWithGoogle();
@@ -914,7 +1139,9 @@
     } catch (error) {
       // Erro já tratado na função
     } finally {
-      hideLoading('googleLogin', 'googleSpinner', 'googleBtnText');
+      // Restaurar botão
+      googleBtn.innerHTML = originalHtml;
+      googleBtn.disabled = false;
     }
   });
 
