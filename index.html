@@ -407,71 +407,58 @@
     <section id="userPanel" class="user-panel py-16 hidden">
         <div class="container mx-auto px-4">
             <div class="max-w-6xl mx-auto">
+                <!-- Cabeçalho do Perfil -->
                 <div class="flex justify-between items-center mb-8">
-                    <h2 class="text-3xl font-bold text-neon-green">Painel do Membro</h2>
-                    <button id="backToMain" class="px-4 py-2 bg-gray-700 text-white rounded font-bold">
+                    <h2 class="text-3xl font-bold text-neon-green">Meu Perfil</h2>
+                    <button id="backToMain" class="px-4 py-2 bg-gray-700 text-white rounded font-bold hover:bg-gray-600 transition">
                         <i class="fas fa-arrow-left mr-2"></i> Voltar ao Site
                     </button>
                 </div>
                 
                 <!-- Perfil do Usuário -->
                 <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-8">
-                    <!-- Informações do Usuário -->
+                    <!-- Card Principal do Perfil -->
                     <div class="bg-dark-base p-6 rounded-lg neon-border lg:col-span-3">
-                        <h3 class="text-xl font-bold mb-4 text-neon-green">Perfil do Usuário</h3>
-                        
                         <div class="flex flex-col md:flex-row gap-6 items-start">
                             <!-- Foto de Perfil -->
                             <div class="flex-shrink-0 text-center">
                                 <div class="relative inline-block">
-                                    <img id="userPhoto" src="/default-avatar.png" alt="Foto de perfil" class="w-32 h-32 rounded-full object-cover border-4 border-neon-green">
+                                    <img id="userPhoto" src="/default-avatar.png" alt="Foto de perfil" 
+                                         class="w-32 h-32 rounded-full object-cover border-4 border-neon-green">
                                     <button id="changePhotoBtn" class="absolute bottom-0 right-0 bg-neon-green text-dark-base rounded-full p-2 hover:bg-neon-green-hover transition">
                                         <i class="fas fa-camera"></i>
                                     </button>
                                 </div>
                                 <input type="file" id="photoUpload" class="hidden" accept="image/*">
+                                <h3 id="userDisplayName" class="text-xl font-bold mt-4 text-neon-green">Carregando...</h3>
+                                <p id="userRankBadge" class="text-sm bg-neon-green text-dark-base px-3 py-1 rounded-full mt-2 inline-block">Novato</p>
                             </div>
                             
-                            <!-- Formulário de Perfil -->
-                            <div class="flex-1 space-y-4">
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">Nome de Usuário</label>
-                                        <input type="text" id="profileUsername" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none">
-                                    </div>
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">E-mail</label>
-                                        <input type="email" id="profileEmail" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" readonly>
-                                    </div>
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">Personagem Principal</label>
-                                        <input type="text" id="profileCharacter" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none">
-                                    </div>
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">Nível</label>
-                                        <input type="number" id="profileLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100">
-                                    </div>
-                                </div>
-                                
-                                <div>
-                                    <label class="block text-gray-400 mb-2">Descrição/Bio</label>
-                                    <textarea id="profileDescription" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+                            <!-- Informações do Perfil -->
+                            <div class="flex-1">
+                                <div class="mb-6">
+                                    <h4 class="text-lg font-bold mb-3 text-neon-green">Sobre Mim</h4>
+                                    <p id="userDescription" class="text-gray-300">Esta é minha descrição na Guild Origem...</p>
                                 </div>
                                 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">Classe Favorita</label>
-                                        <input type="text" id="profileClass" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" placeholder="Ex: Necromancer">
+                                    <div class="bg-gray-800 p-4 rounded-lg">
+                                        <p class="text-gray-400 text-sm">Personagem Principal</p>
+                                        <p id="userCharacter" class="font-bold text-lg">-</p>
                                     </div>
-                                    <div>
-                                        <label class="block text-gray-400 mb-2">Tempo de Jogo</label>
-                                        <input type="text" id="profilePlaytime" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" placeholder="Ex: 2 anos">
+                                    <div class="bg-gray-800 p-4 rounded-lg">
+                                        <p class="text-gray-400 text-sm">Nível</p>
+                                        <p id="userLevel" class="font-bold text-lg text-neon-green">-</p>
+                                    </div>
+                                    <div class="bg-gray-800 p-4 rounded-lg">
+                                        <p class="text-gray-400 text-sm">Classe Favorita</p>
+                                        <p id="userClass" class="font-bold text-lg">-</p>
+                                    </div>
+                                    <div class="bg-gray-800 p-4 rounded-lg">
+                                        <p class="text-gray-400 text-sm">Tempo de Jogo</p>
+                                        <p id="userPlaytime" class="font-bold text-lg">-</p>
                                     </div>
                                 </div>
-                                
-                                <button id="saveProfileBtn" class="px-6 py-3 neon-button rounded font-bold">
-                                    <i class="fas fa-save mr-2"></i> Salvar Perfil
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -481,15 +468,15 @@
                         <h3 class="text-xl font-bold mb-4 text-neon-green">Status na Guild</h3>
                         <div class="space-y-4">
                             <div>
-                                <p class="text-gray-400">Rank</p>
+                                <p class="text-gray-400">Membro desde</p>
+                                <p id="userJoinDate" class="text-lg font-bold">-</p>
+                            </div>
+                            <div>
+                                <p class="text-gray-400">Rank Atual</p>
                                 <p id="userRank" class="text-lg font-bold text-neon-green">Novato</p>
                             </div>
                             <div>
-                                <p class="text-gray-400">Data de Entrada</p>
-                                <p id="userJoinDate" class="text-lg">-</p>
-                            </div>
-                            <div>
-                                <p class="text-gray-400">Participação em Eventos</p>
+                                <p class="text-gray-400">Participação</p>
                                 <div class="progress-bar mt-1">
                                     <div id="eventProgress" class="progress-fill" style="width: 65%"></div>
                                 </div>
@@ -506,22 +493,92 @@
                     </div>
                 </div>
                 
-                <!-- Seção de Estatísticas -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-dark-base p-6 rounded-lg neon-border text-center">
-                        <i class="fas fa-trophy text-neon-green text-3xl mb-3"></i>
-                        <h4 class="text-lg font-bold mb-2">Eventos Concluídos</h4>
-                        <p class="text-2xl text-neon-green">13</p>
+                <!-- Estatísticas e Ações -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <!-- Estatísticas -->
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <h3 class="text-xl font-bold mb-4 text-neon-green">Minhas Estatísticas</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <i class="fas fa-trophy text-neon-green text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Eventos</p>
+                                    <p class="text-xl font-bold">13</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <i class="fas fa-clock text-neon-green text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Horas</p>
+                                    <p class="text-xl font-bold">45h</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <i class="fas fa-users text-neon-green text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Amigos</p>
+                                    <p class="text-xl font-bold">8</p>
+                                </div>
+                            </div>
+                            <div class="text-center">
+                                <div class="bg-gray-800 p-4 rounded-lg">
+                                    <i class="fas fa-star text-neon-green text-2xl mb-2"></i>
+                                    <p class="text-sm text-gray-400">Conquistas</p>
+                                    <p class="text-xl font-bold">5</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="bg-dark-base p-6 rounded-lg neon-border text-center">
-                        <i class="fas fa-clock text-neon-green text-3xl mb-3"></i>
-                        <h4 class="text-lg font-bold mb-2">Tempo na Guild</h4>
-                        <p class="text-xl">2 meses</p>
+                    
+                    <!-- Ações Rápidas -->
+                    <div class="bg-dark-base p-6 rounded-lg neon-border">
+                        <h3 class="text-xl font-bold mb-4 text-neon-green">Ações Rápidas</h3>
+                        <div class="space-y-3">
+                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
+                                <i class="fas fa-edit text-neon-green mr-3"></i>
+                                <span>Editar Perfil</span>
+                            </button>
+                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
+                                <i class="fas fa-calendar text-neon-green mr-3"></i>
+                                <span>Meus Eventos</span>
+                            </button>
+                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
+                                <i class="fas fa-cog text-neon-green mr-3"></i>
+                                <span>Configurações</span>
+                            </button>
+                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
+                                <i class="fas fa-sign-out-alt text-neon-green mr-3"></i>
+                                <span>Sair</span>
+                            </button>
+                        </div>
                     </div>
-                    <div class="bg-dark-base p-6 rounded-lg neon-border text-center">
-                        <i class="fas fa-users text-neon-green text-3xl mb-3"></i>
-                        <h4 class="text-lg font-bold mb-2">Amigos na Guild</h4>
-                        <p class="text-2xl text-neon-green">8</p>
+                </div>
+                
+                <!-- Próximos Eventos -->
+                <div class="bg-dark-base p-6 rounded-lg neon-border">
+                    <h3 class="text-xl font-bold mb-4 text-neon-green">Meus Próximos Eventos</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
+                            <div>
+                                <h4 class="font-bold">Batalha contra o Dragão Épico</h4>
+                                <p class="text-sm text-gray-400">Sábado, 15:00 - Recompensas especiais</p>
+                            </div>
+                            <span class="px-3 py-1 bg-neon-green text-dark-base rounded-full text-sm font-bold">Inscrito</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
+                            <div>
+                                <h4 class="font-bold">Torneio PvP da Guild</h4>
+                                <p class="text-sm text-gray-400">Domingo, 18:00 - Prêmios em ouro</p>
+                            </div>
+                            <span class="px-3 py-1 bg-neon-green text-dark-base rounded-full text-sm font-bold">Inscrito</span>
+                        </div>
+                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
+                            <div>
+                                <h4 class="font-bold">Sessão de Treinamento</h4>
+                                <p class="text-sm text-gray-400">Quarta-feira, 20:00 - Para novatos</p>
+                            </div>
+                            <span class="px-3 py-1 bg-gray-600 text-white rounded-full text-sm font-bold">Não Inscrito</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -938,7 +995,7 @@
     }
   };
 
-  // Verificar estado de autenticação
+  // Verificar estado de autenticação - VERSÃO MELHORADA
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       console.log("👤 Usuário logado:", user.email);
@@ -948,33 +1005,46 @@
       try {
         // Carregar informações do usuário
         const userDoc = await getDoc(doc(db, "guild_origem_users", user.uid));
+        
         if (userDoc.exists()) {
           const userData = userDoc.data();
+          console.log("📊 Dados do usuário:", userData);
           
           // Preencher painel do usuário
-          document.getElementById('userPhoto').src = userData.photoURL || user.photoURL || '/default-avatar.png';
-          document.getElementById('profileUsername').value = userData.username || user.displayName || "";
-          document.getElementById('profileEmail').value = userData.email || user.email;
-          document.getElementById('profileCharacter').value = userData.character || "";
-          document.getElementById('profileLevel').value = userData.level || 1;
-          document.getElementById('profileDescription').value = userData.description || "";
-          document.getElementById('profileClass').value = userData.favoriteClass || "";
-          document.getElementById('profilePlaytime').value = userData.playtime || "";
+          const userPhoto = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
+          document.getElementById('userPhoto').src = userPhoto;
+          document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
+          document.getElementById('userDescription').textContent = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
+          document.getElementById('userCharacter').textContent = userData.character || userData.username || "A definir";
+          document.getElementById('userLevel').textContent = userData.level || 1;
+          document.getElementById('userClass').textContent = userData.favoriteClass || "A definir";
+          document.getElementById('userPlaytime').textContent = userData.playtime || "Recém-chegado";
           document.getElementById('userRank').textContent = userData.rank || "Novato";
+          document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
           
+          // Data de entrada
           if (userData.joinDate) {
             const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
             document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
+          } else {
+            document.getElementById('userJoinDate').textContent = new Date().toLocaleDateString('pt-BR');
           }
           
-          // Mostrar painel do usuário
+          // Mostrar painel do usuário com animação
           document.getElementById('mainContent').classList.add('hidden');
           document.getElementById('userPanel').classList.remove('hidden');
+          
+          // Scroll para o topo
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          
+          showToast(`🎉 Bem-vindo de volta, ${userData.username || 'aventureiro'}!`, 'success');
         }
       } catch (error) {
         console.error("❌ Erro ao carregar dados do usuário:", error);
+        showToast('Erro ao carregar perfil', 'error');
       }
     } else {
+      console.log("🚪 Usuário não logado");
       document.getElementById('loginBtn').classList.remove('hidden');
       document.getElementById('logoutBtn').classList.add('hidden');
     }
