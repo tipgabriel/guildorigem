@@ -180,6 +180,51 @@
             background-color: #3B82F6;
             border-left: 4px solid #2563EB;
         }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: #1f1f1f;
+            border: 1px solid #39FF14;
+            border-radius: 8px;
+            padding: 8px 0;
+            min-width: 180px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+
+        .dropdown-item {
+            display: block;
+            width: 100%;
+            padding: 10px 16px;
+            text-align: left;
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(57, 255, 20, 0.1);
+        }
+
+        /* Event Participation */
+        .event-card {
+            transition: all 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(57, 255, 20, 0.2);
+        }
+
+        .participating {
+            background: rgba(57, 255, 20, 0.1);
+            border-color: #39FF14;
+        }
     </style>
 </head>
 <body class="bg-dark-base min-h-screen">
@@ -203,11 +248,36 @@
             </div>
             
             <div class="flex items-center space-x-4">
-                <button id="loginBtn" class="px-4 py-2 neon-button rounded font-bold">Entrar</button>
-                <button id="logoutBtn" class="px-4 py-2 bg-gray-700 text-white rounded font-bold hidden">Sair</button>
-                <button id="menuBtn" class="md:hidden text-white">
-                    <i class="fas fa-bars text-xl"></i>
-                </button>
+                <!-- Usuário Logado -->
+                <div id="userMenu" class="hidden flex items-center space-x-3">
+                    <div class="text-right">
+                        <p class="text-sm text-neon-green">Olá, <span id="userGreeting">Membro</span></p>
+                        <p class="text-xs text-gray-400">Bem-vindo à Guild</p>
+                    </div>
+                    <div class="relative group">
+                        <button id="userAvatar" class="w-10 h-10 rounded-full bg-neon-green text-dark-base flex items-center justify-center font-bold hover:bg-neon-green-hover transition">
+                            <i class="fas fa-user"></i>
+                        </button>
+                        <!-- Dropdown Menu -->
+                        <div class="dropdown-menu hidden group-hover:block">
+                            <button id="viewProfileBtn" class="dropdown-item">
+                                <i class="fas fa-user mr-2"></i>Meu Perfil
+                            </button>
+                            <button id="manageEventsBtn" class="dropdown-item admin-only hidden">
+                                <i class="fas fa-calendar-plus mr-2"></i>Gerenciar Eventos
+                            </button>
+                            <hr class="border-gray-600 my-1">
+                            <button id="logoutHeaderBtn" class="dropdown-item text-red-400">
+                                <i class="fas fa-sign-out-alt mr-2"></i>Sair
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Usuário Não Logado -->
+                <div id="guestMenu">
+                    <button id="loginBtn" class="px-4 py-2 neon-button rounded font-bold">Entrar</button>
+                </div>
             </div>
         </div>
     </header>
@@ -224,7 +294,7 @@
                     <h3 class="text-2xl font-bold mb-4 text-neon-green">Status da Guild</h3>
                     <div class="flex justify-between mb-2">
                         <span>Membros Ativos</span>
-                        <span>58/140</span>
+                        <span id="activeMembers">58/140</span>
                     </div>
                     <div class="progress-bar mb-4">
                         <div class="progress-fill" style="width: 41.4%"></div>
@@ -241,78 +311,8 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Nossos Membros</h2>
                 
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                    <!-- Card de Membro 1 -->
-                    <div class="member-card rounded-lg p-4 neon-border">
-                        <div class="flex items-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
-                                <i class="fas fa-user text-neon-green text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">Dragomir</h3>
-                                <p class="text-sm text-gray-400">Líder</p>
-                            </div>
-                        </div>
-                        <div class="text-sm">
-                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 100</p>
-                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Mestre</p>
-                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 2h</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Card de Membro 2 -->
-                    <div class="member-card rounded-lg p-4 neon-border">
-                        <div class="flex items-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
-                                <i class="fas fa-user text-neon-green text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">ShadowBlade</h3>
-                                <p class="text-sm text-gray-400">Oficial</p>
-                            </div>
-                        </div>
-                        <div class="text-sm">
-                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 95</p>
-                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
-                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 5h</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Card de Membro 3 -->
-                    <div class="member-card rounded-lg p-4 neon-border">
-                        <div class="flex items-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
-                                <i class="fas fa-user text-neon-green text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">LunaStrike</h3>
-                                <p class="text-sm text-gray-400">Membro</p>
-                            </div>
-                        </div>
-                        <div class="text-sm">
-                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 87</p>
-                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Avançado</p>
-                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 1h</p>
-                        </div>
-                    </div>
-                    
-                    <!-- Card de Membro 4 -->
-                    <div class="member-card rounded-lg p-4 neon-border">
-                        <div class="flex items-center mb-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4">
-                                <i class="fas fa-user text-neon-green text-xl"></i>
-                            </div>
-                            <div>
-                                <h3 class="font-bold text-lg">IronFist</h3>
-                                <p class="text-sm text-gray-400">Membro</p>
-                            </div>
-                        </div>
-                        <div class="text-sm">
-                            <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível 92</p>
-                            <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> Rank: Veterano</p>
-                            <p><i class="fas fa-clock text-neon-green mr-2"></i> Online há 3h</p>
-                        </div>
-                    </div>
+                <div id="membersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                    <!-- Membros serão carregados dinamicamente -->
                 </div>
                 
                 <div class="text-center mt-8">
@@ -361,24 +361,15 @@
             <div class="container mx-auto px-4">
                 <h2 class="text-3xl font-bold text-center mb-12 text-neon-green">Próximos Eventos</h2>
                 
-                <div class="max-w-2xl mx-auto bg-dark-base p-6 rounded-lg neon-border">
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold mb-2 text-neon-green">Batalha contra o Dragão Épico</h3>
-                        <p class="text-gray-400 mb-2">Sábado, 15:00 (Horário do Servidor)</p>
-                        <p>Junte-se a nós para uma batalha épica contra o temível dragão que ameaça as terras de Lore. Recompensas especiais para todos os participantes!</p>
-                    </div>
-                    
-                    <div class="mb-6">
-                        <h3 class="text-xl font-bold mb-2 text-neon-green">Torneio PvP da Guild</h3>
-                        <p class="text-gray-400 mb-2">Domingo, 18:00 (Horário do Servidor)</p>
-                        <p>Mostre suas habilidades de combate no torneio PvP da guild. Prêmios em moedas de ouro e itens raros para os vencedores.</p>
-                    </div>
-                    
-                    <div>
-                        <h3 class="text-xl font-bold mb-2 text-neon-green">Sessão de Treinamento para Novatos</h3>
-                        <p class="text-gray-400 mb-2">Quarta-feira, 20:00 (Horário do Servidor)</p>
-                        <p>Novos membros são especialmente convidados para esta sessão de treinamento onde aprenderão estratégias avançadas e dicas de jogo.</p>
-                    </div>
+                <div id="eventsList" class="max-w-4xl mx-auto space-y-6">
+                    <!-- Eventos serão carregados dinamicamente -->
+                </div>
+
+                <!-- Botão para Administradores -->
+                <div id="adminEventControls" class="text-center mt-8 hidden">
+                    <button id="addEventBtn" class="px-6 py-3 neon-button rounded-lg font-bold">
+                        <i class="fas fa-plus mr-2"></i>Adicionar Evento
+                    </button>
                 </div>
             </div>
         </section>
@@ -438,27 +429,31 @@
                             <div class="flex-1">
                                 <div class="mb-6">
                                     <h4 class="text-lg font-bold mb-3 text-neon-green">Sobre Mim</h4>
-                                    <p id="userDescription" class="text-gray-300">Esta é minha descrição na Guild Origem...</p>
+                                    <textarea id="userDescription" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
                                 </div>
                                 
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div class="bg-gray-800 p-4 rounded-lg">
-                                        <p class="text-gray-400 text-sm">Personagem Principal</p>
-                                        <p id="userCharacter" class="font-bold text-lg">-</p>
+                                    <div>
+                                        <label class="block text-gray-400 text-sm mb-1">Personagem Principal</label>
+                                        <input type="text" id="userCharacter" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none">
                                     </div>
-                                    <div class="bg-gray-800 p-4 rounded-lg">
-                                        <p class="text-gray-400 text-sm">Nível</p>
-                                        <p id="userLevel" class="font-bold text-lg text-neon-green">-</p>
+                                    <div>
+                                        <label class="block text-gray-400 text-sm mb-1">Nível</label>
+                                        <input type="number" id="userLevel" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" min="1" max="100">
                                     </div>
-                                    <div class="bg-gray-800 p-4 rounded-lg">
-                                        <p class="text-gray-400 text-sm">Classe Favorita</p>
-                                        <p id="userClass" class="font-bold text-lg">-</p>
+                                    <div>
+                                        <label class="block text-gray-400 text-sm mb-1">Classe Favorita</label>
+                                        <input type="text" id="userClass" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none">
                                     </div>
-                                    <div class="bg-gray-800 p-4 rounded-lg">
-                                        <p class="text-gray-400 text-sm">Tempo de Jogo</p>
-                                        <p id="userPlaytime" class="font-bold text-lg">-</p>
+                                    <div>
+                                        <label class="block text-gray-400 text-sm mb-1">Tempo de Jogo</label>
+                                        <input type="text" id="userPlaytime" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none">
                                     </div>
                                 </div>
+
+                                <button id="saveProfileBtn" class="w-full mt-6 px-6 py-3 neon-button rounded font-bold">
+                                    <i class="fas fa-save mr-2"></i> Salvar Alterações
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -493,128 +488,16 @@
                     </div>
                 </div>
                 
-                <!-- Estatísticas e Ações -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                    <!-- Estatísticas -->
-                    <div class="bg-dark-base p-6 rounded-lg neon-border">
-                        <h3 class="text-xl font-bold mb-4 text-neon-green">Minhas Estatísticas</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="text-center">
-                                <div class="bg-gray-800 p-4 rounded-lg">
-                                    <i class="fas fa-trophy text-neon-green text-2xl mb-2"></i>
-                                    <p class="text-sm text-gray-400">Eventos</p>
-                                    <p class="text-xl font-bold">13</p>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-gray-800 p-4 rounded-lg">
-                                    <i class="fas fa-clock text-neon-green text-2xl mb-2"></i>
-                                    <p class="text-sm text-gray-400">Horas</p>
-                                    <p class="text-xl font-bold">45h</p>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-gray-800 p-4 rounded-lg">
-                                    <i class="fas fa-users text-neon-green text-2xl mb-2"></i>
-                                    <p class="text-sm text-gray-400">Amigos</p>
-                                    <p class="text-xl font-bold">8</p>
-                                </div>
-                            </div>
-                            <div class="text-center">
-                                <div class="bg-gray-800 p-4 rounded-lg">
-                                    <i class="fas fa-star text-neon-green text-2xl mb-2"></i>
-                                    <p class="text-sm text-gray-400">Conquistas</p>
-                                    <p class="text-xl font-bold">5</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Ações Rápidas -->
-                    <div class="bg-dark-base p-6 rounded-lg neon-border">
-                        <h3 class="text-xl font-bold mb-4 text-neon-green">Ações Rápidas</h3>
-                        <div class="space-y-3">
-                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
-                                <i class="fas fa-edit text-neon-green mr-3"></i>
-                                <span>Editar Perfil</span>
-                            </button>
-                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
-                                <i class="fas fa-calendar text-neon-green mr-3"></i>
-                                <span>Meus Eventos</span>
-                            </button>
-                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
-                                <i class="fas fa-cog text-neon-green mr-3"></i>
-                                <span>Configurações</span>
-                            </button>
-                            <button class="w-full text-left p-3 bg-gray-800 rounded hover:bg-gray-700 transition flex items-center">
-                                <i class="fas fa-sign-out-alt text-neon-green mr-3"></i>
-                                <span>Sair</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Próximos Eventos -->
+                <!-- Meus Eventos -->
                 <div class="bg-dark-base p-6 rounded-lg neon-border">
-                    <h3 class="text-xl font-bold mb-4 text-neon-green">Meus Próximos Eventos</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
-                            <div>
-                                <h4 class="font-bold">Batalha contra o Dragão Épico</h4>
-                                <p class="text-sm text-gray-400">Sábado, 15:00 - Recompensas especiais</p>
-                            </div>
-                            <span class="px-3 py-1 bg-neon-green text-dark-base rounded-full text-sm font-bold">Inscrito</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
-                            <div>
-                                <h4 class="font-bold">Torneio PvP da Guild</h4>
-                                <p class="text-sm text-gray-400">Domingo, 18:00 - Prêmios em ouro</p>
-                            </div>
-                            <span class="px-3 py-1 bg-neon-green text-dark-base rounded-full text-sm font-bold">Inscrito</span>
-                        </div>
-                        <div class="flex justify-between items-center p-4 bg-gray-800 rounded-lg">
-                            <div>
-                                <h4 class="font-bold">Sessão de Treinamento</h4>
-                                <p class="text-sm text-gray-400">Quarta-feira, 20:00 - Para novatos</p>
-                            </div>
-                            <span class="px-3 py-1 bg-gray-600 text-white rounded-full text-sm font-bold">Não Inscrito</span>
-                        </div>
+                    <h3 class="text-xl font-bold mb-4 text-neon-green">Meus Eventos</h3>
+                    <div id="myEventsList" class="space-y-3">
+                        <!-- Eventos do usuário serão carregados aqui -->
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Rodapé -->
-    <footer class="py-8 border-t border-gray-800">
-        <div class="container mx-auto px-4">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-4 md:mb-0">
-                    <div class="flex items-center space-x-2">
-                        <i class="fas fa-dragon text-neon-green text-2xl"></i>
-                        <h2 class="text-xl font-bold text-neon-green">Guild Origem</h2>
-                    </div>
-                    <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
-                </div>
-                
-                <div class="flex space-x-4">
-                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
-                        <i class="fab fa-discord text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
-                        <i class="fab fa-twitter text-xl"></i>
-                    </a>
-                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
-                        <i class="fab fa-youtube text-xl"></i>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
-                <p id="copyright">&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
-            </div>
-        </div>
-    </footer>
 
     <!-- Modal de Login -->
     <div id="loginModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
@@ -634,15 +517,6 @@
                 <div>
                     <label for="loginPassword" class="block mb-2">Senha</label>
                     <input type="password" id="loginPassword" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
-                </div>
-                
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center">
-                        <input type="checkbox" id="rememberMe" class="mr-2">
-                        <label for="rememberMe">Lembrar-me</label>
-                    </div>
-                    
-                    <a href="#" class="text-neon-green hover:underline">Esqueceu a senha?</a>
                 </div>
                 
                 <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">
@@ -729,6 +603,76 @@
         </div>
     </div>
 
+    <!-- Modal de Adicionar Evento (Admin) -->
+    <div id="addEventModal" class="fixed inset-0 z-50 flex items-center justify-center modal-overlay hidden">
+        <div class="bg-dark-base rounded-lg p-8 w-full max-w-md neon-border relative">
+            <button id="closeAddEventModal" class="absolute top-4 right-4 text-gray-400 hover:text-white">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+            
+            <h2 class="text-2xl font-bold mb-6 text-center text-neon-green">Adicionar Evento</h2>
+            
+            <form id="addEventForm" class="space-y-4">
+                <div>
+                    <label for="eventTitle" class="block mb-2">Título do Evento</label>
+                    <input type="text" id="eventTitle" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                </div>
+                
+                <div>
+                    <label for="eventDescription" class="block mb-2">Descrição</label>
+                    <textarea id="eventDescription" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" rows="3" required></textarea>
+                </div>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label for="eventDate" class="block mb-2">Data</label>
+                        <input type="date" id="eventDate" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                    </div>
+                    
+                    <div>
+                        <label for="eventTime" class="block mb-2">Horário</label>
+                        <input type="time" id="eventTime" class="w-full p-3 bg-gray-800 rounded border border-gray-700 focus:border-neon-green focus:outline-none" required>
+                    </div>
+                </div>
+                
+                <button type="submit" class="w-full py-3 neon-button rounded font-bold mt-4">
+                    <i class="fas fa-plus mr-2"></i>Adicionar Evento
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <footer class="py-8 border-t border-gray-800">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <div class="flex items-center space-x-2">
+                        <i class="fas fa-dragon text-neon-green text-2xl"></i>
+                        <h2 class="text-xl font-bold text-neon-green">Guild Origem</h2>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">Comunidade de AdventureQuest Worlds</p>
+                </div>
+                
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-neon-green transition">
+                        <i class="fab fa-youtube text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-6 pt-6 text-center text-gray-400 text-sm">
+                <p id="copyright">&copy; 2023 Guild Origem. Todos os direitos reservados. AdventureQuest Worlds é uma marca registrada da Artix Entertainment.</p>
+            </div>
+        </div>
+    </footer>
+
 <!-- Firebase SDK -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
@@ -740,15 +684,21 @@
     GoogleAuthProvider, 
     signInWithPopup, 
     signOut,
-    updateProfile,
-    updateEmail
+    updateProfile
   } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
   import { 
     getFirestore, 
     doc,
     setDoc,
     getDoc,
-    updateDoc
+    updateDoc,
+    collection,
+    addDoc,
+    getDocs,
+    query,
+    where,
+    onSnapshot,
+    deleteDoc
   } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-firestore.js";
   import { 
     getStorage, 
@@ -786,6 +736,12 @@
   
   console.log("✅ Firebase configurado para:", window.location.hostname);
 
+  // IDs dos administradores (adicione seu UID aqui)
+  const ADMIN_UIDS = [
+    'seu-uid-aqui', // Substitua pelo seu UID do Firebase
+    'outro-admin-uid'
+  ];
+
   // Função para mostrar toast
   function showToast(message, type = 'info') {
     const toast = document.createElement('div');
@@ -800,6 +756,11 @@
       toast.classList.remove('show');
       setTimeout(() => toast.remove(), 300);
     }, 4000);
+  }
+
+  // Verificar se usuário é admin
+  function isAdmin(user) {
+    return ADMIN_UIDS.includes(user.uid);
   }
 
   // Funções de autenticação melhoradas
@@ -822,13 +783,14 @@
         email: email,
         character: username,
         level: parseInt(level),
-        description: "",
-        favoriteClass: "",
-        playtime: "",
+        description: `Um novo aventureiro chegou à Guild Origem! 🎮`,
+        favoriteClass: "A descobrir",
+        playtime: "Recém-chegado",
         joinDate: new Date(),
         rank: "Novato",
         guild: "Guild Origem",
         site: "guildorigem.vercel.app",
+        isAdmin: isAdmin(user),
         timestamp: new Date()
       });
       
@@ -892,9 +854,9 @@
   // Função de login com Google CORRIGIDA
   window.loginWithGoogle = async () => {
     try {
-      console.log("🔐 Iniciando login Google no domínio:", window.location.hostname);
+      console.log("🔐 Iniciando login Google...");
+      showToast('Abrindo autenticação do Google...', 'info');
       
-      // Usar signInWithPopup para evitar redirecionamento
       const result = await signInWithPopup(auth, googleProvider);
       const user = result.user;
       
@@ -910,27 +872,32 @@
           email: user.email,
           character: user.displayName || "A definir",
           level: 1,
-          description: "",
-          favoriteClass: "",
-          playtime: "",
+          description: `Um novo aventureiro chegou à Guild Origem! 🎮`,
+          favoriteClass: "A descobrir",
+          playtime: "Recém-chegado",
           joinDate: new Date(),
           rank: "Novato",
           guild: "Guild Origem",
           site: "guildorigem.vercel.app",
           provider: "google",
           photoURL: user.photoURL || "",
+          isAdmin: isAdmin(user),
           timestamp: new Date()
         });
         console.log("📝 Novo usuário criado no Firestore");
+        showToast('🎉 Perfil criado! Bem-vindo à Guild Origem!', 'success');
+      } else {
+        showToast('✅ Login realizado! Bem-vindo de volta!', 'success');
       }
       
-      showToast('✅ Login com Google realizado!', 'success');
       return user;
     } catch (error) {
       console.error("❌ Erro no login Google:", error);
       
       if (error.code === 'auth/popup-closed-by-user') {
         showToast('Login com Google cancelado.', 'info');
+      } else if (error.code === 'auth/popup-blocked') {
+        showToast('Popup bloqueado! Permita popups para este site.', 'error');
       } else {
         showToast('Erro no login: ' + error.message, 'error');
       }
@@ -995,12 +962,116 @@
     }
   };
 
+  // Função para adicionar evento
+  window.addEvent = async (eventData) => {
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error('Usuário não autenticado');
+      
+      if (!isAdmin(user)) {
+        throw new Error('Apenas administradores podem adicionar eventos');
+      }
+
+      const eventWithMetadata = {
+        ...eventData,
+        createdBy: user.uid,
+        createdAt: new Date(),
+        participants: []
+      };
+
+      const docRef = await addDoc(collection(db, "guild_events"), eventWithMetadata);
+      showToast('Evento adicionado com sucesso!', 'success');
+      return docRef.id;
+    } catch (error) {
+      console.error('Erro ao adicionar evento:', error);
+      showToast('Erro ao adicionar evento: ' + error.message, 'error');
+      throw error;
+    }
+  };
+
+  // Função para participar de evento
+  window.toggleEventParticipation = async (eventId, participating) => {
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error('Usuário não autenticado');
+
+      const eventRef = doc(db, "guild_events", eventId);
+      const eventDoc = await getDoc(eventRef);
+      
+      if (!eventDoc.exists()) {
+        throw new Error('Evento não encontrado');
+      }
+
+      const eventData = eventDoc.data();
+      let participants = eventData.participants || [];
+
+      if (participating) {
+        // Remover participação
+        participants = participants.filter(uid => uid !== user.uid);
+      } else {
+        // Adicionar participação
+        if (!participants.includes(user.uid)) {
+          participants.push(user.uid);
+        }
+      }
+
+      await updateDoc(eventRef, { participants });
+      
+      const action = participating ? 'removida' : 'confirmada';
+      showToast(`Participação ${action} com sucesso!`, 'success');
+      return true;
+    } catch (error) {
+      console.error('Erro ao atualizar participação:', error);
+      showToast('Erro ao atualizar participação: ' + error.message, 'error');
+      throw error;
+    }
+  };
+
+  // Carregar eventos
+  window.loadEvents = async () => {
+    try {
+      const eventsQuery = query(collection(db, "guild_events"));
+      const querySnapshot = await getDocs(eventsQuery);
+      const events = [];
+      
+      querySnapshot.forEach((doc) => {
+        events.push({ id: doc.id, ...doc.data() });
+      });
+      
+      return events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    } catch (error) {
+      console.error('Erro ao carregar eventos:', error);
+      return [];
+    }
+  };
+
+  // Carregar membros
+  window.loadMembers = async () => {
+    try {
+      const membersQuery = query(collection(db, "guild_origem_users"));
+      const querySnapshot = await getDocs(membersQuery);
+      const members = [];
+      
+      querySnapshot.forEach((doc) => {
+        members.push(doc.data());
+      });
+      
+      return members;
+    } catch (error) {
+      console.error('Erro ao carregar membros:', error);
+      return [];
+    }
+  };
+
   // Verificar estado de autenticação - VERSÃO MELHORADA
   onAuthStateChanged(auth, async (user) => {
     if (user) {
       console.log("👤 Usuário logado:", user.email);
-      document.getElementById('loginBtn').classList.add('hidden');
-      document.getElementById('logoutBtn').classList.remove('hidden');
+      
+      // Atualizar interface do usuário
+      document.getElementById('guestMenu').classList.add('hidden');
+      document.getElementById('userMenu').classList.remove('hidden');
+      document.getElementById('userGreeting').textContent = user.displayName || 'Membro';
       
       try {
         // Carregar informações do usuário
@@ -1010,43 +1081,44 @@
           const userData = userDoc.data();
           console.log("📊 Dados do usuário:", userData);
           
-          // Preencher painel do usuário
-          const userPhoto = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
-          document.getElementById('userPhoto').src = userPhoto;
-          document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
-          document.getElementById('userDescription').textContent = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
-          document.getElementById('userCharacter').textContent = userData.character || userData.username || "A definir";
-          document.getElementById('userLevel').textContent = userData.level || 1;
-          document.getElementById('userClass').textContent = userData.favoriteClass || "A definir";
-          document.getElementById('userPlaytime').textContent = userData.playtime || "Recém-chegado";
-          document.getElementById('userRank').textContent = userData.rank || "Novato";
-          document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
-          
-          // Data de entrada
-          if (userData.joinDate) {
-            const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
-            document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
-          } else {
-            document.getElementById('userJoinDate').textContent = new Date().toLocaleDateString('pt-BR');
+          // Verificar se é admin
+          if (isAdmin(user)) {
+            document.querySelectorAll('.admin-only').forEach(el => {
+              el.classList.remove('hidden');
+            });
           }
           
-          // Mostrar painel do usuário com animação
-          document.getElementById('mainContent').classList.add('hidden');
-          document.getElementById('userPanel').classList.remove('hidden');
-          
-          // Scroll para o topo
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          
-          showToast(`🎉 Bem-vindo de volta, ${userData.username || 'aventureiro'}!`, 'success');
+          // Preencher painel do usuário se estiver visível
+          if (document.getElementById('userPanel').classList.contains('hidden') === false) {
+            const userPhoto = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
+            document.getElementById('userPhoto').src = userPhoto;
+            document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
+            document.getElementById('userDescription').value = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
+            document.getElementById('userCharacter').value = userData.character || userData.username || "A definir";
+            document.getElementById('userLevel').value = userData.level || 1;
+            document.getElementById('userClass').value = userData.favoriteClass || "A definir";
+            document.getElementById('userPlaytime').value = userData.playtime || "Recém-chegado";
+            document.getElementById('userRank').textContent = userData.rank || "Novato";
+            document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
+            
+            // Data de entrada
+            if (userData.joinDate) {
+              const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
+              document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
+            } else {
+              document.getElementById('userJoinDate').textContent = new Date().toLocaleDateString('pt-BR');
+            }
+          }
         }
       } catch (error) {
         console.error("❌ Erro ao carregar dados do usuário:", error);
-        showToast('Erro ao carregar perfil', 'error');
       }
     } else {
       console.log("🚪 Usuário não logado");
-      document.getElementById('loginBtn').classList.remove('hidden');
-      document.getElementById('logoutBtn').classList.add('hidden');
+      document.getElementById('guestMenu').classList.remove('hidden');
+      document.getElementById('userMenu').classList.add('hidden');
+      document.getElementById('mainContent').classList.remove('hidden');
+      document.getElementById('userPanel').classList.add('hidden');
     }
   });
 
@@ -1054,12 +1126,11 @@
   window.logoutUser = async () => {
     try {
       await signOut(auth);
-      showToast('👋 Logout realizado com sucesso!', 'info');
+      // Não mostrar mensagem de toast no logout
       document.getElementById('mainContent').classList.remove('hidden');
       document.getElementById('userPanel').classList.add('hidden');
     } catch (error) {
       console.error("❌ Erro no logout:", error);
-      showToast('❌ Erro ao fazer logout: ' + error.message, 'error');
     }
   };
 </script>
@@ -1068,16 +1139,19 @@
 <script>
   // Elementos DOM
   const loginBtn = document.getElementById('loginBtn');
-  const logoutBtn = document.getElementById('logoutBtn');
+  const logoutHeaderBtn = document.getElementById('logoutHeaderBtn');
   const joinBtn = document.getElementById('joinBtn');
   const loginModal = document.getElementById('loginModal');
   const registerModal = document.getElementById('registerModal');
+  const addEventModal = document.getElementById('addEventModal');
   const closeLoginModalBtn = document.getElementById('closeLoginModal');
   const closeRegisterModalBtn = document.getElementById('closeRegisterModal');
+  const closeAddEventModalBtn = document.getElementById('closeAddEventModal');
   const showRegister = document.getElementById('showRegister');
   const showLogin = document.getElementById('showLogin');
   const loginForm = document.getElementById('loginForm');
   const registerForm = document.getElementById('registerForm');
+  const addEventForm = document.getElementById('addEventForm');
   const googleLoginBtn = document.getElementById('googleLogin');
   const mainContent = document.getElementById('mainContent');
   const userPanel = document.getElementById('userPanel');
@@ -1085,6 +1159,13 @@
   const saveProfileBtn = document.getElementById('saveProfileBtn');
   const changePhotoBtn = document.getElementById('changePhotoBtn');
   const photoUpload = document.getElementById('photoUpload');
+  const viewProfileBtn = document.getElementById('viewProfileBtn');
+  const manageEventsBtn = document.getElementById('manageEventsBtn');
+  const addEventBtn = document.getElementById('addEventBtn');
+  const membersGrid = document.getElementById('membersGrid');
+  const eventsList = document.getElementById('eventsList');
+  const myEventsList = document.getElementById('myEventsList');
+  const adminEventControls = document.getElementById('adminEventControls');
 
   // Funções para mostrar/ocultar loading
   function showLoading(buttonId, spinnerId, textId) {
@@ -1110,13 +1191,18 @@
     registerForm.reset();
   }
 
+  function closeAddEventModal() {
+    addEventModal.classList.add('hidden');
+    addEventForm.reset();
+  }
+
   // Abrir modal de login
   loginBtn.addEventListener('click', () => {
     loginModal.classList.remove('hidden');
   });
 
-  // Logout
-  logoutBtn.addEventListener('click', () => {
+  // Logout do header
+  logoutHeaderBtn.addEventListener('click', () => {
     window.logoutUser();
   });
 
@@ -1128,6 +1214,7 @@
   // Fechar modais
   closeLoginModalBtn.addEventListener('click', closeLoginModal);
   closeRegisterModalBtn.addEventListener('click', closeRegisterModal);
+  closeAddEventModalBtn.addEventListener('click', closeAddEventModal);
 
   // Alternar entre login e registro
   showRegister.addEventListener('click', () => {
@@ -1144,6 +1231,7 @@
   window.addEventListener('click', (e) => {
     if (e.target === loginModal) closeLoginModal();
     if (e.target === registerModal) closeRegisterModal();
+    if (e.target === addEventModal) closeAddEventModal();
   });
 
   // Processar formulário de login
@@ -1195,13 +1283,7 @@
 
   // Login com Google - VERSÃO CORRIGIDA
   googleLoginBtn.addEventListener('click', async () => {
-    console.log("🖱️ Botão Google clicado no domínio:", window.location.hostname);
-    
-    // Mostrar loading
-    const googleBtn = document.getElementById('googleLogin');
-    const originalHtml = googleBtn.innerHTML;
-    googleBtn.innerHTML = '<div class="spinner"></div> Conectando...';
-    googleBtn.disabled = true;
+    showLoading('googleLogin', 'googleSpinner', 'googleBtnText');
     
     try {
       await window.loginWithGoogle();
@@ -1209,9 +1291,7 @@
     } catch (error) {
       // Erro já tratado na função
     } finally {
-      // Restaurar botão
-      googleBtn.innerHTML = originalHtml;
-      googleBtn.disabled = false;
+      hideLoading('googleLogin', 'googleSpinner', 'googleBtnText');
     }
   });
 
@@ -1221,15 +1301,55 @@
     mainContent.classList.remove('hidden');
   });
 
+  // Ver perfil
+  viewProfileBtn.addEventListener('click', () => {
+    mainContent.classList.add('hidden');
+    userPanel.classList.remove('hidden');
+    loadUserProfileData();
+  });
+
+  // Gerenciar eventos (admin)
+  manageEventsBtn.addEventListener('click', () => {
+    addEventModal.classList.remove('hidden');
+  });
+
+  // Adicionar evento
+  addEventBtn.addEventListener('click', () => {
+    addEventModal.classList.remove('hidden');
+  });
+
+  // Processar formulário de adicionar evento
+  addEventForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const title = document.getElementById('eventTitle').value;
+    const description = document.getElementById('eventDescription').value;
+    const date = document.getElementById('eventDate').value;
+    const time = document.getElementById('eventTime').value;
+    
+    try {
+      await window.addEvent({
+        title,
+        description,
+        date,
+        time,
+        datetime: new Date(`${date}T${time}`)
+      });
+      closeAddEventModal();
+      loadEvents();
+    } catch (error) {
+      // Erro já tratado na função
+    }
+  });
+
   // Salvar perfil
   saveProfileBtn.addEventListener('click', async () => {
     const userData = {
-      username: document.getElementById('profileUsername').value,
-      character: document.getElementById('profileCharacter').value,
-      level: parseInt(document.getElementById('profileLevel').value),
-      description: document.getElementById('profileDescription').value,
-      favoriteClass: document.getElementById('profileClass').value,
-      playtime: document.getElementById('profilePlaytime').value
+      username: document.getElementById('userDisplayName').textContent,
+      character: document.getElementById('userCharacter').value,
+      level: parseInt(document.getElementById('userLevel').value),
+      description: document.getElementById('userDescription').value,
+      favoriteClass: document.getElementById('userClass').value,
+      playtime: document.getElementById('userPlaytime').value
     };
     
     try {
@@ -1255,6 +1375,145 @@
       }
     }
   });
+
+  // Carregar dados do perfil do usuário
+  async function loadUserProfileData() {
+    try {
+      const user = await new Promise((resolve) => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => resolve(user));
+      });
+      
+      if (user) {
+        const userDoc = await getDoc(doc(getFirestore(), "guild_origem_users", user.uid));
+        if (userDoc.exists()) {
+          const userData = userDoc.data();
+          
+          // Preencher formulário do perfil
+          document.getElementById('userPhoto').src = userData.photoURL || user.photoURL || 'https://via.placeholder.com/150/171717/39FF14?text=GUILD';
+          document.getElementById('userDisplayName').textContent = userData.username || user.displayName || "Membro da Guild";
+          document.getElementById('userDescription').value = userData.description || "Um membro dedicado da Guild Origem, sempre pronto para aventuras épicas!";
+          document.getElementById('userCharacter').value = userData.character || userData.username || "A definir";
+          document.getElementById('userLevel').value = userData.level || 1;
+          document.getElementById('userClass').value = userData.favoriteClass || "A definir";
+          document.getElementById('userPlaytime').value = userData.playtime || "Recém-chegado";
+          document.getElementById('userRank').textContent = userData.rank || "Novato";
+          document.getElementById('userRankBadge').textContent = userData.rank || "Novato";
+          
+          if (userData.joinDate) {
+            const joinDate = userData.joinDate.toDate ? userData.joinDate.toDate() : new Date(userData.joinDate);
+            document.getElementById('userJoinDate').textContent = joinDate.toLocaleDateString('pt-BR');
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Erro ao carregar perfil:', error);
+    }
+  }
+
+  // Carregar membros
+  async function loadMembers() {
+    try {
+      const members = await window.loadMembers();
+      membersGrid.innerHTML = '';
+      
+      members.forEach(member => {
+        const memberCard = `
+          <div class="member-card rounded-lg p-4 neon-border">
+            <div class="flex items-center mb-4">
+              <div class="w-16 h-16 rounded-full bg-gray-700 flex items-center justify-center mr-4 overflow-hidden">
+                ${member.photoURL ? 
+                  `<img src="${member.photoURL}" alt="${member.username}" class="w-full h-full object-cover">` : 
+                  `<i class="fas fa-user text-neon-green text-xl"></i>`
+                }
+              </div>
+              <div>
+                <h3 class="font-bold text-lg">${member.username}</h3>
+                <p class="text-sm text-gray-400">${member.rank || 'Membro'}</p>
+              </div>
+            </div>
+            <div class="text-sm">
+              <p class="mb-1"><i class="fas fa-shield-alt text-neon-green mr-2"></i> Nível ${member.level || 1}</p>
+              <p class="mb-1"><i class="fas fa-medal text-neon-green mr-2"></i> ${member.character || 'A definir'}</p>
+              <p><i class="fas fa-clock text-neon-green mr-2"></i> ${member.playtime || 'Ativo'}</p>
+            </div>
+            <button class="view-profile-btn mt-3 w-full py-2 bg-gray-800 text-white rounded hover:bg-gray-700 transition" data-user-id="${member.uid}">
+              Ver Perfil
+            </button>
+          </div>
+        `;
+        membersGrid.innerHTML += memberCard;
+      });
+
+      // Adicionar event listeners para os botões de ver perfil
+      document.querySelectorAll('.view-profile-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const userId = e.target.getAttribute('data-user-id');
+          viewMemberProfile(userId);
+        });
+      });
+    } catch (error) {
+      console.error('Erro ao carregar membros:', error);
+    }
+  }
+
+  // Carregar eventos
+  async function loadEvents() {
+    try {
+      const events = await window.loadEvents();
+      eventsList.innerHTML = '';
+      
+      events.forEach(event => {
+        const eventDate = new Date(event.datetime);
+        const now = new Date();
+        const isPast = eventDate < now;
+        
+        const eventCard = `
+          <div class="event-card bg-dark-base p-6 rounded-lg neon-border ${isPast ? 'opacity-60' : ''}">
+            <div class="flex justify-between items-start mb-4">
+              <div>
+                <h3 class="text-xl font-bold text-neon-green">${event.title}</h3>
+                <p class="text-gray-400">${eventDate.toLocaleDateString('pt-BR')} às ${eventDate.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' })}</p>
+              </div>
+              <span class="px-3 py-1 ${isPast ? 'bg-gray-600' : 'bg-neon-green'} text-dark-base rounded-full text-sm font-bold">
+                ${isPast ? 'Realizado' : 'Em Breve'}
+              </span>
+            </div>
+            <p class="text-gray-300 mb-4">${event.description}</p>
+            <div class="flex justify-between items-center">
+              <span class="text-sm text-gray-400">
+                <i class="fas fa-users mr-1"></i>
+                ${event.participants ? event.participants.length : 0} participantes
+              </span>
+              ${!isPast ? `
+                <button class="participate-btn px-4 py-2 neon-button rounded font-bold text-sm" data-event-id="${event.id}">
+                  Participar
+                </button>
+              ` : ''}
+            </div>
+          </div>
+        `;
+        eventsList.innerHTML += eventCard;
+      });
+
+      // Adicionar event listeners para os botões de participar
+      document.querySelectorAll('.participate-btn').forEach(btn => {
+        btn.addEventListener('click', async (e) => {
+          const eventId = e.target.getAttribute('data-event-id');
+          const isParticipating = e.target.classList.contains('participating');
+          
+          try {
+            await window.toggleEventParticipation(eventId, isParticipating);
+            loadEvents(); // Recarregar eventos para atualizar a interface
+          } catch (error) {
+            // Erro já tratado na função
+          }
+        });
+      });
+    } catch (error) {
+      console.error('Erro ao carregar eventos:', error);
+    }
+  }
 
   // Limitar campo de nível
   const registerLevelInput = document.getElementById('registerLevel');
@@ -1299,7 +1558,11 @@
       });
     });
     
-    console.log("✅ Guild Origem carregado com melhorias!");
+    // Carregar dados iniciais
+    loadMembers();
+    loadEvents();
+    
+    console.log("✅ Guild Origem carregado com todas as funcionalidades!");
   });
 </script>
 </body>
